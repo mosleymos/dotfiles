@@ -1,0 +1,18 @@
+# BUNDLER
+/.bundle
+/vendor/bundle
+
+# DATABASE
+/config/database.yml
+/db/*.sqlite3
+
+# CACHE
+/tmp
+.sass-cache
+
+# ARTEFACTS
+/log/*.log
+/public/*.css
+
+# VAGRANT
+/.vagrant
