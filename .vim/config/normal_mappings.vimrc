@@ -16,7 +16,7 @@ nnoremap <BS> cb<esc>h
 nnoremap K <nop>
 
 """ Shut down the hl search
-nnoremap <Leader>/ :nohl<cr>
+nnoremap <Leader>h :nohl<cr>
 
 nnoremap cc c2w
 nnoremap ccc c3w
@@ -49,9 +49,16 @@ nnoremap <leader>sv :source ~/.vimrc<cr>
 
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+nnoremap <leader>ce viw<esc>a]<esc>hbi[<esc>lel
+nnoremap <leader>cp viw<esc>a)<esc>hbi(<esc>lel
 
 """ Wrap a text in parantheses after selection
 """"TODO create mapping
 
 """ go to specific line  g22  <=> 22G
  
+""" Delete
+nnoremap D dd<cr>
+
+""" Save like windows
+nnoremap <C-s> :w<cr>

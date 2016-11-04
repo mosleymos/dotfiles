@@ -1,9 +1,10 @@
 """ Abbreviations
 """ Javascript abreviations
 autocmd Filetype javascript :iabbrev <buffer> debug debugger
-autocmd Filetype javascript :iabbrev <buffer> log console.log()
-autocmd Filetype javascript :iabbrev <buffer> todo //TODO:
-
+""" User de snippets pour ces abbreviations
+"""autocmd Filetype javascript :iabbrev <buffer> log console.log()
+"""autocmd Filetype javascript :iabbrev <buffer> todo //TODO:
+"""
 
 """ Ruby abreviations
 autocmd Filetype ruby :iabbrev <buffer> debug puts "*"*22<esc>oputs "*"*22

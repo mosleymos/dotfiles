@@ -5,5 +5,6 @@ inoremap <up> ddP<nop>
 inoremap <up> ddP<nop>
 inoremap <up> ddP<nop>
 inoremap <up> ddP<nop>
-inoremap <Tab> <C-p>
+"""No tab remap to Ctrlp tab is used now for ultisnips
+"""inoremap <Tab> <C-p>
 

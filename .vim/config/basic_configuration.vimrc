@@ -73,3 +73,6 @@ set splitbelow
 
 """ Source of a good vimrc
 """ https://dougblack.io/words/a-good-vimrc.html
+
+set scrolloff=5
+set nocompatible
