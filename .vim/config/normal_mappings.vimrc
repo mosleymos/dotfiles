@@ -4,11 +4,23 @@ nnoremap <down> ddjp<esc>
 nnoremap <space><space> vwhh
 nnoremap j gj
 nnoremap k gk
+let g:tmux_navigator_no_mappings = 1
 
-nnoremap <C-h> <C-w>h :vertical resize 85<cr>
-nnoremap <C-j> <C-w>j :vertical resize 85<cr>
-nnoremap <C-k> <C-w>k :vertical resize 85<cr>
-nnoremap <C-l> <C-w>l :vertical resize 85<cr>
+""" nnoremap <silent> {Left-mapping} :TmuxNavigateLeft<cr>
+""" nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
+""" nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
+""" nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
+""" nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+
+""" nnoremap <C-h> <C-w>h :vertical resize 85<cr>
+""" nnoremap <C-j> <C-w>j :vertical resize 85<cr>
+""" nnoremap <C-k> <C-w>k :vertical resize 85<cr>
+""" nnoremap <C-l> <C-w>l :vertical resize 85<cr>
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 nnoremap <BS> cb<esc>h 
 
@@ -62,3 +74,6 @@ nnoremap D dd<cr>
 
 """ Save like windows
 nnoremap <C-s> :w<cr>
+
+""" New tab
+nnoremap tn :tabnew<cr>

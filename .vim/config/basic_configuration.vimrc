@@ -12,6 +12,7 @@ set numberwidth=5
 set ruler
 set title
 set encoding=utf-8
+set history=5000
 
 set statusline=%f
 set statusline+=%=
@@ -70,9 +71,15 @@ set autowrite
 """ splits
 set splitright
 set splitbelow
+""" Split management
+set winwidth=84
+set winheight=5
+set winminheight=5
+set winheight=999
 
 """ Source of a good vimrc
 """ https://dougblack.io/words/a-good-vimrc.html
 
 set scrolloff=5
 set nocompatible
+

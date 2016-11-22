@@ -18,6 +18,8 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-commentary.vim'
 Plugin 'Shougo/neocomplete.vim'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'christoomey/vim-tmux-runner'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
