@@ -13,3 +13,7 @@ Pour l'installation effectuer:
  ln -s ~/.conky/conkyrc ~/.conkyrc
 
 ```
+
+Nb pour le gdbinit trouve cette configuration interessante
+
+[gdb configuration](https://gist.githubusercontent.com/CocoaBeans/1879270/raw/c6972d5c32e38e9f35a3968c629b51973bd9d016/gdbinit)
