@@ -1,0 +1,114 @@
+TODOLIST
+======
+
+## Improvement to made
+
+### Problems
+
+- Seems it's possible to duplicate task, not uniq
+- Find solution for crsf meta tag
+
+### TODO
+
+- [ ] Add watching service like Honeybadger or crow etc
+- [ ] Correct depreciations warning
+- [ ] Better manage errors in rails modules - Exception Buisness vs Exception technique
+- [ ] Limit on length of task visual front-end
+- [ ] Add an indication or flash when something went wrong
+- [ ] Manage suppression
+- [ ] Check about accessibility
+- [ ] Presenters , Templaters why not ?
+- [ ] Maybe Add javascript testing in continuous integration
+- [ ] Use channels to inform
+- [ ] Jsdoc - and define a js good documentation
+- [ ] Add Dockerfile
+- [ ] Add a Procfile
+- [ ] Docker machine
+- [ ] Logo to think
+- [ ] Make a documentation folder
+- [ ] Manage Data like records or JSON Orientation
+- [ ] Search Functionnality
+- [ ] Code climate
+- [ ] Code documentation
+- [ ] Basic concurrency
+- [ ] Add tag version in versioning
+- [ ] Different Branch test - development - production
+- [ ] Caching
+- [ ] Performance graphs
+- [ ] Add some ways to evaluate
+- [ ] SPA style or not
+- [ ] Html or js
+- [ ] Http/2
+- [ ] Modularize views
+- [ ] CORS to install in development or test environnement
+- [ ] Honey badger or equivalent
+- [ ] Split front-end and back-end
+- [ ] Use of swagger to inform about API
+- [ ] Flamegraph
+- [ ] Chrono evolution of rendering
+- [ ] Real CRUDS
+- [ ] Use our own dsl
+- [ ] UI Bits
+- [ ] UI Css
+- [ ] Constraint css
+- [ ] Test css
+- [ ] Test js
+- [ ] Readme for each part of application
+- [ ] Install for each part of application
+- [ ] Licence information
+- [ ] rubocop , linting
+- [ ] linting  Html
+- [ ] linting  js
+- [ ] linting  css
+- [ ] minify  css
+- [ ] minify  js
+- [ ] minify  Html
+- [ ] Doc folder or dashboard of documentation
+- [ ] HTML meta tags
+- [ ] HTML meta author
+- [ ] HTML meta color onglet
+- [ ] favicon
+- [ ] SEO
+- [ ] Add a ruby-version
+- [ ] Install application.js
+- [ ] Add Brakeman for auditing security
+- [ ] Add a editorconfig
+- [ ] Add documentation notes Model
+- [ ] Add a ruby-version
+- [ ] Install application.js
+- [ ] Add Brakeman for auditing security
+- [ ] Add a editorconfig
+- [ ] Add documentation notes Model
+- [ ] Add validation model - a task content could not be empty
+- [ ] Add NOT NULL database - a task content could not be empty
+- [ ] Add a Guardfile
+- [ ] Correct existing tests
+- [ ] Add a travis.yml and basic continuous integration process
+- [ ] Improve 404 page Remove the basic rails style
+- [ ] Improve 422 page Remove the basic rails style
+- [ ] Improve 500 page Remove the basic rails style
+- [ ] Gemnasium
+- [ ] Add seed data
+- [ ] Basic Integration tests
+- [ ] Install overcommit and basic configuration
+- [ ] jquery or not
+- [ ] underscore or not
+- [ ] coffescript or not
+- [ ] Better webserver (thin, puma ...)
+- [ ] Basic serializer installed - Serialization to manage - Add some serializers
+- [ ] Coveralls installation
+- [ ] Think seeds manage with faker
+- [ ] Mount application or not ?
+- [ ] Install nodejs underscore
+- [ ] Install nodejs jquery
+- [ ] Configure gulp
+- [ ] Garberish technique - basic done ; Think about some patterns to manage state
+- [ ] Limit on length of task model
+- [ ] State machine or not ?
+- [ ] Add Brakeman for auditing security
+- [ ] Rack-attack - manage ddos attack
+- [ ] Add UUID - will be usable with differents sockets - No use now but later
+- [ ] Front END loader ? => so yes
+- [ ] UX UX UX UX UX UX UX UX UX UX UX UX UX UX UX UX UX UX
+- [ ] ANIMATIONS ANIMATIONS ANIMATIONS ANIMATIONS ANIMATIONS ANIMATIONS ANIMATIONS
+
