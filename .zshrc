@@ -9,4 +9,8 @@ cdpath=($HOME/Desktop $HOME/Documents $HOME/Images $HOME/Documents/coding_dojo $
 # Maybe to rethink
 source $HOME/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
