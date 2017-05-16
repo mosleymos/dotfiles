@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Install basic softs
+
+sudo apt-get update
+sudo apt-get install -y  \
+  build-essential \
+  libssl-dev \
+  vim \
+  wget \
+  tmux \
+  htop \
+  git \
+  curl \
+  zsh \
+  gnupg2 \
+  sqlite3 \
+  htop
+
+# Install nodejs via ppa
+# curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+# sudo apt-get install -y nodejs
+
+# Utilisation de l'installation nvm
+# https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server
+
+sudo curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh
+
+
+source ~/.profile
+
+wget https://raw.githubusercontent.com/mosleymos/dotfiles/master/.gemrc
+
+# Install ruby and rails
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+
+curl -sSL https://get.rvm.io | bash -s stable --rails
+
+source ~/.rvm/scripts/rvm
+
+
+
+# Install basic configuration
+cd $HOME
+
+wget https://raw.githubusercontent.com/mosleymos/dotfiles/master/.inputrc
+
+wget https://raw.githubusercontent.com/mosleymos/dotfiles/master/.tmux.conf.simple
+
+mv .tmux.conf.simple .tmux.conf
+
+
+echo source ~/.profile | >> .bashrc
+echo source ~/.rvm/scripts/rvm | >> .bashrc
+
+# Install docker and docker machines from compilation
+
+sudo apt-get -y install \
+  apt-transport-https \
+  ca-certificates \
+  curl
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       stable"
+
+sudo apt-get update
+
+sudo apt-get -y install docker-ce
+
+# Test a faire en fin d'installation
+# sudo docker run hello-world
+# nvm install a revoir
+
+
+# Test a faire en fin d'installation
+# sudo docker run hello-world
+# Current nodejs version at jeudi 11 mai 2017, 21:21:56 (UTC+0200)
+#  A revoir
+# nvm install 6.10.3
+
+
