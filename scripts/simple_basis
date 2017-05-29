@@ -1,0 +1,9 @@
+puts <- HTML
+  <html>
+    <head>
+      <title>Essai</title>
+    </head>
+    <body>
+    </body>
+  </html>
+HTML

@@ -1,0 +1,10 @@
+html_title = ARGV[0]
+puts <<-HTML
+  <html>
+    <head>
+      <title>#{html_title}</title>
+    </head>
+    <body>
+    </body>
+  </html>
+HTML
