@@ -111,4 +111,5 @@ TODOLIST
 - [ ] Front END loader ? => so yes
 - [ ] UX UX UX UX UX UX UX UX UX UX UX UX UX UX UX UX UX UX
 - [ ] ANIMATIONS ANIMATIONS ANIMATIONS ANIMATIONS ANIMATIONS ANIMATIONS ANIMATIONS
+- [ ] Checklist for webdeveloppers [webdeveloppers simple security checklist](https://simplesecurity.sensedeep.com/web-developer-security-checklist-f2e4f43c9c56)
 
