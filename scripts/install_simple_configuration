@@ -47,6 +47,17 @@ source ~/.rvm/scripts/rvm
 # Install basic configuration
 cd $HOME
 
+mkdir bin
+
+curl https://raw.githubusercontent.com/mosleymos/dotfiles/master/scripts/simple_html_basis > ~/bin/
+curl https://raw.githubusercontent.com/mosleymos/dotfiles/master/scripts/simple_ruby_test_basis > ~/bin/
+
+sudo chmod +x ~/bin/simple_html_basis
+sudo chmod +x ~/bin/simple_ruby_test_basis
+
+PATH=~/bin/:$PATH
+
+
 wget https://raw.githubusercontent.com/mosleymos/dotfiles/master/.inputrc
 
 wget https://raw.githubusercontent.com/mosleymos/dotfiles/master/.tmux.conf.simple
