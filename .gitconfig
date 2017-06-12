@@ -1,0 +1,63 @@
+# More informations to add
+[user]
+[github]
+[ghi]
+[core]
+
+[color]
+    diff = auto
+    branch = auto
+    status = auto
+    pager = true
+    ui = auto
+[color "diff"]
+    meta = bold yellow
+    frag = cyan
+    old = bold red
+    new = green
+[color "status"]
+    header = bold yellow
+    added = green
+    changed = bold red
+    untracked = white
+[gc]
+    packrefs = true
+[alias]
+    gcm = commit
+    gco = checkout
+    gst = status -sb
+    gbr = branch
+    gl = log --decorate
+    glg = log --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    wtf = log --pretty=format:"%C(auto,yellow)%h%C(auto)%d%C(auto,reset)\\ by\\ %C(auto,blue)%cn%C(auto,reset),\\ %C(auto,cyan)%ar%C(auto,reset)%n\\ %s%n" --stat
+    in = !git wtf HEAD..HEAD@{u}
+    out = !git wtf HEAD@{u}..HEAD
+    diffw = diff --word-diff
+    tree = "log --graph --decorate --abbrev-commit --date-order --pretty=format:'%Cgreen%h%Creset : %s%Cred%d%Creset (%Cblue%an%Creset, %Cblue%ar%Creset)'"
+    tree-all = "log --graph --decorate --abbrev-commit --date-order --pretty=format:'%Cgreen%h%Creset : %s%Cred%d%Creset (%Cblue%an%Creset, %Cblue%ar%Creset)' --all"
+    file-changed = "!git diff --name-only `git merge-base master $1`"
+    standup = "!git log --since yesterday --author `git config user.email` --pretty=short"
+    weeklystandup = "!git log --since 'last week' --author `git config user.email` --pretty=short"
+    report-authors = "git ls-tree --name-only -z -r HEAD"# | grep -z -Z -E '\.py$'"# | xargs -0 -n1 git blame --line-porcelain|grep ^author |sort|uniq -c|sort -nr"
+    assume   = update-index --assume-unchanged
+    unassume = update-index --no-assume-unchanged
+    assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+    snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+    purr = pull --rebase
+    ready = rebase -i @{u}
+[core]
+    editor = vim
+    legacyheaders = false
+    pager = less -+e
+    ignorecase = false
+[branch]
+    autosetuprebase = always
+[repack]
+    usedeltabaseoffset = true
+[difftool]
+    prompt = false
+[push]
+    default = upstream
+[rerere]
+	enabled = true
+	autoupdate = true
