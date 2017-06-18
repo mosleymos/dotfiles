@@ -1,0 +1,47 @@
+#------------------------------------------------------------------------------
+# .sqlrc - SQL engine Runtime Commands
+#==============================================================================
+# This file holds configuration information for the bdsql engine
+#
+# Changing anything in this may require changes to the engine - I would
+# not recommend it unless specified below.
+#
+# version 1.0 beta - 12/1/02
+# Dr. Dan Mazzola
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# PARSE_OUTPUT_FILE - this is the file that the ouput of the parsing
+# is stored. You CAN change this to point anywhere you want
+#------------------------------------------------------------------------------
+export PARSE_OUTPUT_FILE=${DBHOME}/parsedQuery.txt
+
+#------------------------------------------------------------------------------
+# MIN_SELECT_ARGS & MAX_SELECT_ARGS - The minimum and maximun number of
+# arguments to the select clause of the query
+#------------------------------------------------------------------------------
+export MIN_SELECT_ARGS=1
+export MAX_SELECT_ARGS=3
+
+#------------------------------------------------------------------------------
+# MIN_FROM_ARGS & MAX_FROM_ARGS - The minimum and maximum number of arguments
+# to the from clause of the query
+#------------------------------------------------------------------------------
+export MIN_FROM_ARGS=1
+export MAX_FROM_ARGS=2
+
+#------------------------------------------------------------------------------
+# MIN_WHERE_ARGS & MAX_WHERE_ARGS - The minimum and maximum number of arguments
+# to the where clause
+#------------------------------------------------------------------------------
+export MIN_WHERE_ARGS=0
+export MAX_WHERE_ARGS=3
+
+#------------------------------------------------------------------------------
+# LEGAL_RELATIONAL_OPS - The relations operators that must be supported
+# by the query (notice this is a short list)
+#------------------------------------------------------------------------------
+export LEGAL_RELATIONAL_OPS="= !="
+
+export OUTPUT="results.csv"
+
