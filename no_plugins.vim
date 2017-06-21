@@ -178,6 +178,8 @@ let mapleader=<space>
 """ Local language to us
 """ setlocal spell spelllang=en_us
 
+set ttyfast
+set modelines=0
 set number
 set numberwidth=5
 set ruler
@@ -192,10 +194,11 @@ set statusline+=%l
 set statusline+=/
 set statusline+=%L
 
+set undoreload=10000
 
+set list
 set laststatus=2
 
-set wildmode=full:list
 set wrap
 
 set mouse=a
@@ -261,6 +264,25 @@ set smartcase
 
 set scrolloff=5
 
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set lazyredraw
+set matchtime=3
+set showbreak=↪
+
+""" Ignore some files
+set wildmode=list:longest
+
+set wildignore+=.hg,.git,.svn                    " Version control
+set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.spl                            " compiled spelling word lists
+set wildignore+=*.sw?                            " Vim swap files
+set wildignore+=*.DS_Store                       " OSX bullshit
+
+set wildignore+=*.luac   
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -305,6 +327,7 @@ nnoremap cc c2w
 nnoremap ccc c3w
 
 """ Delete lines below
+""" Think about something like :.d2    -> delete 2 lines
 nnoremap dj dd
 nnoremap djj dddd
 nnoremap djjj dddddd
@@ -350,6 +373,15 @@ nnoremap <C-s> :w<cr>
 """ ca se discute 
 "nnoremap tn :tabnew<cr>
 
+
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Same when jumping around
+nnoremap g; g;zz
+nnoremap g, g,zz
+nnoremap <c-o> <c-o>zz
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -426,3 +458,20 @@ autocmd Filetype ruby :iabbrev <buffer> debugger puts "*"*22<esc>oputs "*"*22
 autocmd Filetype ruby :iabbrev <buffer> todo #TODO:
 
 iabbrev mori keitamori@gmail.com iabbrev signature Date: <esc>:read !date<esc>o Author: KEITA Mori - keitamori@gmail.com
+
+
+" Fuck you, help key.
+noremap  <F1> :checktime<cr>
+inoremap <F1> <esc>:checktime<cr>
+
+""Resize
+
+" Window Resizing {{{
+" right/up : bigger
+" left/down : smaller
+nnoremap <ALT-right> :vertical resize +3<cr>
+nnoremap <ALT-left> :vertical resize -3<cr>
+nnoremap <ALT-up> :resize +3<cr>
+nnoremap <ALT-down> :resize -3<cr>
+" }}}
+
