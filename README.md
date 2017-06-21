@@ -1,7 +1,15 @@
 Dotfiles
 ====
 
-Personnal dotfiles
+Personnal dotfiles work in progress
+
+## i3
+
+## Tmux
+
+## VIm / nvim
+
+## Conky
 
 Installation pour conky heritée de ce repo
 [zenzire](https://github.com/zenzire/conkyrc)
