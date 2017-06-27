@@ -115,3 +115,36 @@ var assert = function(condition){
 var applyOneArgumentOneFunction(fn,arg1){
   return fn(arg1)
 }
+
+// Compose function
+// cf https://leanpub.com/javascriptallongesix/read#combinators
+function compose(a,b){
+  return function(c){
+    return a(b(c))
+  }
+}
+
+
+function not(fn){
+ return function(x){
+   return !fn(x)
+   }
+ }
+
+// Identity function
+// identity(3) === 3
+function identity(fnOrValue){ return fnOrValue }
+
+ // Monad to think
+ // Usage: 
+ // var unit = monad()
+ // var monad = unit("Hello wworld")
+ // monad.bind(alert)
+function monad(unit){
+   return function unit(value){
+      var monad = Object.create(null)
+      monad.bind = function(func){ return func(value) }
+      return monad ;
+  }
+}
+
