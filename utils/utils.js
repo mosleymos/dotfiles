@@ -148,3 +148,17 @@ function monad(unit){
   }
 }
 
+// Benchmark easy js snippets
+// Simple Perf test on javascript snippets ( from
+// http://coding.smashingmagazine.com/2012/11/05/writing-fast-memory-efficient-javascript/
+// )
+// fron gist https://gist.github.com/mattstauffer/4018160
+ var totalTime,
+     start = new Date,
+         iterations = 1000;
+         while (iterations--) {
+           // Code snippet goes here
+           }
+           // totalTime → the number of milliseconds taken 
+           // to execute the code snippet 1000 times
+           totalTime = new Date - start;
