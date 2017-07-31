@@ -1,0 +1,9 @@
+source ~/.vim/imports/settings.vim
+source ~/.vim/imports/normal.vim
+source ~/.vim/imports/visual.vim
+source ~/.vim/imports/insert.vim
+source ~/.vim/imports/command.vim
+source ~/.vim/imports/map.vim
+source ~/.vim/imports/configurations.vim
+source ~/.vim/autoload/plug.vim
+source ~/.vim/imports/plugins.vim
