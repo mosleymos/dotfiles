@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -30,22 +30,27 @@ font pango: System San Francisco Display 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec termite 
 
 # kill focused window
 bindsym $mod+Shift+a kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -nb black -sb tomato -l 100
+bindsym $mod+d exec rofi -show run -lines 4 -columns 3 -config ~/.config/rofi.conf
+bindsym $mod+Shift+D exec rofi -show window -lines 8  -config ~/.config/rofi.conf
+
+
+#bindsym $mod+d exec dmenu_run -nb black -sb tomato -l 100
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
+bindsym $mod+j focus down 
+bindsym $mod+k focus up 
+bindsym $mod+l focus left 
 bindsym $mod+m focus right
 
 # alternatively, you can use the cursor keys:
@@ -77,7 +82,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+z layout tabbed
+bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -94,33 +99,34 @@ bindsym $mod+q focus parent
 
 set $workspace1 "1: Chrome internet "
 set $workspace2 "2: Terminals "
+set $workspace3 "3: Utils"
+set $workspace8 "8: Docs"
+set $workspace9 "9: Stats"
 
 # switch to workspace
 bindsym $mod+ampersand workspace $workspace1 
 bindsym $mod+eacute workspace $workspace2 
-bindsym $mod+quotedbl workspace 3
+bindsym $mod+quotedbl workspace $workspace3 
 bindsym $mod+apostrophe workspace 4
 bindsym $mod+parenleft workspace 5
 bindsym $mod+minus workspace 6
 bindsym $mod+egrave workspace 7
-bindsym $mod+underscore workspace 8
-bindsym $mod+ccedilla workspace 9
-bindsym $mod+agrave workspace 10
-
+bindsym $mod+underscore workspace $workspace8 
+bindsym $mod+ccedilla workspace $workspace9
 # move focused container to workspace
 bindsym $mod+Shift+ampersand move container to workspace $workspace1 
 bindsym $mod+Shift+eacute move container to workspace $workspace2
-bindsym $mod+Shift+quotedbl move container to workspace 3
+bindsym $mod+Shift+quotedbl move container to workspace $workspace3 
 bindsym $mod+Shift+apostrophe move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+minus move container to workspace 6
 bindsym $mod+Shift+egrave move container to workspace 7
-bindsym $mod+Shift+underscore move container to workspace 8
-bindsym $mod+Shift+ccedilla move container to workspace 9
+bindsym $mod+Shift+underscore move container to workspace $workspace8
+bindsym $mod+Shift+ccedilla move container to workspace $workspace9 
 bindsym $mod+Shift+agrave move container to workspace 10
 
-# Lauch application at startup
-assign [class='chromium-browser'] $workspace1
+# Lauch application at startup to redo
+# assign [class='chromium-browser'] $workspace1
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -137,10 +143,12 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym m resize grow width 10 px or 10 ppt
+        #
+        # Seems to have never work
+        # bindsym j resize shrink width 10 px or 10 ppt
+        # bindsym k resize grow height 10 px or 10 ppt
+        # bindsym l resize shrink height 10 px or 10 ppt
+        # bindsym m resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -171,5 +179,17 @@ exec_always feh --bg-scale ~/Images/ninja_gaiden_yaiba_wallpaper.jpg
 # Desktop Resolution layout
 exec_always xrandr --output VIRTUAL1 --off --output DP3 --off --output DP2 --off --output DP1 --off --output HDMI3 --off --output HDMI2 --off --output HDMI1 --off --output LVDS1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output VGA1 --off
 
-exec --no-startup-id i3-msg 'workspace 1:Web; exec /usr/bin/chromium-browser'
+# Launch chromium at startup - to correct
+# exec --no-startup-id i3-msg 'workspace 1:Web; exec /usr/bin/chromium-browser'
 
+# Desactivate touchpad
+# Link from unixStackExchange
+# http://unix.stackexchange.com/questions/289622/i3wm-how-to-configure-touchpad
+exec_always synclient TouchpadOff=1
+
+
+# Mouse warping
+mouse_warping output
+
+# i3 msg
+# i3-msg border none
