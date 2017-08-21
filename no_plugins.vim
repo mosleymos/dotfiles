@@ -99,7 +99,7 @@ command! MakeTags !ctags -R .
 " - Use ^n and ^p to go back and forth in the suggestion list
 
 
-
+set complete=.,w,b,u,t,i
 
 " FILE BROWSING:
 
@@ -172,7 +172,8 @@ let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 """ Leader to Ctrl + s
 """ leader to space we'll try that
 
-let mapleader=<space>
+let mapleader=" "
+
 
 
 """ Local language to us
@@ -195,10 +196,12 @@ set statusline+=/
 set statusline+=%L
 
 set undoreload=10000
+set formatoptions=qrn1
 
 set list
 set laststatus=2
 
+set wildmode=full:list
 set wrap
 
 set mouse=a
@@ -269,19 +272,11 @@ set lazyredraw
 set matchtime=3
 set showbreak=↪
 
-""" Ignore some files
-set wildmode=list:longest
+set dictionary=/usr/share/dict/words
 
-set wildignore+=.hg,.git,.svn                    " Version control
-set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
-set wildignore+=*.spl                            " compiled spelling word lists
-set wildignore+=*.sw?                            " Vim swap files
-set wildignore+=*.DS_Store                       " OSX bullshit
+set backupskip=/tmp/*,/private/tmp/*"
 
-set wildignore+=*.luac   
-
+set tags+=~/.vim/tags/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -297,7 +292,9 @@ nnoremap <up> ddP<esc>
 nnoremap <down> ddjp<esc>
 nnoremap <space><space> vwhh
 nnoremap j gj
+nnoremap gj j 
 nnoremap k gk
+nnoremap gk k
 
 """ nnoremap <silent> {Left-mapping} :TmuxNavigateLeft<cr>
 """ nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
@@ -320,6 +317,9 @@ nnoremap <BS> cb<esc>h
 """ Aucune information recherchée
 nnoremap K <nop>
 
+""" No tab experience
+inoremap <Tab> <nop>
+
 """ Shut down the hl search
 nnoremap <Leader>h :nohl<cr>
 
@@ -327,7 +327,6 @@ nnoremap cc c2w
 nnoremap ccc c3w
 
 """ Delete lines below
-""" Think about something like :.d2    -> delete 2 lines
 nnoremap dj dd
 nnoremap djj dddd
 nnoremap djjj dddddd
@@ -358,6 +357,31 @@ nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>ce viw<esc>a]<esc>hbi[<esc>lel
 nnoremap <leader>cp viw<esc>a)<esc>hbi(<esc>lel
 
+nnoremap G Gzz
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap } }zz
+nnoremap { {zz
+
+nnoremap o o<esc>
+nnoremap O O<esc>
+
+nnoremap , :
+""" Settings search and move
+nnoremap / /\v
+vnoremap / /\v
+
+"==========================================================================="
+" Indentation (got to opening bracket and indent section) 
+
+nmap <leader>ip [{=%
+
+"==========================================================================="
+"Highlight section between brackets (do to opening bracket and highlight)
+nmap <leader>hp [{%v%<Home>
+"
+"==========================================================================="
+
 """ Wrap a text in parantheses after selection
 """"TODO create mapping
 
@@ -373,15 +397,6 @@ nnoremap <C-s> :w<cr>
 """ ca se discute 
 "nnoremap tn :tabnew<cr>
 
-
-" Keep search matches in the middle of the window.
-nnoremap n nzzzv
-nnoremap N Nzzzv
-
-" Same when jumping around
-nnoremap g; g;zz
-nnoremap g, g,zz
-nnoremap <c-o> <c-o>zz
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -399,6 +414,8 @@ inoremap <up> ddP<nop>
 inoremap <up> ddP<nop>
 inoremap <up> ddP<nop>
 inoremap <up> ddP<nop>
+
+
 """No tab remap to Ctrlp tab is used now for ultisnips
 """inoremap <Tab> <C-p>
 
@@ -460,18 +477,36 @@ autocmd Filetype ruby :iabbrev <buffer> todo #TODO:
 iabbrev mori keitamori@gmail.com iabbrev signature Date: <esc>:read !date<esc>o Author: KEITA Mori - keitamori@gmail.com
 
 
-" Fuck you, help key.
-noremap  <F1> :checktime<cr>
-inoremap <F1> <esc>:checktime<cr>
 
-""Resize
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Window Resizing {{{
-" right/up : bigger
-" left/down : smaller
-nnoremap <ALT-right> :vertical resize +3<cr>
-nnoremap <ALT-left> :vertical resize -3<cr>
-nnoremap <ALT-up> :resize +3<cr>
-nnoremap <ALT-down> :resize -3<cr>
-" }}}
+"" Function in order to work more on vim to create
+
+"" move in range ->  ex: 6,8m.
+
+""" autocomplete
+
+
+
+""" Gvim or options otehers
+
+if has("gui_running")
+    set guitablabel=%-0.12t%M
+    set guioptions-=T
+    set guioptions-=r
+    set guioptions-=L
+    set guioptions+=a
+    set guioptions-=m
+    colo badwolf
+    set listchars=tab:▸\ ,eol:¬         " Invisibles using the Textmate style
+else
+    set t_Co=256
+    colorscheme default 
+endif
 

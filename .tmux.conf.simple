@@ -57,6 +57,9 @@ bind-key C-b send-prefix
 # prefix-2 -> forward-incremental-history-search
 bind-key C-s send-prefix -2
 
+# Show wich page is active
+set-window-option -g window-status-current-bg blue
+
 
 # Todolist and htop binding
 # Quickly view system & process info in htop
