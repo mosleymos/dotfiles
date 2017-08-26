@@ -218,8 +218,378 @@ end
 
 ```
 
+Sum of numbers from 0 to N
+
+```ruby
+
+class SequenceSum
+  def self.show_sequence(n)
+   return "#{n}<0" if n < 0
+   return "0=0" if n.zero?
+   "#{0.upto(n).map(&:to_s).join('+')} = #{ 0.upto(n).reduce(:+)}"
+  end
+end
+
+```
+
+Square(n) Sum
+
+```ruby
+
+def squareSum(numbers)
+  numbers.map{|n| n*n }.reduce(&:+)
+end
+
+```
+
+
+
+
+
+
+CamelCase method
+
+```ruby
+
+class String
+  def camelcase
+    self.split(' ').map(&:capitalize).join('')
+  end
+end
+
+```
+
+Largest 5 digits numbers in a series
+
+```ruby
+
+def solution(digits)
+  digits.split(//).each_cons(5).to_a.map do |tb|
+    tb.join.to_i
+  end.max
+end
+
+```
+
+Array Helpers
+
+```ruby
+
+class Array
+  def square
+    self.map do |e| e**2 end
+  end
+  
+  def cube
+     self.map do |e| e**3 end
+  end
+  
+  def sum
+    self.inject(&:+)
+  end
+  
+  def average
+    self.sum/self.length
+  end
+  
+  def even
+    self.select do |e| e.even? end
+  end
+  
+  def odd
+    self.select do |e| e.odd? end
+  end
+end
+
+```
+
+List filtering
+
+```ruby
+
+def filter_list(l)
+  l.select{|e| !e.is_a?(String)}
+end
+
+```
+
+is every value in the array an array?
+
+```ruby
+
+def arrCheck(value)
+  value.all?{|e| e.is_a?(Array)}
+end
+
+```
+
+Exclamation marks series #11: Replace all vowel to exclamation mark in the sentence
+
+```ruby
+
+def replace(s)
+  s.gsub(/a|e|i|o|u|A|E|I|O|U/,"!")
+end
+
+```
+
+Help Bob count letters and digits.
+
+```ruby
+
+def count_letters_and_digits(input)
+  input.scan(/[[:digit:]]|[[:alpha:]]/).size
+end
+
+```
+
+Identical elements
+
+```ruby
+
+def duplicate_elements(m, n)
+    # write your solution here
+    return m.any?{|e| n.include?(e) } ? true : false
+end
+
+```
+
+The if function
+
+```ruby
+
+# ifTrue et ifFalse sont des proc genre proc{|e| e.methode_execute }
+def _if(bool, ifTrue, ifFalse)
+  bool ? ifTrue.call : ifFalse.call
+end
+
+```
+
+Sum mixed array
+
+```ruby
+
+def sum_mix(x)
+  x.map(&:to_i).reduce(&:+)
+end
+
+```
+
+String repeat
+
+```ruby
+
+def repeat_str (n, s)
+  s * n
+end
+
+```
+
+Get numbers from a string
+
+```ruby
+
+def get_number_from_string(s)
+  s.gsub(/[[:digit:]]/).to_a.reduce(&:+).to_i
+end
+
+```
+
+Beginner Reduce but grow
+
+```ruby
+
+def grow(x) 
+  x.reduce(&:*)
+end
+
+```
+
+Opposite number
+
+```ruby
+
+def opposite(num)
+  num > 0 ?  -(num) : (num).abs 
+end
+
+```
+
+
+Return negative
+
+```ruby
+
+def makeNegative(num)
+  num > 0 ? -(num) : num
+end
+
+```
+
+Sum of positive
+
+```ruby
+
+def positive_sum(arr)
+  return 0 if arr.empty? || arr.all?{|e| e < 0 }
+  arr.select{|n| n >= 0}.reduce(&:+)
+end
+
+```
+
+GrassHopper shopping list
+
+```ruby
+
+#your code here
+sandwiches = 4
+salads = 6
+wraps = 5
+frenchFries = 10
+totalPrice = [sandwiches*8, salads*7, wraps*6.50, frenchFries*1.20].reduce(&:+)
+
+```
+
+
+Ruby Array invoke instance method
+
+```ruby
+
+class Array
+  def invoke(method, *args, &block)
+    select(&block)
+    .map do |elt|
+      elt.send(method.to_sym, *args.to_a)
+    end
+  end
+end
+
+```
+
+Rotate an array matrix
+
+```ruby
+
+def rotate matrix, direction
+   return matrix.transpose.map(&:reverse) if direction == 'clockwise'
+   return matrix.transpose.reverse if direction == 'counter-clockwise'
+end
+
+```
+
+altERnaTIng cAsE <=> ALTerNAtiNG CaSe
+
+```ruby
+
+class String
+  def to_alternating_case
+    self.swapcase
+  end
+end
+
+```
+
+IQ test
+
+```ruby
+
+def iq_test(chaine_nbre)
+   tab_of_integer = chaine_nbre.split(' ').map(&:to_i)
+   if tab_of_integer.count(&:odd?) > tab_of_integer.count(&:even?)
+       return tab_of_integer.map(&:even?).index(true) + 1
+   else
+       return tab_of_integer.map(&:odd?).index(true) + 1
+   end
+end
+
+```
+
+find missing numbers
+
+```ruby
+
+def find_missing_numbers(arr)
+  return [] if arr ==[] || arr == [0]
+  ((arr.min)..(arr.max)).to_a - arr
+end
+
+```
+
+simple validation of username with regex
+
+```ruby
+
+def validate_usr(username)
+   return true if (username =~ /^[a-z0-9_]{4,16}$/) == 0 
+   return false
+end
+
+
+```
+
+
+
 
 ### javascript
+
+
+Closures and scopes
+
+```javascript
+
+function createFunctions(n) {
+  var callbacks = [];
+  var z = 0;
+  for (var i=0; i<n; i++) {
+    callbacks.push(function() {
+      return z++;
+    });
+  }
+  
+  return callbacks;
+}
+
+```
+
+Basic javascript operations
+
+```javascript
+
+const basicOp = (operation, value1, value2) => {
+  let calcul = value1 + operation + value2
+  return eval(calcul)
+}
+
+```
+
+Even or Odd - which is Greater
+
+```javascript
+
+function evenOrOdd(stringOfNumber) {
+
+    let evenNumberTotal = stringOfNumber.split('')
+    .map((stringNumber) =>{  return Number(stringNumber) })
+    .filter((number) => { return number % 2 == false })
+    .reduce((first,second) => { return first + second })
+
+    let oddNumberTotal = stringOfNumber.split('')
+    .map((stringNumber) =>{  return Number(stringNumber) })
+    .filter((number) => { return number % 2 == true })
+    .reduce((first,second) => { return first + second })
+
+    if (oddNumberTotal > evenNumberTotal){
+     return 'Odd is greater than Even';
+    }else if(oddNumberTotal < evenNumberTotal){
+      return 'Even is greater than Odd';
+    }else if(oddNumberTotal === evenNumberTotal){
+      return 'Even and Odd are the same';
+    }else{
+      return void 0;
+    }
+}
+
+```
 
 Largest pair su_m in array
 
@@ -295,6 +665,194 @@ var reverse = function(array){
 }
 ```
 
+```Keep up the hoop
+
+function hoopCount (n) {
+  return n < 10 ? "Keep at it until you get it" : "Great, now move on to tricks"
+}
+
+```
+
+ROT13
+
+```
+
+var decrypt = (str) => {
+  var encrypt = new Map();
+    encrypt.set('a','n')
+    encrypt.set('b','o')
+    encrypt.set('c','p')
+    encrypt.set('d','q')
+    encrypt.set('e','r')
+    encrypt.set('f','s')
+    encrypt.set('g','t')
+    encrypt.set('h','u')
+    encrypt.set('i','v')
+    encrypt.set('j','w')
+    encrypt.set('k','x')
+    encrypt.set('l','y')
+    encrypt.set('m','z')
+    encrypt.set('n','a')
+    encrypt.set('o','b')
+    encrypt.set('p','c')
+    encrypt.set('q','d')
+    encrypt.set('r','e')
+    encrypt.set('s','f')
+    encrypt.set('t','g')
+    encrypt.set('u','h')
+    encrypt.set('v','i')
+    encrypt.set('w','j')
+    encrypt.set('x','k')
+    encrypt.set('y','l')
+    encrypt.set('z','m')
+  return Array.from(str).map((e) => encrypt.get(e)).join('')
+}
+
+var rot13 = (phrase) =>  phrase.split(' ').map((word) => decrypt(word)).join(' ') 
+
+```
+
+Simple calculator
+
+```javascript
+
+function calculator(a,b,sign){
+  if(typeof(a) === 'string' || typeof(b) === 'string')
+    return "unknown value";
+  switch(sign){
+    case "+":
+       return a + b
+       break;
+    case "-":
+        return a-b
+        break;
+  
+    case "*":
+        return a*b
+        break;
+  
+    case "/":
+        return a/b;
+        break
+    default:
+         return "unknown value";
+         break;
+  }
+  
+}
+
+```
+
+remove first and last character
+
+```javascript
+
+function removeChar(str){
+  return str.slice(1, str.length -1 )
+};
+
+```
+
+make function that does arithmetic
+
+```javascript
+
+arithmetic = (a, b, operator) => {
+   switch(operator){
+   case "add":
+     return a+b;
+     break
+   case "subtract":
+     return a-b;
+     break
+   case "multiply":
+     return a*b;
+     break
+   case "divide":
+      return a/b;
+      break
+   }
+}
+
+
+```
+
+Array helpers
+
+```javascript
+
+Array.prototype.square = function(){ 
+  return this.map(function(nbr){ 
+     return nbr * nbr ;
+  })
+}
+
+Array.prototype.cube = function(){ 
+  return this.map(function(nbr){ 
+     return nbr * nbr *nbr ;
+  })
+}
+
+Array.prototype.sum = function(){ 
+  if(this.length === 0)
+    return 0
+  return this.reduce(function(a,b){ 
+     return a+b ;
+  })
+}
+
+Array.prototype.average = function(){
+  return this.sum() / this.length 
+}
+
+Array.prototype.even = function(){
+   return this.filter(function(nbr){
+      return nbr%2 === 0 ? nbr : undefined
+   })
+}
+
+Array.prototype.odd = function(){
+      return this.filter(function(nbr){
+      return nbr%2 !== 0 ? nbr : undefined
+   })
+}
+
+```
+
+List filtering
+
+```javascript
+
+function filter_list(l) {
+  // Return a new array with the strings filtered out
+  var result = [];
+  l.filter(function(item){
+    if(typeof(item)==="number"){
+        result.push(item);
+        }
+   });
+  return result;
+}
+
+```
+
+Generate range of integers
+
+
+```javascript
+
+function generateRange(min, max, step){
+   var result = [];
+   for(var i = min; i <= (max) ; i+= step){
+     result.push(i)
+   }
+   return result
+}
+
+```
+
+
+
 ### SQL
 
 SQL Basics: Simple WHERE and ORDER BY
@@ -331,8 +889,7 @@ SELECT DISTINCT age FROM people;
 
 
 
-
-
-
-
 ## En reflexion
+
+Comment en javascript on peut effectuer un each_cons ???
+Comprehend arrays in python
