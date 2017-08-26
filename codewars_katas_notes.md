@@ -527,11 +527,199 @@ end
 
 ```
 
+Validate code with simple regex
 
+```ruby
 
+def validate_code(code)
+  #your code here
+  code.to_s.start_with?("1","2","3")
+end
+
+```
+
+Lucky number
+
+```ruby
+
+def is_lucky(n)
+  n.to_s.split('').map(&:to_i).reduce(&:+) % 9 == 0 ? true : false
+end
+
+```
+
+Reversed Strings
+
+```ruby
+
+def solution(str)
+  str.reverse
+end
+
+```
+
+Permutations
+
+```ruby
+
+def permutations(string)
+  return string.split('').permutation(string.length).to_a.map{|e| e.reduce(&:+)}.uniq
+end
+
+```
+
+Pascal's Triangle
+
+```ruby
+
+def pascalsTriangle(depth)
+  result = []
+  case depth
+    when 1
+      return [[1]].flatten
+    when 2
+      return [[1],[1,1]].flatten
+    else
+      result = [[1]]
+      (1..depth).each do |e|
+      result.push(result[e-1].each_cons(2).map{|pred,suiv| pred+suiv}.push(1).insert(0,1))
+     end
+  end
+  return result[0,result.length-1].flatten
+end
+
+```
+
+Pascal's Triangle #2
+
+```ruby
+
+def pascal(depth)
+  result = []
+  case depth
+    when 1
+      return [[1]]
+    when 2
+      return [[1],[1,1]]
+    else
+      result = [[1]]
+      (1..depth).each do |e|
+      result.push(result[e-1].each_cons(2).map{|pred,suiv| pred+suiv}.push(1).insert(0,1))
+     end
+  end
+  return result[0,result.length-1]
+end
+
+```
+
+Pyramid Array
+
+```ruby
+
+def pyramid(numbers)
+  result = []
+  numbers.times do |e|
+    result << Array.new(e+1,1)
+  end
+  result
+end
+
+```
+
+Number toString
+
+```ruby
+
+a = some_number.to_s
+
+```
+
+Basic variable assignement
+
+```ruby
+
+a = "code"
+b = "wa.rs"
+name = a + b
+
+```
+
+Re-Open class
+
+```ruby
+#Re-open the class String and add the my_new_method method. Solution 1
+class Object
+  def my_new_method
+  end
+end
+
+class String < Object 
+  def my_new_method 
+    upcase
+  end
+end
+
+# Solution 02
+class String
+  def my_new_method ; self.upcase() ; end
+end
+
+```
 
 ### javascript
 
+
+Re-Open class
+
+```javascript
+
+//Re-open the class String and add the "myNewMethod" method.
+String.prototype.myNewMethod = function(){
+  return this.toUpperCase();
+};
+
+```
+
+Are they square
+
+```javascript
+
+var isSquare = function(arr){
+  try {
+    var see = arr.map(function(e){
+      return Math.sqrt(e)* Math.sqrt(e) === e;
+    }).reduce(function(a,b){ return a+b;});
+    return arr.length === see ;
+  }catch(error){ 
+    return undefined; 
+  }
+}
+
+```
+
+Regex count on lowercase letters
+
+```javascript
+
+function lowercaseCount(str){
+    if(str === ""){
+      return 0;
+    }else{
+      return str.replace(/[^a-z]/g,'').length;
+    }
+}
+
+```
+
+Validate code with simple regex
+
+```javascript
+
+function validateCode (code) {
+  return /^[123]/.test(String(code));
+}
+
+```
 
 Closures and scopes
 
