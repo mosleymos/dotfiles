@@ -112,4 +112,58 @@ TODOLIST
 - [ ] UX UX UX UX UX UX UX UX UX UX UX UX UX UX UX UX UX UX
 - [ ] ANIMATIONS ANIMATIONS ANIMATIONS ANIMATIONS ANIMATIONS ANIMATIONS ANIMATIONS
 - [ ] Checklist for webdeveloppers [webdeveloppers simple security checklist](https://simplesecurity.sensedeep.com/web-developer-security-checklist-f2e4f43c9c56)
+- [ ] API Checklist for webdeveloppers [Github clone](https://github.com/mosleymos/API-Security-Checklist)
 
+### To think when coding
+
+Sandi metz rules
+
+SOLID Principle
+
+East programming
+
+Point free code
+
+Code Fluent structure of a method
+  check your variables
+  work with your variables
+  return with your result 
+
+No If Only Truths
+
+No 'if' checking in the "work with your variable" part
+
+Nom de variables, functions , class, methode est important - ne pas hésiter à renommer, un dictionnaire est utile
+
+Choisir toujours une solution simple, si non a l'aise avec le code écrit alors le refaire - est ce que je suis bien avec mon code sérieusement ?
+
+Pas de new dans un definition de class question de la responsablité en jeu 
+Functionnal programming pour eviter les sides effects
+
+Lecture facilite du code sans des boucles
+
+Determiner toujours la responsabilite du code 
+
+Determiner toujours la responsabilite du process 
+
+step by step debugging
+
+Gestion du nil / none ou undefined est le pire cauchemar alors faire avec
+
+Au niveau BDD nous sommes toujours ou presque a une relation 1 a n
+
+Documentation avec projet our en parallèle du projet tel est la question
+
+Pour un traitement de deux objet t toujours trouver le moyen de les normaliser avant quelque traitementu
+
+Know your tools and use it with efficiency
+
+Avoir une normalisation du process de travail
+
+Code works harder - First resolve then optimize
+
+Inheritance vs Polymorphisme vs Composition to think
+
+Clear interface  
+
+Split code with side effect from 'pure' code
