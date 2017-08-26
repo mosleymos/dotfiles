@@ -1,7 +1,7 @@
-// Took from http://raganwald.com/2012/12/01/combinators-in-js.html
 // Splat
 
 // Exemple of usage:
+// Took from http://raganwald.com/2012/12/01/combinators-in-js.html
 // var squareMap = splat(function (n) {
 //   return n*n
 // });
@@ -39,11 +39,11 @@ function get(attr){
 //
 // splat(get('oranges'))(inventories)
 //   //=> [ 144, 54, 12 ]
-//
 
 
 // pluck('eggs')(inventories)
 //   //=> [ 36, 12, 42 ]
+//
 //
 
 function pluck (attr) {
@@ -136,7 +136,7 @@ function not(fn){
 function identity(fnOrValue){ return fnOrValue }
 
  // Monad to think
- // Usage: 
+ // Usage:
  // var unit = monad()
  // var monad = unit("Hello wworld")
  // monad.bind(alert)
@@ -154,11 +154,25 @@ function monad(unit){
 // )
 // fron gist https://gist.github.com/mattstauffer/4018160
  var totalTime,
-     start = new Date,
-         iterations = 1000;
-         while (iterations--) {
-           // Code snippet goes here
-           }
-           // totalTime → the number of milliseconds taken 
-           // to execute the code snippet 1000 times
-           totalTime = new Date - start;
+ start = new Date,
+ iterations = 1000;
+while (iterations--) {
+  // Code snippet goes here
+}
+// totalTime → the number of milliseconds taken
+// to execute the code snippet 1000 times
+totalTime = new Date - start;
+
+
+// Sleep in js
+// https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
+//
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function demo() {
+  console.log('Taking a break...');
+  await sleep(2000);
+  console.log('Two second later');
+}
