@@ -133,6 +133,8 @@ No If Only Truths
 
 No 'if' checking in the "work with your variable" part
 
+2 RETURN MAX PER FUNCTION
+
 Nom de variables, functions , class, methode est important - ne pas hésiter à renommer, un dictionnaire est utile
 
 Choisir toujours une solution simple, si non a l'aise avec le code écrit alors le refaire - est ce que je suis bien avec mon code sérieusement ?
