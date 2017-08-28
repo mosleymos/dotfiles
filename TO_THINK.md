@@ -129,6 +129,11 @@ Code Fluent structure of a method
   work with your variables
   return with your result 
 
+Conventions over configurations
+ nom de variable contenant une collection => termine au pluriel
+ convention descriptive => t pour tableau, h pour hash etc...
+
+
 No If Only Truths
 
 No 'if' checking in the "work with your variable" part
