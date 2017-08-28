@@ -184,4 +184,10 @@ Clear interface
 
 Split code with side effect from 'pure' code
 
+One week work
+
+Small cf Greg Young - The art of destroying software VIMEO
+
+Tools to make your projet change the output
+
 
