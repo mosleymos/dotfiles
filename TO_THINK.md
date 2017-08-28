@@ -132,6 +132,20 @@ Code Fluent structure of a method
 No If Only Truths
 
 No 'if' checking in the "work with your variable" part
+If est notre ennemi
+If déguisé
+
+Gérer le nil
+
+Trop de HTML alors le décomposer
+
+Question de responsabilité ne s'applique pas seulement au classes ruby mais aussi au css, html ...
+
+Attention déterminer une erreur d'un cas normal => est ce vraiment une erreur est une question que l'on peut se poser ?
+
+Objet non homogènes
+
+Abstraction et généralisation de la spécificité
 
 2 RETURN MAX PER FUNCTION
 
@@ -169,3 +183,5 @@ Inheritance vs Polymorphisme vs Composition to think
 Clear interface  
 
 Split code with side effect from 'pure' code
+
+
