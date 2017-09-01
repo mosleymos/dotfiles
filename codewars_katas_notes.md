@@ -1080,4 +1080,176 @@ SELECT DISTINCT age FROM people;
 ## En reflexion
 
 Comment en javascript on peut effectuer un each_cons ???
-Comprehend arrays in python
+
+Comprehend arrays in python in Ruby or javascript
+
+
+### Ruby
+
+Hamming Numbers
+
+Custom array filters
+
+https://www.codewars.com/kata/custom-array-filters/train/ruby
+
+Valid parantheses
+
+https://www.codewars.com/kata/valid-parentheses/train/ruby
+
+```ruby
+
+def valid_parentheses(string)
+    return false if string.start_with?(')') || string.end_with?('(')
+    stack = []
+    string.split('').map do |char|
+      if char == '('
+        stack.push('(')
+      elsif char ==')'
+        stack.pop
+      end
+    end
+    stack.empty?
+end
+
+```
+
+Prefill an array
+
+```ruby
+
+def prefill(n,v=nil)
+  raise TypeError, "#{n} is invalid" if ((n =~ /[[:alpha:]]/) == 0) || v == nil
+  Array.new(n.to_i,v)
+end
+
+```
+
+Sum of many ints
+
+https://www.codewars.com/kata/sum-of-many-ints/train/ruby
+
+```
+
+def f(n,m)
+  (0..n).reduce{|sum, num| sum+(num % m)}
+end
+
+```
+
+Fluent Calculator
+
+Email validation
+
+Split by hash keys
+
+
+### Javascript
+
+Javascript namespacing
+
+https://www.codewars.com/kata/javascript-namespacing/train/javascript
+
+```javascript
+
+var MyNamespace = {
+  MyClass:function(message){
+    this.message = message ; 
+    this.sayHello = function(){ return this.message ; };
+  }
+};
+
+```
+
+IP Validation
+
+```javascript
+
+function isValidIP(str){
+  console.log(str)
+  return (/^(\d{1,3}|\d+)(.|,)(\d{1,3}|\d+)(.|,)(\d{0,3}|\d+)(.|,)(\d+|\d{2})(.|,)(\d+|\d+)$/).test(str) 
+}
+
+```
+
+Next bigger number with the same digits
+
+
+A Chain adding function
+
+https://www.codewars.com/kata/a-chain-adding-function/train/javascript
+
+```javascript
+
+function add(n){
+  // Let the currying begin!
+  return function(){
+    var args = Array.prototype.slice.call(arguments,0);
+    console.log(args);
+    return 0;
+  }
+}
+
+
+```
+
+Flatten
+
+https://www.codewars.com/kata/flatten/train/javascript
+
+```
+
+// create your flatten method here
+function flatten(arr) {
+  var result = [];
+    for (var i = 0 ; i < 0 ; i++){
+        if (i.length > 0){ result.push(flatten(i)); }
+    }
+    return result ; 
+  }
+
+```
+
+Calculating with functions
+
+https://www.codewars.com/kata/calculating-with-functions/train/javascript
+
+
+DropWhile
+
+https://www.codewars.com/kata/the-dropwhile-function/train/ruby
+
+Hello Wait What
+
+https://www.codewars.com/kata/hello-w-dot-dot-dot-wait-what/train/javascript
+
+```javascript
+
+var helloWorld = function () {
+  return ((function(){ return (14)["toString"](16) })())
+}
+
+```
+
+Argument mapper
+
+https://www.codewars.com/kata/argument-mapper/train/javascript
+
+
+Linked lists - Push & BuildOneTwoThree
+
+https://www.codewars.com/kata/linked-lists-push-and-buildonetwothree/train/javascript
+
+T Combinator
+
+Pipelining and composing functions
+
+Wrapped Functions
+
+Range function
+
+
+#### SQL
+
+Group by
+
+Function
