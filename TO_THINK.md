@@ -142,7 +142,13 @@ If déguisé
 
 Gérer le nil
 
-Trop de HTML alors le décomposer
+Trop de HTML alors le décomposer 
+
+GREEN TESTS GREEN 
+
+Question de la responsabilite
+
+Aller plus profond - spéléologie
 
 Question de responsabilité ne s'applique pas seulement au classes ruby mais aussi au css, html ...
 
