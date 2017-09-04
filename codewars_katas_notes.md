@@ -863,7 +863,7 @@ function hoopCount (n) {
 
 ROT13
 
-```
+```javascript
 
 var decrypt = (str) => {
   var encrypt = new Map();
@@ -899,6 +899,21 @@ var decrypt = (str) => {
 var rot13 = (phrase) =>  phrase.split(' ').map((word) => decrypt(word)).join(' ') 
 
 ```
+
+Open or Senior 
+
+```javascript
+// Solutions
+
+var  openOrSenior = (data) => data.map((member) => member[0]>= 55 && member[1] > 7 ? 'Senior' : 'Open')
+
+
+function openOrSenior(data){
+  return data.map(([age, handicap]) => (age > 54 && handicap > 7) ? 'Senior' : 'Open');
+}
+
+```
+
 
 Simple calculator
 
