@@ -201,4 +201,6 @@ Small cf Greg Young - The art of destroying software VIMEO
 
 Tools to make your projet change the output
 
+Jamais de passage en production le Vendredi - Ne pas effectuer une mise en production dont on sait que l'on ne sera pas là pour gérer les problèmes - NO MEP FRIDAY
+
 
