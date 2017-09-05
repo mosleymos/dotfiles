@@ -1091,6 +1091,19 @@ SELECT DISTINCT age FROM people;
 ```
 
 
+SQL basics Find all active students:
+
+```SQL
+
+SELECT * FROM students WHERE isActive = 1;
+
+SELECT * FROM students WHERE IsActive;
+
+SELECT FirstName,LastName,IsActive FROM students WHERE IsActive = 1 ;
+
+```
+
+
 
 ## En reflexion
 
