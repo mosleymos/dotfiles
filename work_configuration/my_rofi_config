@@ -1,0 +1,14 @@
+rofi.width:                          100
+rofi.lines:                          5
+rofi.font:                           System San Francisco Display 48
+! Color theme:                       bg       ,fg       ,bg-alt   ,hilite-bg, hilite
+rofi.color-normal:                   #a6384252,#a6d8dee9,#a6384252,#a6384252,#a6d08770
+rofi.color-urgent:                   #a6384252,#a6d8dee9,#a6384252,#a6384252,#a6d08770
+rofi.color-active:                   #a6384252,#a6d8dee9,#a6384252,#a6384252,#a6d08770
+rofi.color-window:                   #a6384252,#a6d8dee9
+rofi.bw:                             0
+rofi.padding:                        1000
+rofi.eh:                             2
+rofi.line-margin:                    0
+rofi.separator-style:                solid
+rofi.hide-scrollbar:                 true
