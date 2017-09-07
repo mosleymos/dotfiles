@@ -200,7 +200,7 @@ autocmd Filetype javascript :iabbrev <buffer> log console.log()<esc>h
 
 autocmd Filetype ruby :iabbrev <buffer> todo #TODO:
 
-autocmd Filetype ruby :iabbrev <buffer> pry binding.pry<esc>p
+autocmd Filetype ruby :iabbrev <buffer> pry binding.pry<esc>oi
 
 
 """ Reouvrir un fichier au dernier endroit ou il fut édité et enregister
@@ -228,4 +228,3 @@ if line("'\"") <= line("$")
 autocmd!
 autocmd BufWinEnter * call ResCur()
 augroup END
-
