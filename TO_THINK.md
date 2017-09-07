@@ -238,3 +238,6 @@ Explicit is better than implicit
 
 No self if yourself -> indiquer self partout peut être ennuyant
 
+#### Architecture view
+
+[Software architecture vs code ](https://www.youtube.com/watch?v=GAFZcYlO5S0)
