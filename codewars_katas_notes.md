@@ -1281,3 +1281,15 @@ Range function
 Group by
 
 Function
+
+#### Snippets a Penser
+
+```ruby
+# encoding: UTF-8
+class Class
+  def mixin_ancestors(include_ancestors=true)
+    ancestors.take_while {|a| include_ancestors || a != superclass }.
+        select {|ancestor| ancestor.instance_of?(Module) }
+  end
+end
+```
