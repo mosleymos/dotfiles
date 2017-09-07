@@ -225,4 +225,16 @@ classes: most methods use most of the class' properties.
 #10: Master your craft.
 
 
+Being and Doing -  From clean ruby
+>These two things, the being and doing, need to come together at some point, but: why are
+>we doing this?
+>A common approach to refactoring complex classes is to follow this same paradigm of
+>identifying related methods and breaking them out from the main class using modules.  
+
+Split the "Being" of an object from his "Doing"
+
+Explicit is better than implicit
+>Explicit code reveals your intentions far better than implicit code 
+
+No self if yourself -> indiquer self partout peut être ennuyant
 
