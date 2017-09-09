@@ -1114,6 +1114,46 @@ Comprehend arrays in python in Ruby or javascript
 
 ### Ruby
 
+Reverse polish notation calculator
+
+```ruby
+def calc(chaine)
+  return 0 if chaine == ''
+  stack = []
+  chaine.split(' ').each do |elem|
+    if !elem.match(/\+|\-|\*|\//)
+
+      stack << Float(elem) 
+
+    elsif elem.match(/\+/)
+      result = stack.reduce(&:+)
+      stack.clear
+      stack.push(result)
+
+    elsif elem.match(/\-/)
+      result = stack.reduce(&:-)
+      stack.clear
+      stack.push(result)
+
+    elsif elem.match(/\*/)
+      result = stack.reduce(&:*)
+      stack.clear
+      stack.push(result)
+
+    elsif elem.match(/\//)
+      result = stack.reduce(&:/)
+      stack.clear
+      stack.push(result)
+
+    end
+
+  end
+
+  return stack.size > 1 ? stack[-1].to_f : stack[0]
+
+end
+``` 
+
 Hamming Numbers
 
 Custom array filters
