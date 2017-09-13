@@ -1315,6 +1315,15 @@ Wrapped Functions
 
 Range function
 
+#### Good Katas to observe
+
+[Linked lists](https://www.codewars.com/kata/linked-lists-insert-nth-node)
+
+[Clockwise](https://www.codewars.com/kata/rotate-matrix-counter-clockwise-n-times)
+
+[String tree ification](https://www.codewars.com/kata/string-tree-ification)
+
+[Fun with tree](https://www.codewars.com/kata/fun-with-trees-is-perfect)
 
 #### SQL
 
