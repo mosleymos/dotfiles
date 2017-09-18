@@ -477,6 +477,26 @@ end
 
 ```
 
+```ruby
+
+def power(base, exponent)
+   return nil if exponent < 0
+   return 1 if exponent.zero?
+   Array.new(exponent,base).reduce(&:*)
+end
+
+other approaches
+
+def power(base, exponent)
+  exponent.times.inject(1){ |product| product * base } unless exponent < 0
+end
+
+def power(base, exponent)
+  (1..exponent).inject(1){|v| v * base} unless exponent < 0
+end
+
+```
+
 altERnaTIng cAsE <=> ALTerNAtiNG CaSe
 
 ```ruby
