@@ -1172,7 +1172,31 @@ def calc(chaine)
   return stack.size > 1 ? stack[-1].to_f : stack[0]
 
 end
+
+
+# Autre solution en cours qui est meilleure
+
+def calc(chaine)
+  return 0 if chaine == ''
+  expression = chaine.split
+  return eval expression.last if not expression.last =~ /\*|\/|\+|\-/
+  res = 0
+  stack = []
+  expression.each do |op| 
+    case op
+      when '+', '-', '/', '*'
+        res = eval(stack.join(op))
+        stack = []
+        stack << res.to_s
+      else
+        stack << op
+    end  
+  end
+
+  eval stack.first
+end
 ``` 
+to think about [Reverse polish notation thread](https://gist.github.com/malandrina/3744867)
 
 Hamming Numbers
 
