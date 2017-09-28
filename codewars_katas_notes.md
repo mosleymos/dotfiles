@@ -1247,6 +1247,27 @@ def f(n,m)
 end
 
 ```
+1337 classes
+To think about
+
+```ruby
+
+def leet_classes
+ (0..1336).to_a.map do |n|
+    class_name = 'Klass_' +n.to_s
+    instance_method_return_value = 'i' + n.to_s 
+    class_method_return_value = 'c' + n.to_s
+    unique_instance_method_definition = %Q(def unique_instance_method ; "#{instance_method_return_value}" end)
+    ele = Object.const_set(class_name, Class.new(Object))
+    ele.define_singleton_method(:unique_class_method, lambda{class_method_return_value})
+    ele.module_eval(unique_instance_method_definition)
+    ele
+  end
+end
+
+
+```
+
 
 Fluent Calculator
 
