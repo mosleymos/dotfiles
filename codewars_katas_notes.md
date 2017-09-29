@@ -1123,6 +1123,17 @@ SELECT FirstName,LastName,IsActive FROM students WHERE IsActive = 1 ;
 
 ```
 
+Collect Tuition (SQL for Beginners)
+
+```SQL
+
+SELECT * FROM students WHERE tuition_received=false; 
+
+SELECT * FROM students WHERE NOT tuition_received; 
+
+```
+
+
 
 
 ## En reflexion
