@@ -74,6 +74,28 @@ def find_short(s):
 
 ### Ruby
 
+head, tail, init and last
+
+```ruby
+
+def head(arr)
+  arr[0]
+end
+
+def tail(arr)
+  arr[1..-1]
+end
+
+def init(arr)
+  arr[0..-2]
+end
+
+def last(arr)
+  arr[-1]
+end
+
+```
+
 Counting Array Elements
 
 ```ruby
