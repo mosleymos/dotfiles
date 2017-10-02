@@ -1337,6 +1337,25 @@ Email validation
 
 Split by hash keys
 
+Kebabize
+
+```ruby
+
+def kebabize(str)
+  str.gsub(/[0-9]/, '').gsub(/[A-Z]/){ ' '+ $&.downcase }.split(' ').join('-')
+end
+
+# Other good approaches
+def kebabize(str)
+  str.gsub(/([0-9])/, '').split(/(?=[A-Z])/).join('-').downcase
+end
+
+def kebabize(str)
+  str.delete('^A-Za-z').split(/(?=[A-Z])/).join('-').downcase
+end
+
+```
+
 
 ### Javascript
 
