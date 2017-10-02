@@ -74,6 +74,34 @@ def find_short(s):
 
 ### Ruby
 
+Counting Array Elements
+
+```ruby
+def count(array)
+  uniq_hash = {}
+  array.each do |e|
+    if uniq_hash[e].nil?
+      uniq_hash[e] = 1
+    else
+      uniq_hash[e]+=1
+    end 
+  end
+  uniq_hash
+end
+
+# Other approach better
+def count(array)
+  c = Hash.new(0)
+  array.each { |i| c[i] += 1  }
+  c
+end
+
+def count(array)
+  array.reduce(Hash.new(0)) { |a, b| a[b] += 1; a }
+end
+
+```
+
 string ends with?
 
 ```ruby
