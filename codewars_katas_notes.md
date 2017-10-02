@@ -1309,6 +1309,16 @@ Email validation
 
 Split by hash keys
 
+Kebabize
+
+```ruby
+
+def kebabize(str)
+  str.gsub(/[0-9]/, '').gsub(/[A-Z]/){ ' '+ $&.downcase }.split(' ').join('-')
+end
+
+```
+
 
 ### Javascript
 
