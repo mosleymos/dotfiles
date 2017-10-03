@@ -736,6 +736,26 @@ end
 
 ```
 
+Highest and lowest
+
+```ruby
+
+def high_and_low(numbers)
+  "#{numbers.split(' ').map(&:to_i).max} #{numbers.split(' ').map(&:to_i).min}"
+end
+
+# Other approaches
+def high_and_low(numbers)
+  numbers.split.map(&:to_i).minmax.reverse.join(' ')
+end
+
+def high_and_low(numbers)
+  numbers = numbers.split.map(&:to_i)
+  "#{numbers.max} #{numbers.min}"
+end
+
+```
+
 ### javascript
 
 
