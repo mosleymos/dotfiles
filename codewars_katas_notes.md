@@ -1229,6 +1229,19 @@ select ||/number1 as cuberoot, ln(number2) as logarithm from decimals
 
 ``` 
 
+On the Canadian Border (SQL for Beginners #2)
+
+
+```SQL
+
+SELECT name,country FROM travelers WHERE NOT country='USA' AND NOT country='Mexico' AND NOT country='Canada';
+
+# Other approach
+Select name,country from travelers where country not in ('Canada','Mexico','USA')
+
+
+```
+
 ## En reflexion
 
 Comment en javascript on peut effectuer un each_cons ???
