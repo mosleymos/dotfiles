@@ -1203,8 +1203,31 @@ SELECT * FROM students WHERE NOT tuition_received;
 
 ```
 
+Easy SQL: Cube Root and Natural Log
+
+```SQL
+
+SELECT CBRT(number1) AS cuberoot ,LN(number2) AS logarithm FROM decimals;
+
+# Other approaches
+SELECT
+  CBRT(NUMBER1)AS CUBEROOT,
+  LN(NUMBER2)AS LOGARITHM
+FROM
+  DECIMALS
 
 
+SELECT
+  ||/NUMBER1 AS CUBEROOT,
+  LN(NUMBER2) AS LOGARITHM
+FROM
+  DECIMALS
+
+
+select ||/number1 as cuberoot, ln(number2) as logarithm from decimals
+
+
+``` 
 
 ## En reflexion
 
