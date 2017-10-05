@@ -1242,6 +1242,16 @@ Select name,country from travelers where country not in ('Canada','Mexico','USA'
 
 ```
 
+Easy SQL lowercase
+
+
+
+```SQL
+
+SELECT  id ,name, birthday ,LOWER(race) AS race FROM demographics ;
+
+```
+
 ## En reflexion
 
 Comment en javascript on peut effectuer un each_cons ???
