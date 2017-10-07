@@ -74,6 +74,36 @@ def find_short(s):
 
 ### Ruby
 
+remember
+
+```ruby
+
+def remember(str)
+  stack = []
+  result = []
+  str.chars.each do |letter|
+    stack.push(letter)
+    result << letter if stack.count(letter) > 1 && !result.include?(letter)
+  end
+  result
+end
+
+# Better approaches
+
+
+def remember(str)
+  seen = Hash.new(0)
+  str.chars.select do |c| 
+    seen[c] += 1
+    seen[c] == 2 
+  end
+end
+
+def remember(str)
+  str.chars.select.with_index{|x,i| str.index(x) != i}.uniq
+end
+```
+
 head, tail, init and last
 
 ```ruby
