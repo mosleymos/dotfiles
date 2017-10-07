@@ -1475,6 +1475,28 @@ function isValidIP(str){
 
 Next bigger number with the same digits
 
+Linked list to string
+
+```javascript
+
+function stringify(list) {
+  console.log(list)
+  if(list === null){return "null"}
+  var datalist = []
+  var i = list 
+  for(;;){
+    datalist.push(i.data)
+    i = i.next
+    if(i.next == null){
+      datalist.push(i.data)
+      datalist.push('null')
+      break
+    }
+  }
+  return datalist.join(' -> ')
+}
+
+```
 
 A Chain adding function
 
