@@ -1418,6 +1418,38 @@ def leet_classes
 end
 ```
 
+Add _ - accessors to Hash
+
+```ruby
+
+class Hash
+  def method_missing(name, argfunc = nil)
+    if name.to_s.include?('=') 
+      key_in_form_of_method= name.to_s[0..-2].gsub(/^_/, '').to_sym
+      self[key_in_form_of_method] = argfunc
+      return self[key_in_form_of_method]
+    end
+
+    key_in_form_of_symbol= name.to_s.gsub(/^_/, '').to_sym
+    key_in_form_of_string= name.to_s.gsub(/^_/, '')
+    if keys.include?(key_in_form_of_symbol) == false && keys.include?(key_in_form_of_string) == false
+      self[key_in_form_of_symbol] = nil
+      return self[key_in_form_of_symbol] 
+    end
+
+    if argfunc.nil?
+      return self[key_in_form_of_symbol] unless self[key_in_form_of_symbol].nil?
+      return self[key_in_form_of_string] unless self[key_in_form_of_string].nil?
+    else
+      self[key_in_form_of_symbol] = argfunc
+      return self[key_in_form_of_symbol]
+    end
+
+  end
+end
+
+
+```
 
 Fluent Calculator
 
