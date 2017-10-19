@@ -1504,8 +1504,66 @@ def kebabize(str)
   str.delete('^A-Za-z').split(/(?=[A-Z])/).join('-').downcase
 end
 
-```
+```ruby
 
+# Snail thinking
+
+def snail(arr)
+  arr.each{|e| puts e }
+  res = []
+
+  until arr.size === 1 
+    premiere_ligne = arr.first
+    arr.shift
+    derniere_ligne = arr.last.reverse
+    arr.pop
+    ligne_droite =[]
+    arr.each{|elt| ligne_droite << elt.last ; elt.pop }
+    ligne_gauche = []
+    arr.each{|elt| ligne_gauche << elt.first ; elt.shift }
+    res << premiere_ligne << ligne_droite <<  derniere_ligne << ligne_gauche
+    res = res.flatten
+  end
+  res += arr.flatten
+  res
+end
+
+# Better I think and to improve
+def snail(arr)
+  turn = arr.size.even?
+  res = []
+  if turn 
+    until arr.size == 2
+      res <<  arr.first
+      arr.shift
+      arr.each{|e| res << e.last ; e.pop}
+      res << arr.last.reverse
+      arr.pop
+      res << arr.map(&:first).reverse
+      arr.each{|f| f.shift }
+    end
+    res << arr.first
+    arr.shift
+    res << arr.last.reverse
+    arr.pop
+    res = res.flatten
+  else
+    until arr.size == 1
+      res <<  arr.first
+      arr.shift
+      arr.each{|e| res << e.last ; e.pop}
+      res << arr.last.reverse
+      arr.pop
+      res << arr.map(&:first).reverse
+      arr.each{|f| f.shift }
+    end
+    res << arr.last
+    res = res.flatten
+  end
+  res
+end
+
+```
 
 ### Javascript
 
