@@ -1707,6 +1707,28 @@ Group by
 
 Function
 
+### Python
+
+```python
+
+import functools as functools
+
+def sum_cubes(n):
+    arr =  list(map(lambda x : x*x*x , list(range(0,n+1))))
+    return functools.reduce(lambda x,y : x+y, arr)
+
+# other approaches in thinking
+# Point interessant en python3 utilisation librairie externe functools
+
+def sum_cubes(n):
+    return functools.reduce(lambda x,y : x+y, [x*x*x for x in range(0,n+1)])
+
+def sum_cubes(n):
+    return functools.reduce(lambda x,y : x+y, (x*x*x for x in range(0,n+1)))
+
+
+```
+
 #### Snippets a Penser
 
 ```ruby
