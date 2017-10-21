@@ -1620,6 +1620,68 @@ end
 
 ```
 
+Fluent Calculator
+
+
+```ruby
+
+$keeper=[]
+
+class Fixnum
+  def three 
+    $keeper << '3'
+    if $keeper.size == 2
+      return self
+    else
+      res = $keeper.join
+      result = eval(res)
+      $keeper =[]
+      $keeper << result
+      result
+    end
+  end
+
+  def one
+    $keeper << '1'
+    if $keeper.size == 2
+      return self
+    else
+      res = $keeper.join
+      result = eval(res)
+      $keeper =[]
+      $keeper << result
+      result
+    end
+  end
+
+  def plus
+    $keeper << '+'
+    if $keeper.size == 2
+      return self
+    else
+      res = $keeper.join
+      result = eval(res)
+      $keeper =[]
+      $keeper << result
+      result
+    end
+  end
+end
+
+class Calc
+  def one
+    $keeper << '1'
+    1
+  end
+
+  def three 
+    $keeper << '3'
+    3
+  end
+end
+
+```
+
 ### Javascript
 
 Javascript namespacing
