@@ -1593,6 +1593,31 @@ end
 # Peut être autre moyen de le faire par l'intermédiaire d'un tableau vide
 # intérieur
 
+# Suppression de deux lignes
+
+def snail(arr)
+  turn = arr.size.even?
+  res = []
+  def snail_turn(res,arr,size)
+    return nil if arr.size == size 
+    res << arr.shift
+    res << arr.map(&:pop)
+    res << arr.pop.reverse
+    res << arr.map(&:first).reverse
+    arr.each(&:shift)
+    snail_turn(res,arr,size)
+  end
+  if turn 
+    snail_turn(res,arr,2)
+    res << arr.shift
+    res << arr.pop.reverse
+  else
+    snail_turn(res,arr,1)
+    res << arr.pop
+  end
+  res.flatten
+end
+
 ```
 
 ### Javascript
