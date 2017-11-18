@@ -786,8 +786,28 @@ end
 
 ```
 
+leet classes (approach)
+
+```ruby
+def leet_classes
+  (1..1337).to_a.map do |i|
+    Object.const_set("FooBar_#{i}", Class.new { 
+      define_singleton_method("class_method_#{i}") { "class_method_value_#{i}" }
+      define_method("instance_method_#{i}") { "instance_method_value_#{i}" }
+    })
+  end
+end
+```
+
 ### javascript
 
+Weird Reverse
+
+```javascript
+
+weirdReverse=a=>a.sort(x=>1)
+
+```
 
 Re-Open class
 
