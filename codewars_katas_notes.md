@@ -74,6 +74,7 @@ def find_short(s):
 
 ### Ruby
 
+
 remember
 
 ```ruby
@@ -1636,6 +1637,39 @@ def snail(arr)
     res << arr.pop
   end
   res.flatten
+end
+
+```
+
+Roman numeral decoder 
+
+```ruby
+
+def solution(roman_number)
+  roman_number_hash = {
+    'I' => 1,
+    'V' => 5,
+    'X' => 10,
+    'C' => 100,
+    'M' => 1000,
+    'L' => 50,
+    'D' => 500
+  }
+  previous = ''
+  res = 0
+  roman_number.split('').reverse.each do |letter|
+    if previous == 'X' && letter == 'I'
+      res -= 1
+      previous =''
+    elsif previous == 'V' && letter == 'I'
+      res -= 1
+      previous =''
+    else
+      res += roman_number_hash[letter]
+      previous = letter
+    end
+  end
+  return res
 end
 
 ```
