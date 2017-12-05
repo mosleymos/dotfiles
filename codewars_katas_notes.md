@@ -1900,6 +1900,68 @@ def sum_cubes(n):
 
 ```
 
+Palindrome integer composition
+
+
+```ruby
+# First approach
+
+class Fixnum
+  def palindrome?
+    to_s == to_s.reverse
+  end
+end
+
+def calcul(nb, squares)
+  carres_ok = squares.select{|e| e < nb}
+  res = false
+  while carres_ok.size > 0
+    carres_ok.reverse.reduce do |a,b| 
+      calc = a+b  
+      if calc == nb
+        res = true
+        break
+      else
+        calc
+      end
+    end 
+
+    break if res == true
+    carres_ok.pop
+  end
+  return res 
+end
+
+def values(nombre_max)
+  racines = (1..nombre_max).map{|e| e*e}.select{|a| a < nombre_max } 
+  (0..nombre_max).select(&:palindrome?).select{|n| calcul(n, racines)}.size
+end
+
+# Second approach to improve
+
+
+def values(nbr)
+  racines = (Array(1..nbr)).map{|x| x**2}.reverse.select{|n| n <= nbr}
+  resultat = []
+  while racines.size > 0  do
+    racines.reduce do |prev, succ|  
+      calcul = prev + succ
+      if (calcul < nbr) && (calcul).to_s == (calcul).to_s.reverse 
+        resultat << calcul
+        calcul
+      elsif calcul > nbr
+        break
+      else
+        calcul 
+      end
+    end
+  racines.shift
+  end
+  resultat.uniq.count 
+end
+
+```
+
 #### Snippets a Penser
 
 ```ruby
