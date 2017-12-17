@@ -74,6 +74,42 @@ def find_short(s):
 
 ### Ruby
 
+flattened_keys
+
+```ruby
+# Premiere solution a l'esprit
+# A améliorer
+class Hash
+
+  def flattened_keys
+
+    def flat hash
+      h = {}
+      hash.each do |k,v|
+        if v.is_a? Hash 
+          keys_to_remove = hash[k].keys
+          keys_to_remove.each do |cle|
+            if (cle.is_a?(String) || k.is_a?(String))
+              h[[k.to_s,cle.to_s].join('_')] = hash[k][cle]
+            else
+              h[[k.to_s,cle.to_s].join('_').to_sym] = hash[k][cle]
+            end
+          end
+          h = flat h
+        else
+          h[k] = v
+        end
+      end
+      return h 
+    end
+
+    simple_hash = self
+    flat simple_hash
+
+  end
+end
+
+```
 
 remember
 
