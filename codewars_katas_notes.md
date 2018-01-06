@@ -74,6 +74,38 @@ def find_short(s):
 
 ### Ruby
 
+Moving zeros
+
+```javascript
+
+var moveZeros = function (arr) {
+  return arr.filter(function(x) {return x !== 0}).concat(arr.filter(function(x)
+  {return x === 0;}));
+
+}
+
+
+
+// other approach
+
+var moveZeros = function (arr) {
+  return arr
+    .filter((val) => val !== 0)
+    .concat(arr.filter((val) => val === 0));
+}
+
+// Info
+
+var moveZeros = (arr, count=[]) => {
+	return arr.filter(e =>{
+      if(e===0){ count.push(0) }
+      return e !== 0 
+  }).concat(count)
+}
+
+
+```
+
 flattened_keys
 
 ```ruby
@@ -349,6 +381,35 @@ end
 
 ```
 
+Count positive/Sum of negatives
+
+```ruby
+def count_positives_sum_negatives(lst)
+  total_positive = lst.select{|nb| nb > 0}
+  total_negative = lst.select{|nb| nb < 0}
+  [total_positive.size, total_negative.empty? ? 0 : total_negative.reduce(&:+) ]
+end
+
+# Better
+def count_positives_sum_negatives(lst)
+    [lst.count{|n| n > 0}, lst.select{|n| n < 0}.reduce(0, :+)]
+end
+
+# What ???
+def count_positives_sum_negatives(lst)
+  return [] if lst.nil? || lst.empty?
+  [lst.count(&:positive?), lst.select(&:negative?).reduce(0, :+)]
+end
+
+# Wh..
+def count_positives_sum_negatives(list)
+  [list.count(&:positive?), list.select(&:negative?).reduce(0,:+)]
+end
+
+```
+
+
+
 Square(n) Sum
 
 ```ruby
@@ -359,7 +420,23 @@ end
 
 ```
 
+convert hash to array
 
+```ruby
+
+def convert_hash_to_array(hash)
+  new_hash = Hash[hash.collect{|k,v| [k.to_s, v]}]
+  new_hash.to_a
+end
+
+def convert_hash_to_array(hash)
+  Hash[hash.collect{|k,v| [k.to_s, v]}].to_a
+end
+
+def convert_hash_to_array(hash)
+  hash.map{ |k, v| [k.to_s, v] }
+end
+```
 
 
 
