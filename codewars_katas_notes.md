@@ -986,6 +986,36 @@ end
 
 ### javascript
 
+Evaluate a postfix expression
+
+
+```javascript
+// Semble good mais trop long
+// Cas à revoir sur la division qui 
+// a besoin d'un arrondi
+var postfixEvaluator = (string) => {
+  console.log(string)
+  stack = []
+  a = string.split(' ')
+  a.forEach(function(b){
+    if(b === '+' || b === '-' || b === '*' ) {
+      left = stack.pop()
+      right = stack.pop()
+      result = eval(right + b + left)
+      stack.push(result)
+    }else if( b === '/'){
+      left = stack.pop()
+      right = stack.pop()
+      result = Math.floor(eval(right + b + left))
+      stack.push(result)
+    }else{
+      stack.push(b)
+    }
+  })
+  return (stack[0])
+}
+
+```
 Weird Reverse
 
 ```javascript
