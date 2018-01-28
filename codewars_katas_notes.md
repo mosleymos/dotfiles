@@ -74,6 +74,77 @@ def find_short(s):
 
 ### Ruby
 
+Backward Primes
+
+```ruby
+# Solution sans le Prime class
+
+def backwardsPrime(start, stop)
+  (start..stop).select { |n| backwards_prime?(n) }
+               .sort!
+end
+
+def backwards_prime?(n)
+  reverse_n = n.to_s.reverse.to_i
+  n != reverse_n   &&   prime?(n) && prime?(reverse_n)
+end
+
+def prime?(n)
+  max = Math.sqrt(n).floor
+  (2..max).all? { |i| n % i != 0 }
+end
+
+# Otre approche plus interressante
+
+def backwardsPrime(start, stop)
+  (start..stop).select { |n| backwards_prime?(n) }
+end
+
+def prime?(num)
+  num <= 1 ? false : (2..Math.sqrt(num).floor).none? { |n| num % n == 0 }
+end
+
+def backwards_prime?(num)
+  return false unless prime?(num)
+  backwards = num.to_s.reverse.to_i
+  backwards != num && prime?(backwards)
+end
+
+# Soluce qui se rapproche de celle avec prime
+def backwardsPrime(x, y)
+  primes = (x..y).to_a.select {|j|  j.to_s.reverse.to_i != j && (2..j/2).none?{|i| j % i == 0 }}
+  primes.select{|j| (2..j.to_s.reverse.to_i/2).none?{|i| j.to_s.reverse.to_i % i == 0 }}
+end
+# Solution possible avec le prime
+
+def backwardsPrime(start, stop)
+  require 'prime'
+  (start..stop).select{|number| number.prime? && number.to_s.reverse.to_i.prime?     && number.to_s != number.to_s.reverse }
+end
+
+# ou 
+
+def backwardsPrime(start, stop)
+  (start..stop).select { |n| n.prime? && n.to_s.reverse.to_i.prime? && n != n.to_s.reverse.to_i }
+end
+
+## funny
+
+def is_prime(num)
+  return false if [-1,0,1].include?(num)
+  (2..(num**0.5).to_i).select{|i| i != num and num%i == 0}.size == 0
+end
+
+def backwardsPrime(start, stop)
+  (start..stop).select do |n|
+    if is_prime(n)
+      rn = n.to_s.reverse.to_i
+      rn != n and is_prime(rn)
+    end
+  end
+end
+```
+
 Moving zeros
 
 ```javascript
