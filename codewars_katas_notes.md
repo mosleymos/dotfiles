@@ -74,6 +74,21 @@ def find_short(s):
 
 ### Ruby
 
+Sum nested
+
+```ruby
+
+def sum_nested(lst)
+  lst.flatten.reduce(&:+).to_i
+end
+
+# Better
+def sum_nested(lst)
+  lst.flatten.reduce(0, :+)
+end
+
+```
+
 Backward Primes
 
 ```ruby
