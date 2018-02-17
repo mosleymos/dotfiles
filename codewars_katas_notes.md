@@ -1428,6 +1428,22 @@ function generateRange(min, max, step){
 
 ### SQL
 
+Créer une fonction Sql
+
+```
+CREATE FUNCTION increment(@input INTEGER)
+  RETURNS INTEGER
+  AS BEGIN
+    DECLARE @Work INTEGER
+
+    SET @Work = @Input + 1
+
+    RETURN @work
+END
+
+```
+
+
 SQL Basics: Simple WHERE and ORDER BY
 
 ```SQL
