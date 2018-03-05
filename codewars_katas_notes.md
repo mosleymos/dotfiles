@@ -1548,6 +1548,15 @@ SELECT  id ,name, birthday ,LOWER(race) AS race FROM demographics ;
 
 ```
 
+
+ORDER BY INFO
+
+```SQL
+
+SELECT * from companies ORDER BY employees DESC;
+
+```
+
 ## En reflexion
 
 Comment en javascript on peut effectuer un each_cons ???
