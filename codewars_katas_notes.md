@@ -74,6 +74,41 @@ def find_short(s):
 
 ### Ruby
 
+Metaprogramming Conjurer
+
+```
+class Conjurer
+  def self.conjure(method_name, method_definition)
+    define_method(method_name, method_definition)
+  end
+end
+
+# otres approches
+class Conjurer
+  class << self
+    def conjure(name, impl)
+      define_method(name, &impl)
+    end
+  end
+end
+
+class Conjurer
+  def self.conjure(method, block)
+    self.send(:define_method, method, block)
+  end
+end
+
+class Conjurer
+  class << self
+    def conjure(name, block)
+      define_method name do
+        block.call
+      end
+    end
+  end
+end
+```
+
 Sum nested
 
 ```ruby
