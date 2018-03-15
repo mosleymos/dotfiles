@@ -89,9 +89,47 @@ end
 
 ```
 
+# Next Prime 
+
+```ruby
+require 'prime'
+
+def next_prime(n)
+  n+=1
+  Prime.prime?(n) ? n : next_prime(n)
+end
+
+# autres approches
+
+require 'prime'
+
+def next_prime(n)
+  (n + 1).step { |i| return i if i.prime? }
+end
+
+
+require 'prime'
+
+def next_prime(n)
+  (n + 1).step.find(&:prime?)
+end
+
+require "prime"
+def next_prime(x)
+ (x+1).step{|y| return y if y.prime?}
+end
+
+require 'prime'
+
+def next_prime(n)
+  (n+1..Float::INFINITY).find{ |x| Prime.prime?(x) }
+end
+
+```
 Backward Primes
 
 ```ruby
+
 # Solution sans le Prime class
 
 def backwardsPrime(start, stop)
