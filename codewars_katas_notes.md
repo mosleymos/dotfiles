@@ -74,9 +74,24 @@ def find_short(s):
 
 ### Ruby
 
-Metaprogramming Conjurer
+Difference of squares
+
+```ruby
+def difference_of_squares(n)
+  (((1..n).reduce(&:+))**2) - ((1..n).map{|x| x**2}.reduce(&:+)) 
+end
+
+# other approach
+
+def difference_of_squares(x)
+  r = 1..x
+  r.inject(:+) ** 2 - r.map{|x| x ** 2 }.inject(:+)
+end
 
 ```
+Metaprogramming Conjurer
+
+```ruby
 class Conjurer
   def self.conjure(method_name, method_definition)
     define_method(method_name, method_definition)
