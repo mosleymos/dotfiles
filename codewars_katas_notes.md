@@ -138,7 +138,38 @@ def sum_nested(lst)
 end
 
 ```
+Count characters in your string
+
+
+```ruby
+
+def count_chars(s)
+  s.split('').reduce({}){|acc,n| acc[n.to_s] = acc[n.to_s].to_i + 1 ; acc}
+end
+
+# autre approches
+
+def count_chars(s)
+  s.chars.group_by(&:itself).map { |k, v| [k, v.size] }.to_h
+end
+
+def count_chars(s)
+  (s.chars.uniq.zip s.chars.uniq.map {|a| s.count(a)}).to_h
+end
+
+def count_chars(s)
+ Hash[s.chars.uniq.zip s.chars.uniq.map {|a| s.count(a)}]
+end
+
+def count_chars(s)
+  s.each_char.each_with_object(Hash.new(0)){ |c, h| h[c] += 1 }
+end
+
+
+```
+
 Find the odd Int
+
 
 ```ruby
 
