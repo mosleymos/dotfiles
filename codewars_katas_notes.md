@@ -123,6 +123,55 @@ def sum_nested(lst)
 end
 
 ```
+Find the odd Int
+
+```ruby
+
+def find_it(seq)
+  seq.group_by{|n| n }.select{|k,v| v.count.odd?}.keys.first
+end
+
+# autre approche
+
+def find_it(seq)
+  seq.detect { |n| seq.count(n).odd? }
+end
+
+# meta comme solution
+def find_it(seq)
+  seq.reduce(:^)
+end
+
+def find_it(seq)
+  seq.find{|c| seq.count(c).odd? }
+end
+
+def find_it(seq)
+  seq.uniq.map { |number|return number if seq.count(number).odd? }
+end
+
+# Metal comme solution
+def find_it(seq)
+  seq.reduce({}){|acc, n| acc[n.to_s] = acc[n.to_s].to_i + 1; acc}.find{|k,v| v.odd?}.first.to_i
+end
+
+def find_it(seq)
+  seq.each {|x| seq.count(x)%2==1 ? (return(x)) : ()}
+end
+```
+`
+
+Merge array
+
+```ruby
+
+require 'set'
+
+def merge_arrays(arr1, arr2)
+  SortedSet.new(arr1).merge(arr2).to_a
+end
+
+```
 
 # Next Prime 
 
