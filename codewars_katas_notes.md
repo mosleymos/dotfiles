@@ -74,6 +74,33 @@ def find_short(s):
 
 ### Ruby
 
+5 without numbers !!
+
+```ruby
+
+def unusual_five()
+  nil.to_i.next.next.next.next.next
+end
+
+# autre
+
+def unusual_five
+  ''.ord
+end
+
+def unusual_five()
+  'five!'.length
+end  
+
+def unusual_five()
+  return ['f','u','c','k','u'].length
+end  
+
+def unusual_five()
+  'F'.hex.modulo 'A'.hex
+end  
+```
+
 Difference of squares
 
 ```ruby
