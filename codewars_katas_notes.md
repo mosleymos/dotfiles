@@ -74,6 +74,30 @@ def find_short(s):
 
 ### Ruby
 
+Sorted? yes? no? how?
+
+```ruby
+
+def is_sorted_and_how(arr)
+  return 'yes, ascending' if arr.each_cons(2).map{|e| e.first < e.last }.flatten.all?
+  return 'yes, descending' if arr.each_cons(2).map{|e| e.first > e.last }.flatten.all?
+  return "no"
+end
+
+# Autre approche
+# Better
+def is_sorted_and_how(arr)
+  arr == arr.sort ? 'yes, ascending' : arr== arr.sort.reverse ? 'yes, descending' : 'no'
+end
+
+
+def is_sorted_and_how(arr)
+	return "yes, ascending"  if arr == arr.sort
+	return "yes, descending" if arr == arr.sort.reverse
+	"no"
+end
+```
+
 5 without numbers !!
 
 ```ruby
@@ -165,6 +189,7 @@ def sum_nested(lst)
 end
 
 ```
+
 Count characters in your string
 
 
