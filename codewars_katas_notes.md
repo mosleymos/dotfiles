@@ -74,6 +74,28 @@ def find_short(s):
 
 ### Ruby
 
+is_anagram
+
+```ruby
+
+def is_anagram(test, original)
+  test.downcase.chars.sort == original.downcase.chars.sort ? true : false
+end
+
+# autres approches
+
+# meilleur
+def is_anagram(test, original)
+  test.downcase.chars.sort == original.downcase.chars.sort
+end
+
+# plusieurs !!
+def is_anagram(*texts)
+  texts.map { |t| t.downcase.chars.sort }.reduce(:==)
+end
+
+```
+
 Sorted? yes? no? how?
 
 ```ruby
