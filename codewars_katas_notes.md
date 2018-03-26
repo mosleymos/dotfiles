@@ -402,6 +402,32 @@ def backwardsPrime(start, stop)
 end
 ```
 
+Working with arrays I (and why your code fails in some katas)
+
+```javascript
+
+withoutLast = (essai) => {
+  var res = []
+  for(i=0; i<= essai.length-2; i++){
+    res.push(essai[i])
+  }
+  return res
+}
+
+
+// autres approches 
+
+// usage du slice pour faire le pop
+function withoutMax(arr) {
+  // arr.pop(); 
+  return arr.slice(0,-1);
+}
+
+function withoutMax(arr) {
+  return arr.slice(0, arr.length - 1);
+}
+```
+
 Moving zeros
 
 ```javascript
