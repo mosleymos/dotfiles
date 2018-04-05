@@ -402,6 +402,26 @@ def backwardsPrime(start, stop)
 end
 ```
 
+Sort numbers
+
+```javascript
+var solution = (nums) => ( nums === null || nums === undefined) ?  [] : nums.sort((a,b) => a - b)
+
+# Solutions autres
+function solution(nums){
+  return (nums || []).sort(function(a, b){
+    return a - b
+  });
+}
+
+function solution(nums){
+    return nums !== null ? nums.sort(function(a,b){return a-b}) : [];
+}
+
+let solution = (nums) => (nums || []).sort((a,b) => (a-b))
+
+```
+
 Working with arrays I (and why your code fails in some katas)
 
 ```javascript
