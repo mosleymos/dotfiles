@@ -74,6 +74,20 @@ def find_short(s):
 
 ### Ruby
 
+Array and procs #1
+
+```ruby
+
+def array_procs(*args)
+  to_change = args.first
+  args[1..-1].each do |some_proc|
+    to_change = to_change.map(&some_proc)
+  end
+  to_change
+end
+
+```
+
 is_anagram
 
 ```ruby
@@ -401,6 +415,25 @@ def backwardsPrime(start, stop)
   end
 end
 ```
+
+find the unique number
+
+```javascript
+
+function findUniq(arr) {
+  var uniqNumber = {}
+  var min = arr[0]
+  arr.forEach(function(num){
+    if(typeof(uniqNumber[num]) === 'undefined'){
+      uniqNumber[num] = 1
+      min = num
+    }
+  })
+  return min
+}
+
+```
+
 
 Working with arrays I (and why your code fails in some katas)
 
