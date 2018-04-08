@@ -434,6 +434,25 @@ function findUniq(arr) {
 
 ```
 
+Sort numbers
+
+```javascript
+var solution = (nums) => ( nums === null || nums === undefined) ?  [] : nums.sort((a,b) => a - b)
+
+# Solutions autres
+function solution(nums){
+  return (nums || []).sort(function(a, b){
+    return a - b
+  });
+}
+
+function solution(nums){
+    return nums !== null ? nums.sort(function(a,b){return a-b}) : [];
+}
+
+let solution = (nums) => (nums || []).sort((a,b) => (a-b))
+
+```
 
 Working with arrays I (and why your code fails in some katas)
 
@@ -459,6 +478,46 @@ function withoutMax(arr) {
 function withoutMax(arr) {
   return arr.slice(0, arr.length - 1);
 }
+```
+
+Initialize my name
+
+```javascript
+
+function initializeNames(name){
+  toTransform = name.split(/\s/)
+  arrLen = toTransform.length
+  
+  if(toTransform.length < 3){
+    return toTransform.join(' ')
+  }else{
+    return [toTransform[0], 
+            toTransform.slice(1,arrLen-1 ).map((e) => e[0]+'.').join(' '), 
+            toTransform[arrLen -1]
+            ].join(' ')
+  }
+}
+
+// Autres approches
+function initializeNames(name){
+ var n = name.split(" ");
+if(n.length < 3) return name;
+for(i = 1; i < n.length-1; i++){
+  n[i] = n[i][0] + ".";
+}
+return n.join(" ");
+}
+
+const initializeNames = name => name.replace(/ (\w)\w*(?= )/g, ' $1.')
+
+function initializeNames(name){
+  return name.split(' ').map((e,i,a) => i == 0 || i == a.length-1 ? e : e[0]+'.').join(' ');
+}
+
+function initializeNames(name) {
+  return name.replace(/(?!^)\b(\w)\w+\b(?!$)/g, '$1.');
+}
+
 ```
 
 Moving zeros
