@@ -1,5 +1,4 @@
 """ Separate concerns
-source $HOME/.vim/config/vundle.vimrc
 source $HOME/.vim/config/basic_configuration.vimrc
 source $HOME/.vim/config/search.vimrc
 source $HOME/.vim/config/normal_mappings.vimrc
