@@ -1,7 +1,7 @@
 " No plugin in vim notes to see 
 "https://raw.githubusercontent.com/mcantor/no_plugins/master/no_plugins.vim
-"
-"
+
+
 ""Basic vim configuration"
 """ Separate concerns
 
@@ -9,10 +9,16 @@
 """ Leader to Ctrl + s
 """ Leader to Space
 
+" Local config or autocommand to think
+""if filereadable($HOME . "/.vimrc.local")
+""  source ~/.vimrc.local
+""endif
+
 let mapleader=' '
 
 syntax enable
 filetype plugin on
+filetype indent on
 
 """ Local language to us
 """ setlocal spell spelllang=en_us
@@ -115,10 +121,17 @@ set incsearch
 set ignorecase
 set smartcase
 
-set shell zsh
+set shell=bash
 
 set foldmethod=indent
 set foldnestmax=3
+
+" Display extra whitespace
+set list listchars=tab:»·,trail:·,nbsp:·
+
+" Always use vertical diffs
+set diffopt+=vertical
+
 
 """ Gvim or options otehers
 
@@ -143,12 +156,11 @@ nnoremap gz :!zeal "<cword>"&<CR><CR>
 
 """Normal mapping - gestion 
 """ Normal mapping
-nnoremap <up> ddP<esc>
-nnoremap <down> ddjp<esc>
+nnoremap <up> <nop>
+nnoremap <down> <nop>
 nnoremap <space><space> vwhh
 nnoremap j gj
 nnoremap k gk
-let g:tmux_navigator_no_mappings = 1
 
 """ nnoremap <silent> {Left-mapping} :TmuxNavigateLeft<cr>
 """ nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
@@ -218,7 +230,17 @@ nnoremap D dd<cr>
 
 """Remap  in normal mode mm to A
 """ clavier francais  essai en cours
-nnoremap mm A
+""nnoremap mm Ah
+nnoremap mm A<esc>i
+
+""" sauter a la ligne 
+nnoremap o o<esc> 
+
+
+" Thanks to Steve Losh for this liberating tip
+" " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
+nnoremap / /\v
+vnoremap / /\v
 
 """ New tab
 """nnoremap tn :tabnew<cr>
@@ -226,21 +248,14 @@ nnoremap mm A
 """ Insert mappings
 inoremap jj <esc><c-r>
 inoremap JJ <esc><c-r>
-inoremap <up> ddP<nop>
-inoremap <up> ddP<nop>
-inoremap <up> ddP<nop>
-inoremap <up> ddP<nop>
+
 """No tab remap to Ctrlp tab is used now for ultisnips
 """inoremap <Tab> <C-p>
-
 
 """ no backs
 inoremap <BS> <NOP>
 
-
-
 """ Simple mappings
-
 map Q <nop>
 map <left> :echoe "Use h"<cr>
 map <right> :echoe "Use l"<cr>
@@ -264,6 +279,14 @@ nnoremap <leader><space> zc
 """ Visual mode mappings
 
 vnoremap mm <esc><cr>
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 
 """ Abbreviations
@@ -305,9 +328,11 @@ autocmd FocusLost * :wa
 """ Vim shortcut wallpaper
 
 """ Think about relative and absolute number
-:au FocusLost * :set number
-:au FocusGained * :set relativenumber
+"":au FocusLost * :set number
+"":au FocusGained * :set relativenumber
 
+autocmd FocusLost * :set number
+autocmd FocusGained * :set nonumber 
 
 set viminfo='10,\"100,:20,%,n~/.viminfo
 function! ResCur()
@@ -321,6 +346,19 @@ if line("'\"") <= line("$")
 autocmd!
 autocmd BufWinEnter * call ResCur()
 augroup END
+
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    silent! %s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfun
+
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+endif
 
 "" set omnifunc for autocompletion
 
