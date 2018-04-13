@@ -41,6 +41,8 @@ set statusline+=%L
 set laststatus=2
 
 set wildmode=full:list
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
 set wrap
 
 set mouse=a
@@ -159,10 +161,10 @@ let g:tmux_navigator_no_mappings = 1
 """ nnoremap <C-k> <C-w>k :vertical resize 85<cr>
 """ nnoremap <C-l> <C-w>l :vertical resize 85<cr>
 
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h :vertical resize 85<cr>
+nnoremap <C-j> <C-w>j :vertical resize 85<cr>
+nnoremap <C-k> <C-w>k :vertical resize 85<cr>
+nnoremap <C-l> <C-w>l :vertical resize 85<cr>
 
 nnoremap <BS> cb<esc>h 
 
@@ -214,9 +216,12 @@ nnoremap <leader>cp viw<esc>a)<esc>hbi(<esc>lel
 """ Delete
 nnoremap D dd<cr>
 
+"""Remap  in normal mode mm to A
+""" clavier francais  essai en cours
+nnoremap mm A
+
 """ New tab
 """nnoremap tn :tabnew<cr>
-
 
 """ Insert mappings
 inoremap jj <esc><c-r>
@@ -228,7 +233,14 @@ inoremap <up> ddP<nop>
 """No tab remap to Ctrlp tab is used now for ultisnips
 """inoremap <Tab> <C-p>
 
+
+""" no backs
+inoremap <BS> <NOP>
+
+
+
 """ Simple mappings
+
 map Q <nop>
 map <left> :echoe "Use h"<cr>
 map <right> :echoe "Use l"<cr>
@@ -252,7 +264,6 @@ nnoremap <leader><space> zc
 """ Visual mode mappings
 
 vnoremap mm <esc><cr>
-
 
 
 """ Abbreviations
@@ -298,6 +309,18 @@ autocmd FocusLost * :wa
 :au FocusGained * :set relativenumber
 
 
+set viminfo='10,\"100,:20,%,n~/.viminfo
+function! ResCur()
+if line("'\"") <= line("$")
+  normal! g`"
+    return 1
+    endif
+    endfunction
+
+  augroup resCur
+autocmd!
+autocmd BufWinEnter * call ResCur()
+augroup END
 
 "" set omnifunc for autocompletion
 
