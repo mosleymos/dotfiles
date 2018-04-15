@@ -6,6 +6,19 @@ alias fff=fg %3
 alias pserver=python -m SimpleHTTPServer
 alias home=cd $HOME
 
+alias la="ls -a"
+alias ls='ls --color=auto'
+alias ll='ls --color=auto -lh'
+alias lll='ls --color=auto -lh | less'
+alias sl='ls'
+alias ..='cd ..'
+alias ...='cd ../..'
+
+alias grep='grep --color=auto'
+alias -g G=' | grep '
+
+alias be='bundle exec'
+
 # To think about
 #alias G=| grep
 
@@ -17,6 +30,10 @@ export VISUAL=vim
 export MYVIMRC=/home/mori/.vimrc
 export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33'
 
+cdpath=($HOME/Documents $HOME/Images $HOME/Pictures $HOME/Documents/coding_dojo $HOME/Desktop/Brouillon)
+
+
+export HISTIGNORE="cd_*"
 
 set -o vi
 
