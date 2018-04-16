@@ -231,7 +231,7 @@ nnoremap D dd<cr>
 """Remap  in normal mode mm to A
 """ clavier francais  essai en cours
 ""nnoremap mm Ah
-nnoremap mm A<esc>i
+nnoremap mm A
 
 """ sauter a la ligne 
 nnoremap o o<esc> 
