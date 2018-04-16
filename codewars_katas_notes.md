@@ -74,6 +74,7 @@ def find_short(s):
 
 ### Ruby
 
+
 Array and procs #1
 
 ```ruby
@@ -479,6 +480,32 @@ function withoutMax(arr) {
   return arr.slice(0, arr.length - 1);
 }
 ```
+
+Square every digits
+
+```javascript
+
+const squareDigits = (num) => Number(String(num).split('').map((e) => String(Number(e) * Number(e))).join('')) ;   
+
+
+// autres solutions
+
+function squareDigits(num){
+  return Number(('' + num).split('').map(function (val) { return val * val;}).join(''));
+}
+
+function squareDigits(num){
+  return +num.toString().split('').map(i => i*i).join('');
+}
+
+function squareDigits(num){
+  return +(num+'').split('').map(a=>a*a).join('');
+}
+
+const squareDigits = (num) => Number((num + '').split("").map(c => c *c).join(""));
+
+```
+
 
 Multiply characters
 
