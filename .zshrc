@@ -1,4 +1,5 @@
-
+#!/usr/bin/env zsh
+#
 # Some aliases
 alias f=fg %1
 alias ff=fg %2
