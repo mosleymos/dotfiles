@@ -231,7 +231,7 @@ nnoremap D dd<cr>
 """Remap  in normal mode mm to A
 """ clavier francais  essai en cours
 ""nnoremap mm Ah
-nnoremap mm A<esc>i
+nnoremap mm A
 
 """ sauter a la ligne 
 nnoremap o o<esc> 
@@ -428,9 +428,6 @@ Plug 'scrooloose/nerdtree'
 call plug#end()
 """ Flat colors configuration
 
-if has('patch-7.4.1778')
-  set guicolors
-endif
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
@@ -653,10 +650,10 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 """set statusline+=%*
 """
-"""let g:syntastic_always_populate_loc_list = 1
-"""let g:syntastic_auto_loc_list = 1
-"""let g:syntastic_check_on_open = 1
-"""let g:syntastic_check_on_wq = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 
 """"""""""""""""""""""""""""""""""""""""""
