@@ -68,3 +68,9 @@ RPROMPT=$'${vcs_info_msg_0_}'
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Zsh configuration à voir - emprunt à faire
+# https://zanshin.net/2013/02/02/zsh-configuration-from-the-ground-up/
+# https://github.com/myfreeweb/zshuery
+# https://github.com/spicycode/ze-best-zsh-config
+# https://geekeries.org/2016/03/installer-et-configurer-zsh-sur-debian-8/
