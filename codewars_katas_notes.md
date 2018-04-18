@@ -416,6 +416,85 @@ def backwardsPrime(start, stop)
   end
 end
 ```
+Parse a linked list from a String
+
+```javascript
+
+const parse = (str) => {
+  if(str === 'null'){ return null }
+  var splitted = str.split('->').map(Number)
+  var noded = splitted.slice(0, splitted.length-1).map((data) => new Node(Number(data)))
+  while(noded.length > 1){
+    var nodeLast = noded.pop()
+    noded[noded.length-1].next = nodeLast
+  }
+  return noded[0]
+}
+
+// autres approches
+
+// reduceRight
+const parse = string => string.split(' -> ').slice(0, -1).reduceRight((a, b) => new Node(Number(b), a), null);
+
+// Regexp
+function parse(string) {
+  const values = string.match(/\d+/g)
+  return values && values.reduceRight((next, value) => new Node(+value, next), null)
+}
+
+function parse(string) {
+  return string==="null" ? null : new Node(parseInt(string), parse(string.slice(string.indexOf("->")+3)))
+}
+
+// stacki
+function parse (string) {
+  string = string.split(' -> ')
+  string.pop()
+  string.reverse()
+  let node = null
+  string.forEach(nextNode => { node = new Node(parseInt(nextNode), node) })
+  return node
+}
+
+// JSON ??
+function parse(string) {
+  return string
+    .split(' -> ')
+    .reverse()
+    .map(val => JSON.parse(val))
+    .reduce((list, val) => new Node(val, list));
+}
+
+// semblabe à la mienne
+function parse(string) {
+  let arr = string.split(' -> ')
+  let node = new Node(), head = node
+  while (arr.length) {
+    let curr = arr.shift()
+    node.next = curr !== 'null' ? new Node(+curr) : null
+    node = node.next
+  }
+  return head.next
+}
+
+// classique for
+
+function parse(s) {
+  var res = s.split(" -> ");
+  if ( res.length == 0 || res[0] == "null") return null;
+  
+  var list = new Node(parseInt(res[0]));
+  var head = list;
+  for ( var i = 1; i < res.length-1; ++i){
+    if ( res[i] !="null") {
+      var num = parseInt(res[i]);
+      list.next = new Node(num);
+      list = list.next;
+    }
+  }
+  return head;
+}
+```
 
 find the unique number
 
