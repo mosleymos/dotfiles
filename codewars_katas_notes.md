@@ -2763,6 +2763,306 @@ end
 
 ```
 
+Javascript creation de generateurs
+Reflextion en cours
+
+```javascript
+//'use strict';
+//
+// CodeWars kata https://www.codewars.com/kata/es5-generators-i
+//
+// to think
+
+const log = (something) => console.log(something)
+
+const mul = (a,b) => a * b
+const add = (a,b) => a+b
+
+const generator = (...sequencer) => {
+  if( sequencer.length > 1 ){
+    return {next: sequencer[0].apply(null,sequencer.slice(1)) }
+  }else{
+    return {next: sequencer[0].apply(null,this) }
+  }
+
+}
+
+dummySeq = function(){
+  return function(){
+    return  "dummy"
+  }
+}
+
+
+const createArray = (number) => {
+  var res = []
+  for(var i = 1;  i< number; i++){
+    res.push(i)
+  }
+  return res
+}
+
+const factorialSeq = () => {
+   var i = 1
+  return () => {
+    if(i == 0 || i == 1){
+      i+=1
+      return 1
+    }else{
+      var res = i
+      i+=1
+      return createArray(res).reduce(mul)
+    }
+  }
+}
+
+
+const fibonnaciSeq = () => {
+  var i = 1
+  return () => {
+
+    var fibonacci = (n) => {
+      return n < 1 ? 0
+        : n <= 2 ? 1
+        : fibonacci(n - 1) + fibonacci(n - 2);
+    }
+    var aCalculer = i
+    i+=1
+    return fibonacci(aCalculer)
+  }
+
+}
+
+
+const rangeSeq = (start, step) => {
+  this.info = i
+  var i = start
+  var inc = step
+  return () =>{
+    var res = i
+    i+= inc
+    return res
+  }
+}
+
+var partialSumSeq = (...args) => {
+  var info = args
+  var i = 1
+  var prev = null
+  return () => {
+    if(i === 1){
+      i+=1
+      return args[0]
+    }
+    if(i<= args.length){
+      var res = i
+      i+=1
+      return args.slice(0,res).reduce(add,0)
+    }else{
+      return 'End of sequence error expected'
+    }
+  }
+}
+
+const isprime = (n) => {
+  var q = Math.floor(Math.sqrt(n))
+  for(var i = 2; i <= q ; i++){
+    if(n%i === 0){
+      return false
+    }
+  }
+  return true
+}
+
+const nextprime = (n) => {
+  return n > 1 && isprime(n) ? n : nextprime(n+1)
+}
+const primeSeq = () => {
+  var i = 0
+  return () => {
+    var res = nextprime(i)
+    i = res
+    i+=1
+    return res
+  }
+}
+
+
+var assert = require('assert');
+describe('Array', function() {
+  describe('#indexOf()', function() {
+    it('should return -1 when the value is not present', function() {
+      assert.equal([1,2,3].indexOf(4), -1);
+    });
+  });
+});
+
+
+describe('Generators in js without yield function', function() {
+  describe('List of generators', function() {
+
+    it('should  dummy generator', function() {
+      var seq = generator(dummySeq)
+      assert.equal(seq.next(),'dummy');
+      assert.equal(seq.next(),'dummy');
+      assert.equal(seq.next(),'dummy');
+      assert.equal(seq.next(),'dummy');
+      assert.equal(seq.next(),'dummy');
+    });
+
+    it('should factorial generator', function() {
+      var seq = generator(factorialSeq)
+      assert.equal(seq.next(),1);
+      assert.equal(seq.next(),1);
+      assert.equal(seq.next(),2);
+      assert.equal(seq.next(),6);
+      assert.equal(seq.next(),24);
+    });
+
+    it('should fibonnaci generator', function() {
+      var seq = generator(fibonnaciSeq)
+      assert.equal(seq.next(),1);
+      assert.equal(seq.next(),1);
+      assert.equal(seq.next(),2);
+      assert.equal(seq.next(),3);
+      assert.equal(seq.next(),5);
+      assert.equal(seq.next(),8);
+      assert.equal(seq.next(),13);
+    });
+
+    it('should range generator', function() {
+      var seq = generator(rangeSeq, 5, 3)
+      assert.equal(seq.next(),5);
+      assert.equal(seq.next(),8);
+      assert.equal(seq.next(),11);
+      assert.equal(seq.next(),14);
+    });
+
+    it('should partial sum generator', function() {
+      var seq = generator(partialSumSeq, -1, 4, 2, 5)
+      assert.equal(seq.next(),-1);
+      assert.equal(seq.next(),3);
+      assert.equal(seq.next(),5);
+      assert.equal(seq.next(),10);
+      assert.equal(seq.next(),'End of sequence error expected');
+      assert.equal(seq.next(),'End of sequence error expected');
+      assert.equal(seq.next(),'End of sequence error expected');
+    });
+
+    it('should prime generator', function() {
+      var seq = generator(primeSeq)
+    assert.equal(seq.next(), 2);
+    assert.equal(seq.next(), 3);
+    assert.equal(seq.next(), 5);
+    assert.equal(seq.next(), 7);
+    assert.equal(seq.next(), 11);
+    assert.equal(seq.next(), 13);
+    assert.equal(seq.next(), 17);
+    assert.equal(seq.next(), 19);
+    });
+
+  });
+
+  describe('createArray', function() {
+    it('should create an array of consecutive sucessor', function() {
+      var res = createArray(5)
+      assert.equal(res[0], 1)
+      assert.equal(res[1], 2)
+      assert.equal(res[3], 4)
+    });
+
+  });
+});
+
+
+
+//var fn = function(start, end) {
+//
+//      var slicedArgs = Array.prototype.slice.call(arguments);
+//      console.log(slicedArgs);
+//
+//};
+
+
+
+var  seqNormale = () => {
+  var n = 0
+  return () => {
+    n+=1
+    return n
+  }
+
+}
+
+
+var seqNormale = generator(seqNormale)
+
+var seqPrimes = generator(primeSeq)
+
+var seqFibonnaci = generator(fibonnaciSeq)
+
+var seqFactorial = generator(factorialSeq)
+
+var seqRangeStep = generator(rangeSeq, 1, 3)
+
+var partialSumSeq = generator(partialSumSeq, -1, 4, 2, 5)
+
+var primeSeqGen = generator(primeSeq)
+
+log("DUMMY")
+
+log("sequence normale")
+log(seqNormale.next())
+log(seqNormale.next())
+log(seqNormale.next())
+log(seqNormale.next())
+
+log("CreateArray")
+log(createArray(5))
+log(createArray(4))
+log(createArray(6))
+
+log("Factorial")
+log(seqFactorial.next())
+log(seqFactorial.next())
+log(seqFactorial.next())
+log(seqFactorial.next())
+
+log("Fibonnaci")
+log(seqFibonnaci.next())
+log(seqFibonnaci.next())
+log(seqFibonnaci.next())
+log(seqFibonnaci.next())
+log(seqFibonnaci.next())
+log(seqFibonnaci.next())
+log(seqFibonnaci.next())
+log(seqFibonnaci.next())
+
+log("RangeStep")
+log(seqRangeStep.next())
+log(seqRangeStep.next())
+log(seqRangeStep.next())
+log(seqRangeStep.next())
+
+log("Partial sum seq")
+log(partialSumSeq.next())
+log(partialSumSeq.next())
+log(partialSumSeq.next())
+log(partialSumSeq.next())
+log(partialSumSeq.next())
+log(partialSumSeq.next())
+log(partialSumSeq.next())
+
+log("PrimeSeq")
+log(primeSeqGen.next())
+log(primeSeqGen.next())
+log(primeSeqGen.next())
+log(primeSeqGen.next())
+log(primeSeqGen.next())
+log(primeSeqGen.next())
+log(primeSeqGen.next())
+```
+
 #### Snippets a Penser
 
 ```ruby
@@ -2773,4 +3073,5 @@ class Class
         select {|ancestor| ancestor.instance_of?(Module) }
   end
 end
+
 ```
