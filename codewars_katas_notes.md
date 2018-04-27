@@ -3063,9 +3063,93 @@ log(primeSeqGen.next())
 log(primeSeqGen.next())
 ```
 
+Nombres upsides down - Reflexion en cours
+
+```
+
+// createArray :: Number -> Number -> [Number]
+createArray = (debut,end) => {
+  var arrayFinal = []
+  for(var i = debut ; i < end ;  i++){
+    arrayFinal.push(i)
+  }
+  return arrayFinal
+}
+
+// emptyString :: String
+basicSplit =''
+// not :: Any -> Boolean
+not = (expr) => !expr
+
+// reverseArray :: [Any] -> [Any]
+reverseArray = (array) => array.reverse()
+
+// joinArrayToString :: [String] -> String
+joinArrayToString = (array, regex) => array.join(regex)
+
+// splitString :: String -> Regex -> [String]
+splitString = (someString, regex) => someString.split(regex)
+
+// toS :: Any -> String
+toS = (something) => String(something)
+
+// toNum :: Any -> Number
+toNum = (something) => Number(something)
+
+// reverseString :: String -> String
+reverseString = (someString) => reverseArray(splitString(someString,basicSplit)).join('')
+
+// isPalindrome :: Number -> Boolean
+isPalindrome = (someNumber) => reverseString(toS(someNumber)) === toS(someNumber)
+
+// nombreNonReversable :: Number -> Boolean
+nombreNonReversable = (num) => num === 5 || num === 2 || num === 3 || num === 4 || num === 7
+
+// contientNombresNonReversable :: Number -> Boolean
+contientNombresNonReversable = (nombre) => splitString(toS(nombre), basicSplit).map(toNum).filter(nombreNonReversable).length === 0 ? false : true
+
+//nombreReversablesEnDessous10Reversable :: Number -> Boolean
+nombreReversablesEnDessous10Reversable = (nombre) => nombre === 0 || nombre === 1 || nombre === 8 || nombre == 11
+
+
+// retournerNombreALenvers :: Number -> String
+retournerNombreALenvers = (someNumber) => {
+  var res = undefined
+  if(someNumber === '6'){
+    return '9'
+  }
+  if(someNumber === '9'){
+    return '6'
+  }
+  return someNumber
+}
+
+// isNumberUpsideDownEventually :: Number -> Boolean
+isNumberUpsideDownEventually = (someNumber) => {
+  if(someNumber < 12){
+    return nombreReversablesEnDessous10Reversable(someNumber)
+  }else{
+    return not(contientNombresNonReversable(someNumber)) && (toNum(splitString(toS(someNumber),'').reverse().map(retournerNombreALenvers).join('')) === someNumber)
+  }
+}
+
+// Indique la taille des nombres upside down
+// solve :: Number -> Number -> [Number]
+solve = (x,y) => {
+log(x)
+log(y)
+  return createArray(x,y).filter(isNumberUpsideDownEventually).length
+}
+
+//log(solve(0,100))
+
+
+```
+
 #### Snippets a Penser
 
 ```ruby
+
 # encoding: UTF-8
 class Class
   def mixin_ancestors(include_ancestors=true)
