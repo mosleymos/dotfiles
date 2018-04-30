@@ -419,6 +419,7 @@ Plug 'ggVGc/vim-fuzzysearch'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree'
+Plug 'tomtom/tcomment_vim'
 
 """ Plugin a revoir et repenser
 """ Plug 'haya14busa/incsearch-fuzzy.vim'
@@ -663,3 +664,4 @@ let g:syntastic_check_on_wq = 0
 
 map <C-e> :NERDTreeToggle<CR>
 
+""" gcc -> Toggle comment selected text
