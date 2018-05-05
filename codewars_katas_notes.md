@@ -74,6 +74,18 @@ def find_short(s):
 
 ### Ruby
 
+```ruby
+def count_chars(s)
+  s.chars.uniq.each_with_object({}) { |c, h| h[c] = s.count(c) }
+end
+
+def count_chars(s)
+  count = Hash.new(0)
+  s.to_s.split('').map{|el| count[el] += 1}
+  count
+end
+
+```
 
 Array and procs #1
 
@@ -416,7 +428,166 @@ def backwardsPrime(start, stop)
   end
 end
 ```
+
+Javascript Router
+
+```javascript
+
+function Router(){
+  var routes = {} 
+
+  this.bind = function(url, method, fnRouter){
+    var methods = {}
+    methods[method] = fnRouter
+    if(routes[url] === undefined){
+      routes[url] = methods
+      return undefined
+    }else{
+      Object.assign(routes[url], methods)  
+      return undefined
+    }
+  }
+
+  this.runRequest= function(url,method){
+    try{
+      return routes[url][method]()
+    }catch(error){
+      return 'Error 404: Not Found'
+    }
+  }
+
+}
+
+// Autres approches
+
+class Router {
+    
+    constructor() {
+        this.routes = new Map();
+    }  
+        
+    bind(url, method, action) {
+        this.routes.set(url + ":" + method, action);
+    }
+    
+    runRequest(url, method) {
+        if (!this.routes.has(url + ":" + method)) {
+            return "Error 404: Not Found";
+        }
+        return this.routes.get(url + ":" + method)();
+    }
+    
+}
+
+
+// Autres approches Courte
+
+var Router = function(){
+  this.responseLookup = {};
+}
+
+Object.assign(Router.prototype, {
+  bind: function(path, method, done) {
+    this.responseLookup[path+method] = done()
+  },
+  
+  runRequest: function(path, method) {
+    return this.responseLookup[path+method] || 'Error 404: Not Found';
+  }
+});
+
+// autres
+
+class Router {
+  constructor() {
+    this.routes = new Map()
+  }
+  bind(path, method, callback) {
+    this.routes.set(method + path, callback)
+  }
+  runRequest(path, method) {
+    return this.routes.has(method + path)
+      ? this.routes.get(method + path)()
+      : "Error 404: Not Found"
+  }
+}
+
+// autres interressante
+
+```javascript
+
+var Router = function() {
+  this.routes = {};
+}
+
+Router.prototype.bind = function(route, method, func) {
+  if(typeof this.routes[method] === 'undefined') this.routes[method] = {};
+  this.routes[method][route] = func;
+}
+
+Router.prototype.runRequest = function(route, method) {
+  if(this.routes[method] && this.routes[method][route]) {
+    return this.routes[method][route]();
+  } else {
+    return 'Error 404: Not Found';
+  }
+}
+
+
+function isObject(x) {
+    return x != null && typeof x === 'object';
+}
+
+function isFunction(functionToCheck) {
+ var getType = {};
+ return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+}
+
+var Router = function(route, method, func)
+{
+}
+
+Router.prototype.methods = {};
+
+Router.prototype.bind = function(route, method, func) {
+  if (!isObject(this.methods[route])) {
+    this.methods[route] = {};
+  }
+  this.methods[route][method] = func;
+}
+
+Router.prototype.runRequest = function(route, method) {
+  var func = this.methods[route] && this.methods[route][method];
+  if (isFunction(func)) {
+    return func();
+  } else {
+    return 'Error 404: Not Found';
+  }
+}
+
+
+var Router = function() {
+  this.routes = [];
+}
+Router.prototype.bind = function(r, method, f) {
+  var found = false;
+  for (var route of this.routes) 
+    if (route[0] == r && route[1] == method)
+     {route[2] = f; found = true; break;}
+  if (!found) this.routes.push([r, method, f]);
+}
+Router.prototype.runRequest = function(r, method) {
+  var picked = this.routes.filter(a => a[0] == r && a[1] == method);
+  return picked.length ? picked[0][2]() : 'Error 404: Not Found';
+}
+
+
+```
+
+
 Parse a linked list from a String
+
+
 
 ```javascript
 
@@ -493,6 +664,58 @@ function parse(s) {
     }
   }
   return head;
+}
+
+```
+
+Replace with Alphabet Position
+
+```javascript
+function alphabetPosition(text) {
+  function range(start,stop) {
+  var result={};
+  var i = 1
+  for (var idx=start.charCodeAt(0),end=stop.charCodeAt(0); idx <=end; ++idx){
+    result[String.fromCharCode(idx)] = i
+    i+=1
+    //result.push(String.fromCharCode(idx));
+  }
+  return result;
+};
+
+
+var res = range('a','z');
+  return text.split('').map(function(a){ return res[a.toLowerCase()] }).filter(function(n){ return typeof(n) != 'undefined' }).join(' ');
+}
+
+// Autres solutions
+function alphabetPosition(text) {
+  var result = "";
+  for (var i = 0; i < text.length; i++){
+    var code = text.toUpperCase().charCodeAt(i)
+    if (code > 64 && code < 91) result += (code - 64) + " ";
+  }
+
+  return result.slice(0, result.length-1);
+}
+
+function alphabetPosition(text) {
+  return text
+    .toUpperCase()
+    .match(/[a-z]/gi)
+    .map( (c) => c.charCodeAt() - 64)
+    .join(' ');
+}
+
+let alphabetPosition = (text) => text.toUpperCase().replace(/[^A-Z]/g, '').split('').map(ch => ch.charCodeAt(0) - 64).join(' ');
+
+function alphabetPosition(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z]/g,'')
+    .replace(/./g, c => c + " ")
+    .replace(/[a-z]/g, c => c.charCodeAt(0) - 96)
+    .trim();    
 }
 ```
 
@@ -737,6 +960,72 @@ var moveZeros = (arr, count=[]) => {
 }
 
 
+```
+
+
+Array and procs #1
+
+```ruby
+
+def array_procs(*args)
+	to_change = args.first
+	args[1..-1].each do |some_proc|
+    to_change = to_change.map(&some_proc)
+	end
+	to_change
+end
+
+# Autres approches
+
+def array_procs(arr, *procs)
+  procs.inject(arr){ |a, p| a.map(&p) }
+end
+
+def array_procs(arr, *procs)
+  procs.each{|p| arr = arr.map(&p) }
+  arr
+end
+
+def array_procs(array, *procs)
+  result = []
+  procs.each do |proc|
+    result = array.map(&proc)
+    array  = result
+  end
+  array
+end
+
+
+def array_procs(arr, *procs)
+  arr.map { |i| procs.reduce(i) { |x, proc| proc === x } }
+end
+
+def array_procs(array, *procs)
+  array.map { |element| procs.inject(element) { |memo, proc| proc[memo] } }
+end
+
+def array_procs(arr, *procs)
+  procs.size.times{|y| arr = arr.map{|x| procs[y][x]}}
+  arr
+end
+
+class Proc
+  def +(other)
+    ->(x) { other[self[x]] }
+  end
+  
+  def self.id
+    ->(x) { x }
+  end
+end
+
+def array_procs(arr, *procs)  
+  arr.map { |e| procs.inject(Proc.id, &:+)[e] }
+end
+
+def array_procs(arr, *procs)
+  arr.collect {|x| procs.inject(x) {|a,p| p[a]}}
+end
 ```
 
 flattened_keys
@@ -1547,6 +1836,31 @@ end
 ```
 
 ### javascript
+
+Block building
+
+
+```javascript
+
+class Block {
+  constructor(data){
+    [this.w, this.l, this.h] = data;
+  }
+  getWidth(){ return this.w }
+  getLength(){ return this.l }
+  getHeight(){ return this.h }
+  getVolume(){
+    let {l, w, h} = this;
+    return w*l*h;
+  }
+  getSurfaceArea(){
+    let {l, w, h} = this;
+    return 2 * (l*w + l*h + w*h);
+  }
+}
+
+```
+
 
 Evaluate a postfix expression
 
