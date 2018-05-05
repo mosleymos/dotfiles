@@ -74,6 +74,52 @@ def find_short(s):
 
 ### Ruby
 
+```
+def solution(roman_number)
+  roman_number_hash = {
+    'I' => 1,
+    'V' => 5,
+    'X' => 10,
+    'C' => 100,
+    'M' => 1000,
+    'L' => 50,
+    'D' => 500
+  }
+  previous = ''
+  roman_number.chars.reverse.map do |letter|
+    if /X|V/.match(previous) && letter == 'I'
+      previous =''
+      -1
+    else
+      previous = letter
+      roman_number_hash[letter]
+    end
+  end.reduce(&:+)
+end
+
+# Approche simplifiée
+ROMAN = {
+  'M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100,
+  'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10,
+  'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1
+}
+
+def solution(roman)
+  re = Regexp.new(ROMAN.keys.join('|'))
+  roman.scan(re).inject(0) do |number, key|
+    number + ROMAN[key]
+  end
+end
+
+def solution(roman)
+  vals = {"M" => 1000, "D" => 500, "C" => 100, "L" => 50, "X" => 10, "V" => 5, "I" => 1}
+  roman.chars.map{|c| vals[c]}.reduce{|a, b| a < b ? b - a : a + b}
+end
+
+
+
+```
+
 ```ruby
 def count_chars(s)
   s.chars.uniq.each_with_object({}) { |c, h| h[c] = s.count(c) }
@@ -718,6 +764,263 @@ function alphabetPosition(text) {
     .trim();    
 }
 ```
+Upside Down Number
+
+```javascript
+createArray = (debut,end) => {
+  var arrayFinal = []
+  for(var i = debut ; i < end ;  i++){
+    arrayFinal.push(i)
+  }
+  return arrayFinal
+}
+
+not = (expr) => !expr
+
+reverseArray = (array) => array.reverse()
+
+join = (array, regex='') => array.join(regex)
+
+splitAStringToArray = (something, regex='') => toS(something).split(regex)
+
+toS = (something) => String(something)
+
+toNum = (something) => Number(something)
+
+reverseString = (someString) => reverseArray(join(splitAStringToArray(someString)))
+
+chiffreNonReversable = (chiffre) => chiffre === 2 || chiffre === 3 || chiffre === 4 || chiffre === 5  || chiffre === 7
+
+nombreContientChiffresNonReversables = (nombre) => splitAStringToArray(nombre).map(toNum).filter(chiffreNonReversable).length !== 0 ? true : false
+
+nombreReversablesEnDessous10Reversable = (nombre) => nombre === 0 || nombre === 1 || nombre === 8 || nombre == 11
+
+retournerNombreALenvers = (someNumber) => {
+  if(someNumber === '6'){
+    return '9'
+  }
+  if(someNumber === '9'){
+    return '6'
+  }
+  return someNumber
+}
+
+isNumberUpsideDownEventually = (someNumber) => {
+  if(someNumber < 12){
+    return nombreReversablesEnDessous10Reversable(someNumber)
+  }else{
+    var splittedString =splitAStringToArray(someNumber)
+    var reversedStringArray = splittedString.reverse()
+    var someNumberUpsideDown = toNum(join(reversedStringArray.map(retournerNombreALenvers)))
+    return not(nombreContientChiffresNonReversables(someNumber)) && (someNumberUpsideDown === someNumber)
+  }
+}
+
+solve = (x,y) =>  createArray(x,y).filter(isNumberUpsideDownEventually).length
+
+// autres approches
+// etude à faire -
+String.prototype.map = Array.prototype.map;
+function solve(x,y) {
+  const flip = s => s.map( v => "01____9_86"[v] ).reverse().join("") ;
+  return Array.from( { length: y-x }, (_,i) => String(x+i) ).filter( x => x===flip(x) ).length;
+}
+
+
+function solve(x, y) {
+  let count = 0;
+  const rotate = (_) => _.split('').reverse().join('').replace(/6/g, 7).replace(/9/g, 6).replace(/7/g, 9);
+  
+  for (let i = x; i < y; i++) {
+    if (/[23457]/.test(i)) continue;
+    const num = '' + i;
+    const center = num[Math.floor(num.length / 2)];
+    if ((num.length % 2) && (center === '6' || center === '9')) continue;
+    if (num === rotate(num)) count++;
+  }
+
+  return count;
+};
+
+
+const solve = (x, y) => [...Array(y - x).keys()]
+  .filter(n => ((n + x) + '')
+    .split('')
+    .reverse()
+    .map(n => [0,1,,,,,9,,8,6][n]) 
+    .join('') == n + x)
+  .length;
+
+function solve(x, y) {
+ var reversible = ['0', '1', '6', '8', '9'];
+ var reversibleto = ['0', '1', '9', '8', '6'];
+ var revasis = ['0', '1', '8'];
+ var revcount = 0;
+ for (var i = x; i < y; i++) {
+   var arr = i.toString().split('');
+   var len = arr.length;
+   var isrev = reversible.includes(arr[0]);
+   for (var j = 0; j < parseInt(len/2) && isrev; j++) {
+     if (reversible.indexOf(arr[j]) != reversibleto.indexOf(arr[len-j-1]) || 
+         reversible.indexOf(arr[j]) == -1 ||
+         reversibleto.indexOf(arr[len-j-1]) == -1
+         ) {
+       isrev = false;
+     }
+   }
+   if (len%2==1 && revasis.includes(arr[parseInt(len/2)]) == false) {isrev=false};
+   if (isrev) {revcount++};
+ }
+ return revcount;
+};
+
+
+
+const reverseNums = {
+    '0': '0',
+    '1': '1',
+    '6': '9',
+    '8': '8',
+    '9': '6'
+};
+
+// autre approche plus lisible
+function solve(x, y) {
+    let total = 0;
+    for (let i = x; i < y; i++) {
+        const regular = i.toString();
+
+        let begin = 0, end = regular.length - 1;
+        for (; begin <= end; begin++, end--) {
+            if(regular[begin] !== reverseNums[regular[end]]){
+                break;
+            }
+        }
+        total += (begin > end ? 1: 0);
+    }
+    return total;
+}
+
+
+// element
+
+
+function solve(x, y) {
+  let res = 0;
+  for (let i=x; i<y; i++){
+    if (i.toString().search(/[23457]/g)===-1){
+      let rev = i.toString().split('').reverse();
+      rev = rev.map((item)=>{
+        if (item === '6') return '9';
+        if (item === '9') return '6';
+        return item;
+      })
+      if (rev.join('') === i.toString()) {
+        res++;
+      }
+    }
+  }
+  return res;
+};
+
+
+// lisible meilleur
+
+const includedNums = ['0', '1', '6', '8', '9'];
+const getSixorNine = num => num == '6' ? '9' : '6';
+
+const filterNum = num => (
+  num.toString().split('')
+    .map(n => {
+        const realNum = (n == '6' || n == '9') 
+          ? getSixorNine(n) : n;
+        return includedNums.includes(realNum) ? realNum : null;
+      }).reverse().join('')
+)
+
+const solve = (x, y) => {
+  let acc = 0;
+  for (let i = x; i < y; i++) {
+    const upDownNum = filterNum(i)
+    acc += upDownNum == i ? 1 : 0;
+  }
+  return acc;
+}
+
+```
+
+Fun with lists: map
+
+```javascript
+
+// Sol prop
+
+parcoursLinkedList = (node, fn , futureArrayOfNodes  ) =>{
+  if(node.next === null){
+    futureArrayOfNodes.push(new Node(fn.call(null,node.data)))
+    return futureArrayOfNodes
+  }else{
+    futureArrayOfNodes.push(new Node(fn.call(null,node.data)))
+    return parcoursLinkedList(node.next, fn, futureArrayOfNodes)
+  }
+}
+
+map = (head, f) =>  {
+  if(head === null){ return null }
+  var newArrayOfNodes = []
+
+  parcoursLinkedList(head,f, newArrayOfNodes)
+
+  return  newArrayOfNodes.reduceRight((a,b) =>{
+    b.next = a
+    return b
+  })
+}
+
+// One-liner good 
+
+function map(head, f) {
+  return !head ? null : new Node(f(head.data), map(head.next, f));
+}
+
+
+function map(head, f) {
+  return head ? new Node( f(head.data), map(head.next, f) ) : null
+}
+
+function map(head, f) {
+  if (!head)
+    return null;
+  let newList = new Node(f(head.data));
+  let ptr = newList;
+  head = head.next;
+  while (head){
+    ptr.next = new Node(f(head.data));
+    ptr = ptr.next;
+    head = head.next;
+  }
+  return newList;
+}
+
+function map(head, f) {
+  let newHead = new Node(-1), dummy = newHead
+  while(head) {
+  newHead.next = new Node(f(head.data))
+  newHead = newHead.next
+  head = head.next
+  
+  }
+  return dummy.next
+}
+
+function map(head, f) {
+  if (!head) return null
+  if (head.next!=null) return new Node(f(head.data),map(head.next,f))
+  else return new Node(f(head.data))
+}
+
+```
+
 
 find the unique number
 
@@ -735,7 +1038,76 @@ function findUniq(arr) {
   return min
 }
 
+// Approche ok  
+
+function findUniq(arr){
+  var hashRetenu = {} 
+
+  arr.forEach(function(element){
+    if(element in hashRetenu){
+      hashRetenu[element] += 1
+    }else{
+      hashRetenu[element] = 1
+    }
+  })
+
+
+  var min = 0 
+  for(e in hashRetenu){
+    if(hashRetenu[e] === 1){
+      min = Number(e)
+    }
+  }
+
+  return min
+}
+
+
+// Autres approches
+function findUniq(arr) {
+  arr.sort((a,b)=>a-b);
+  return arr[0]==arr[1]?arr.pop():arr[0]
+}
+
+function findUniq(arr) {
+  let [a,b,c] = arr.slice(0,3);
+  if( a != b && a!=c ) return a;
+  for( let x of arr ) if( x!=a ) return x
+}
+
+function findUniq(arr) {
+  return arr.find(n => arr.indexOf(n) === arr.lastIndexOf(n));
+}
+
+
+function findUniq(arr) {
+  let uniq = {},
+      result;
+  arr.forEach(function(item) {
+    uniq[item] = uniq[item] + 1 || 1;
+  });
+  Object.keys(uniq).forEach(function(key) {
+    if (uniq[key] == 1) {
+      result = key;
+    }
+  });
+  return parseFloat(result);
+}
+
+const findUniq = arr => arr.filter(a => a !== arr[+(arr[1] === arr[2])])[0]
+
+function findUniq(arr){
+  arr = arr.sort()
+  return arr[0] == arr[1] ? arr[arr.length - 1] : arr[0]
+}
+
+function findUniq(arr) {
+	arr=arr.sort((a,b)=>a-b)
+	return arr[0]==arr[1]? arr[arr.length-1]: arr[0]
+}
+
 ```
+
 
 Sort numbers
 
