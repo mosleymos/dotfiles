@@ -74,7 +74,8 @@ def find_short(s):
 
 ### Ruby
 
-```
+```ruby
+
 def solution(roman_number)
   roman_number_hash = {
     'I' => 1,
@@ -403,6 +404,7 @@ def next_prime(n)
 end
 
 ```
+
 Backward Primes
 
 ```ruby
@@ -473,6 +475,7 @@ def backwardsPrime(start, stop)
     end
   end
 end
+
 ```
 
 Javascript Router
@@ -560,8 +563,6 @@ class Router {
 
 // autres interressante
 
-```javascript
-
 var Router = function() {
   this.routes = {};
 }
@@ -626,7 +627,6 @@ Router.prototype.runRequest = function(r, method) {
   var picked = this.routes.filter(a => a[0] == r && a[1] == method);
   return picked.length ? picked[0][2]() : 'Error 404: Not Found';
 }
-
 
 ```
 
@@ -2447,16 +2447,20 @@ function sum(nombres) {
 
 esreveR
 
-```
+```javascript
+
 var reverse = function(array){
   var reversedArray = []
   var i = array.length -1
   for(i; i >= 0 ; i--){ reversedArray.push(array[i]) }
   return reversedArray
 }
+
 ```
 
-```Keep up the hoop
+Keep up the hoop
+
+```javascript
 
 function hoopCount (n) {
   return n < 10 ? "Keep at it until you get it" : "Great, now move on to tricks"
@@ -2905,7 +2909,7 @@ Sum of many ints
 
 https://www.codewars.com/kata/sum-of-many-ints/train/ruby
 
-```
+```ruby
 
 def f(n,m)
   (0..n).reduce{|sum, num| sum+(num % m)}
@@ -2997,6 +3001,7 @@ Split by hash keys
 
 Kebabize
 
+
 ```ruby
 
 def kebabize(str)
@@ -3011,6 +3016,8 @@ end
 def kebabize(str)
   str.delete('^A-Za-z').split(/(?=[A-Z])/).join('-').downcase
 end
+
+```
 
 ```ruby
 
@@ -3129,6 +3136,7 @@ end
 ```
 
 Roman numeral decoder
+
 
 ```ruby
 
@@ -3293,12 +3301,11 @@ function add(n){
 
 
 ```
-
 Flatten
 
 https://www.codewars.com/kata/flatten/train/javascript
 
-```
+```javascript
 
 // create your flatten method here
 function flatten(arr) {
