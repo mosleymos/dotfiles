@@ -475,6 +475,39 @@ def backwardsPrime(start, stop)
 end
 ```
 
+Sum of numerous arguments
+
+```javascript
+
+var findSum = (...args) => {
+  if(args.length === 0) return 0
+  if(args.filter(e => e >= 0 ).length === args.length){
+    return args.filter(e => e >= 0 ).reduce((a,b) => a+b)
+  }else{
+    return -1
+  }
+}
+
+// One liners
+function findSum(...nums) {
+  return nums.reduce((a, b) => a < 0 || b < 0 ? - 1 : a + b, 0)
+}
+
+function findSum(...x){
+  return x.every(a=> a >= 0)? x.reduce((a,b)=>a+b,0) : -1;
+}
+
+// Interressante sur la conversion de arguments
+function findSum(){
+  let args = [...arguments];
+  return args.length > 0 ? args.reduce((a,b) => a >= 0 && b >= 0 ? a + b : -1) : 0;
+}
+
+const findSum = (...args) => args.every(arg => arg >= 0) ? args.reduce((total, int) => total + int, 0) : -1;
+
+const findSum = (...args) => args.reduce((a,s)=> (a<0||s<0) ? -1: a+s, 0);
+
+```
 Javascript Router
 
 ```javascript
