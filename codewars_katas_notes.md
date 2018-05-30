@@ -74,7 +74,8 @@ def find_short(s):
 
 ### Ruby
 
-```
+```ruby
+
 def solution(roman_number)
   roman_number_hash = {
     'I' => 1,
@@ -209,22 +210,22 @@ end
 
 def unusual_five()
   'five!'.length
-end  
+end
 
 def unusual_five()
   return ['f','u','c','k','u'].length
-end  
+end
 
 def unusual_five()
   'F'.hex.modulo 'A'.hex
-end  
+end
 ```
 
 Difference of squares
 
 ```ruby
 def difference_of_squares(n)
-  (((1..n).reduce(&:+))**2) - ((1..n).map{|x| x**2}.reduce(&:+)) 
+  (((1..n).reduce(&:+))**2) - ((1..n).map{|x| x**2}.reduce(&:+))
 end
 
 # other approach
@@ -366,7 +367,7 @@ end
 
 ```
 
-# Next Prime 
+# Next Prime
 
 ```ruby
 require 'prime'
@@ -403,6 +404,7 @@ def next_prime(n)
 end
 
 ```
+
 Backward Primes
 
 ```ruby
@@ -452,7 +454,7 @@ def backwardsPrime(start, stop)
   (start..stop).select{|number| number.prime? && number.to_s.reverse.to_i.prime?     && number.to_s != number.to_s.reverse }
 end
 
-# ou 
+# ou
 
 def backwardsPrime(start, stop)
   (start..stop).select { |n| n.prime? && n.to_s.reverse.to_i.prime? && n != n.to_s.reverse.to_i }
@@ -473,6 +475,7 @@ def backwardsPrime(start, stop)
     end
   end
 end
+
 ```
 
 Sum of numerous arguments
@@ -513,7 +516,7 @@ Javascript Router
 ```javascript
 
 function Router(){
-  var routes = {} 
+  var routes = {}
 
   this.bind = function(url, method, fnRouter){
     var methods = {}
@@ -522,7 +525,7 @@ function Router(){
       routes[url] = methods
       return undefined
     }else{
-      Object.assign(routes[url], methods)  
+      Object.assign(routes[url], methods)
       return undefined
     }
   }
@@ -540,22 +543,22 @@ function Router(){
 // Autres approches
 
 class Router {
-    
+
     constructor() {
         this.routes = new Map();
-    }  
-        
+    }
+
     bind(url, method, action) {
         this.routes.set(url + ":" + method, action);
     }
-    
+
     runRequest(url, method) {
         if (!this.routes.has(url + ":" + method)) {
             return "Error 404: Not Found";
         }
         return this.routes.get(url + ":" + method)();
     }
-    
+
 }
 
 
@@ -569,7 +572,7 @@ Object.assign(Router.prototype, {
   bind: function(path, method, done) {
     this.responseLookup[path+method] = done()
   },
-  
+
   runRequest: function(path, method) {
     return this.responseLookup[path+method] || 'Error 404: Not Found';
   }
@@ -592,8 +595,6 @@ class Router {
 }
 
 // autres interressante
-
-```javascript
 
 var Router = function() {
   this.routes = {};
@@ -650,7 +651,7 @@ var Router = function() {
 }
 Router.prototype.bind = function(r, method, f) {
   var found = false;
-  for (var route of this.routes) 
+  for (var route of this.routes)
     if (route[0] == r && route[1] == method)
      {route[2] = f; found = true; break;}
   if (!found) this.routes.push([r, method, f]);
@@ -659,7 +660,6 @@ Router.prototype.runRequest = function(r, method) {
   var picked = this.routes.filter(a => a[0] == r && a[1] == method);
   return picked.length ? picked[0][2]() : 'Error 404: Not Found';
 }
-
 
 ```
 
@@ -732,7 +732,7 @@ function parse(string) {
 function parse(s) {
   var res = s.split(" -> ");
   if ( res.length == 0 || res[0] == "null") return null;
-  
+
   var list = new Node(parseInt(res[0]));
   var head = list;
   for ( var i = 1; i < res.length-1; ++i){
@@ -794,7 +794,7 @@ function alphabetPosition(text) {
     .replace(/[^a-z]/g,'')
     .replace(/./g, c => c + " ")
     .replace(/[a-z]/g, c => c.charCodeAt(0) - 96)
-    .trim();    
+    .trim();
 }
 ```
 Upside Down Number
@@ -863,7 +863,7 @@ function solve(x,y) {
 function solve(x, y) {
   let count = 0;
   const rotate = (_) => _.split('').reverse().join('').replace(/6/g, 7).replace(/9/g, 6).replace(/7/g, 9);
-  
+
   for (let i = x; i < y; i++) {
     if (/[23457]/.test(i)) continue;
     const num = '' + i;
@@ -880,7 +880,7 @@ const solve = (x, y) => [...Array(y - x).keys()]
   .filter(n => ((n + x) + '')
     .split('')
     .reverse()
-    .map(n => [0,1,,,,,9,,8,6][n]) 
+    .map(n => [0,1,,,,,9,,8,6][n])
     .join('') == n + x)
   .length;
 
@@ -894,7 +894,7 @@ function solve(x, y) {
    var len = arr.length;
    var isrev = reversible.includes(arr[0]);
    for (var j = 0; j < parseInt(len/2) && isrev; j++) {
-     if (reversible.indexOf(arr[j]) != reversibleto.indexOf(arr[len-j-1]) || 
+     if (reversible.indexOf(arr[j]) != reversibleto.indexOf(arr[len-j-1]) ||
          reversible.indexOf(arr[j]) == -1 ||
          reversibleto.indexOf(arr[len-j-1]) == -1
          ) {
@@ -965,7 +965,7 @@ const getSixorNine = num => num == '6' ? '9' : '6';
 const filterNum = num => (
   num.toString().split('')
     .map(n => {
-        const realNum = (n == '6' || n == '9') 
+        const realNum = (n == '6' || n == '9')
           ? getSixorNine(n) : n;
         return includedNums.includes(realNum) ? realNum : null;
       }).reverse().join('')
@@ -1010,7 +1010,7 @@ map = (head, f) =>  {
   })
 }
 
-// One-liner good 
+// One-liner good
 
 function map(head, f) {
   return !head ? null : new Node(f(head.data), map(head.next, f));
@@ -1041,7 +1041,7 @@ function map(head, f) {
   newHead.next = new Node(f(head.data))
   newHead = newHead.next
   head = head.next
-  
+
   }
   return dummy.next
 }
@@ -1071,10 +1071,10 @@ function findUniq(arr) {
   return min
 }
 
-// Approche ok  
+// Approche ok
 
 function findUniq(arr){
-  var hashRetenu = {} 
+  var hashRetenu = {}
 
   arr.forEach(function(element){
     if(element in hashRetenu){
@@ -1085,7 +1085,7 @@ function findUniq(arr){
   })
 
 
-  var min = 0 
+  var min = 0
   for(e in hashRetenu){
     if(hashRetenu[e] === 1){
       min = Number(e)
@@ -1175,11 +1175,11 @@ withoutLast = (essai) => {
 }
 
 
-// autres approches 
+// autres approches
 
 // usage du slice pour faire le pop
 function withoutMax(arr) {
-  // arr.pop(); 
+  // arr.pop();
   return arr.slice(0,-1);
 }
 
@@ -1192,7 +1192,7 @@ Square every digits
 
 ```javascript
 
-const squareDigits = (num) => Number(String(num).split('').map((e) => String(Number(e) * Number(e))).join('')) ;   
+const squareDigits = (num) => Number(String(num).split('').map((e) => String(Number(e) * Number(e))).join('')) ;
 
 
 // autres solutions
@@ -1302,12 +1302,12 @@ Initialize my name
 function initializeNames(name){
   toTransform = name.split(/\s/)
   arrLen = toTransform.length
-  
+
   if(toTransform.length < 3){
     return toTransform.join(' ')
   }else{
-    return [toTransform[0], 
-            toTransform.slice(1,arrLen-1 ).map((e) => e[0]+'.').join(' '), 
+    return [toTransform[0],
+            toTransform.slice(1,arrLen-1 ).map((e) => e[0]+'.').join(' '),
             toTransform[arrLen -1]
             ].join(' ')
   }
@@ -1360,7 +1360,7 @@ var moveZeros = function (arr) {
 var moveZeros = (arr, count=[]) => {
 	return arr.filter(e =>{
       if(e===0){ count.push(0) }
-      return e !== 0 
+      return e !== 0
   }).concat(count)
 }
 
@@ -1418,13 +1418,13 @@ class Proc
   def +(other)
     ->(x) { other[self[x]] }
   end
-  
+
   def self.id
     ->(x) { x }
   end
 end
 
-def array_procs(arr, *procs)  
+def array_procs(arr, *procs)
   arr.map { |e| procs.inject(Proc.id, &:+)[e] }
 end
 
@@ -1445,7 +1445,7 @@ class Hash
     def flat hash
       h = {}
       hash.each do |k,v|
-        if v.is_a? Hash 
+        if v.is_a? Hash
           keys_to_remove = hash[k].keys
           keys_to_remove.each do |cle|
             if (cle.is_a?(String) || k.is_a?(String))
@@ -1459,7 +1459,7 @@ class Hash
           h[k] = v
         end
       end
-      return h 
+      return h
     end
 
     simple_hash = self
@@ -1489,9 +1489,9 @@ end
 
 def remember(str)
   seen = Hash.new(0)
-  str.chars.select do |c| 
+  str.chars.select do |c|
     seen[c] += 1
-    seen[c] == 2 
+    seen[c] == 2
   end
 end
 
@@ -1532,7 +1532,7 @@ def count(array)
       uniq_hash[e] = 1
     else
       uniq_hash[e]+=1
-    end 
+    end
   end
   uniq_hash
 end
@@ -1612,7 +1612,7 @@ backspace in string
 def clean_string(string)
   res = []
   string.chars.each{|a|
-    a == '#' ?  res.pop : res << a 
+    a == '#' ?  res.pop : res << a
   }
  res.join('')
 end
@@ -1649,9 +1649,9 @@ numerical palindrome
 
 
 def palindrome(num)
-  return "Not valid" unless num.is_a? Integer 
-  return "Not valid" if num.zero? 
-  return "Not valid" if num < 0 
+  return "Not valid" unless num.is_a? Integer
+  return "Not valid" if num.zero?
+  return "Not valid" if num < 0
   num.to_s === num.to_s.reverse
 end
 
@@ -1684,7 +1684,7 @@ def persistence number
   return 0 if number.to_s.split('').size == 1
   count = 0
 
-  begin 
+  begin
     number = number.to_s.split('').map(&:to_i).reduce(:*)
     count += 1
   end while number.to_s.split('').size > 1
@@ -1800,23 +1800,23 @@ class Array
   def square
     self.map do |e| e**2 end
   end
-  
+
   def cube
      self.map do |e| e**3 end
   end
-  
+
   def sum
     self.inject(&:+)
   end
-  
+
   def average
     self.sum/self.length
   end
-  
+
   def even
     self.select do |e| e.even? end
   end
-  
+
   def odd
     self.select do |e| e.odd? end
   end
@@ -1920,7 +1920,7 @@ Beginner Reduce but grow
 
 ```ruby
 
-def grow(x) 
+def grow(x)
   x.reduce(&:*)
 end
 
@@ -1931,7 +1931,7 @@ Opposite number
 ```ruby
 
 def opposite(num)
-  num > 0 ?  -(num) : (num).abs 
+  num > 0 ?  -(num) : (num).abs
 end
 
 ```
@@ -2061,7 +2061,7 @@ simple validation of username with regex
 ```ruby
 
 def validate_usr(username)
-   return true if (username =~ /^[a-z0-9_]{4,16}$/) == 0 
+   return true if (username =~ /^[a-z0-9_]{4,16}$/) == 0
    return false
 end
 
@@ -2194,8 +2194,8 @@ class Object
   end
 end
 
-class String < Object 
-  def my_new_method 
+class String < Object
+  def my_new_method
     upcase
   end
 end
@@ -2232,7 +2232,7 @@ leet classes (approach)
 ```ruby
 def leet_classes
   (1..1337).to_a.map do |i|
-    Object.const_set("FooBar_#{i}", Class.new { 
+    Object.const_set("FooBar_#{i}", Class.new {
       define_singleton_method("class_method_#{i}") { "class_method_value_#{i}" }
       define_method("instance_method_#{i}") { "instance_method_value_#{i}" }
     })
@@ -2272,7 +2272,7 @@ Evaluate a postfix expression
 
 ```javascript
 // Semble good mais trop long
-// Cas à revoir sur la division qui 
+// Cas à revoir sur la division qui
 // a besoin d'un arrondi
 var postfixEvaluator = (string) => {
   console.log(string)
@@ -2326,8 +2326,8 @@ var isSquare = function(arr){
       return Math.sqrt(e)* Math.sqrt(e) === e;
     }).reduce(function(a,b){ return a+b;});
     return arr.length === see ;
-  }catch(error){ 
-    return undefined; 
+  }catch(error){
+    return undefined;
   }
 }
 
@@ -2369,7 +2369,7 @@ function createFunctions(n) {
       return z++;
     });
   }
-  
+
   return callbacks;
 }
 
@@ -2480,16 +2480,20 @@ function sum(nombres) {
 
 esreveR
 
-```
+```javascript
+
 var reverse = function(array){
   var reversedArray = []
   var i = array.length -1
   for(i; i >= 0 ; i--){ reversedArray.push(array[i]) }
   return reversedArray
 }
+
 ```
 
-```Keep up the hoop
+Keep up the hoop
+
+```javascript
 
 function hoopCount (n) {
   return n < 10 ? "Keep at it until you get it" : "Great, now move on to tricks"
@@ -2532,11 +2536,11 @@ var decrypt = (str) => {
   return Array.from(str).map((e) => encrypt.get(e)).join('')
 }
 
-var rot13 = (phrase) =>  phrase.split(' ').map((word) => decrypt(word)).join(' ') 
+var rot13 = (phrase) =>  phrase.split(' ').map((word) => decrypt(word)).join(' ')
 
 ```
 
-Open or Senior 
+Open or Senior
 
 ```javascript
 // Solutions
@@ -2565,11 +2569,11 @@ function calculator(a,b,sign){
     case "-":
         return a-b
         break;
-  
+
     case "*":
         return a*b
         break;
-  
+
     case "/":
         return a/b;
         break
@@ -2577,7 +2581,7 @@ function calculator(a,b,sign){
          return "unknown value";
          break;
   }
-  
+
 }
 
 ```
@@ -2620,28 +2624,28 @@ Array helpers
 
 ```javascript
 
-Array.prototype.square = function(){ 
-  return this.map(function(nbr){ 
+Array.prototype.square = function(){
+  return this.map(function(nbr){
      return nbr * nbr ;
   })
 }
 
-Array.prototype.cube = function(){ 
-  return this.map(function(nbr){ 
+Array.prototype.cube = function(){
+  return this.map(function(nbr){
      return nbr * nbr *nbr ;
   })
 }
 
-Array.prototype.sum = function(){ 
+Array.prototype.sum = function(){
   if(this.length === 0)
     return 0
-  return this.reduce(function(a,b){ 
+  return this.reduce(function(a,b){
      return a+b ;
   })
 }
 
 Array.prototype.average = function(){
-  return this.sum() / this.length 
+  return this.sum() / this.length
 }
 
 Array.prototype.even = function(){
@@ -2714,7 +2718,7 @@ SQL Basics: Simple WHERE and ORDER BY
 
 ```SQL
 
-SELECT * FROM people WHERE (people.age > 50) ORDER BY age DESC; 
+SELECT * FROM people WHERE (people.age > 50) ORDER BY age DESC;
 
 ```
 
@@ -2759,9 +2763,9 @@ Collect Tuition (SQL for Beginners)
 
 ```SQL
 
-SELECT * FROM students WHERE tuition_received=false; 
+SELECT * FROM students WHERE tuition_received=false;
 
-SELECT * FROM students WHERE NOT tuition_received; 
+SELECT * FROM students WHERE NOT tuition_received;
 
 ```
 
@@ -2789,7 +2793,7 @@ FROM
 select ||/number1 as cuberoot, ln(number2) as logarithm from decimals
 
 
-``` 
+```
 
 On the Canadian Border (SQL for Beginners #2)
 
@@ -2841,7 +2845,7 @@ def calc(chaine)
   chaine.split(' ').each do |elem|
     if !elem.match(/\+|\-|\*|\//)
 
-      stack << Float(elem) 
+      stack << Float(elem)
 
     elsif elem.match(/\+/)
       result = stack.reduce(&:+)
@@ -2880,7 +2884,7 @@ def calc(chaine)
   return eval expression.last if not expression.last =~ /\*|\/|\+|\-/
   res = 0
   stack = []
-  expression.each do |op| 
+  expression.each do |op|
     case op
       when '+', '-', '/', '*'
         res = eval(stack.join(op))
@@ -2888,12 +2892,12 @@ def calc(chaine)
         stack << res.to_s
       else
         stack << op
-    end  
+    end
   end
 
   eval stack.first
 end
-``` 
+```
 to think about [Reverse polish notation thread](https://gist.github.com/malandrina/3744867)
 
 Hamming Numbers
@@ -2938,7 +2942,7 @@ Sum of many ints
 
 https://www.codewars.com/kata/sum-of-many-ints/train/ruby
 
-```
+```ruby
 
 def f(n,m)
   (0..n).reduce{|sum, num| sum+(num % m)}
@@ -2953,7 +2957,7 @@ To think about
 def leet_classes
  (0..1336).to_a.map do |n|
     class_name = 'Klass_' +n.to_s
-    instance_method_return_value = 'i' + n.to_s 
+    instance_method_return_value = 'i' + n.to_s
     class_method_return_value = 'c' + n.to_s
     unique_instance_method_definition = %Q(def unique_instance_method ; "#{instance_method_return_value}" end)
     ele = Object.const_set(class_name, Class.new(Object))
@@ -2963,11 +2967,11 @@ def leet_classes
   end
 end
 
-# other approcah 
+# other approcah
 def leet_classes
  (0..1336).to_a.map do |n|
     class_name = 'Klass_' +n.to_s
-    instance_method_return_value = 'i' + n.to_s 
+    instance_method_return_value = 'i' + n.to_s
     class_method_return_value = 'c' + n.to_s
     unique_instance_method_definition = %Q(def unique_instance_method ; "#{instance_method_return_value}" end)
     ele = Object.const_set(class_name, Class.new(Object))
@@ -2995,7 +2999,7 @@ Add _ - accessors to Hash
 
 class Hash
   def method_missing(name, argfunc = nil)
-    if name.to_s.include?('=') 
+    if name.to_s.include?('=')
       key_in_form_of_method= name.to_s[0..-2].gsub(/^_/, '').to_sym
       self[key_in_form_of_method] = argfunc
       return self[key_in_form_of_method]
@@ -3005,7 +3009,7 @@ class Hash
     key_in_form_of_string= name.to_s.gsub(/^_/, '')
     if keys.include?(key_in_form_of_symbol) == false && keys.include?(key_in_form_of_string) == false
       self[key_in_form_of_symbol] = nil
-      return self[key_in_form_of_symbol] 
+      return self[key_in_form_of_symbol]
     end
 
     if argfunc.nil?
@@ -3030,6 +3034,7 @@ Split by hash keys
 
 Kebabize
 
+
 ```ruby
 
 def kebabize(str)
@@ -3045,6 +3050,8 @@ def kebabize(str)
   str.delete('^A-Za-z').split(/(?=[A-Z])/).join('-').downcase
 end
 
+```
+
 ```ruby
 
 # Snail thinking
@@ -3053,7 +3060,7 @@ def snail(arr)
   arr.each{|e| puts e }
   res = []
 
-  until arr.size === 1 
+  until arr.size === 1
     premiere_ligne = arr.first
     arr.shift
     derniere_ligne = arr.last.reverse
@@ -3073,7 +3080,7 @@ end
 def snail(arr)
   turn = arr.size.even?
   res = []
-  if turn 
+  if turn
     until arr.size == 2
       res <<  arr.first
       arr.shift
@@ -3110,7 +3117,7 @@ def snail(arr)
   turn = arr.size.even?
   res = []
   def snail_turn(res,arr,size)
-    return nil if arr.size == size 
+    return nil if arr.size == size
     res << arr.first
     arr.shift
     res << arr.map(&:last)
@@ -3120,7 +3127,7 @@ def snail(arr)
     arr.each(&:shift)
     snail_turn(res,arr,size)
   end
-  if turn 
+  if turn
     snail_turn(res,arr,2)
     res << arr.shift
     res << arr.pop.reverse
@@ -3140,7 +3147,7 @@ def snail(arr)
   turn = arr.size.even?
   res = []
   def snail_turn(res,arr,size)
-    return nil if arr.size == size 
+    return nil if arr.size == size
     res << arr.shift
     res << arr.map(&:pop)
     res << arr.pop.reverse
@@ -3148,7 +3155,7 @@ def snail(arr)
     arr.each(&:shift)
     snail_turn(res,arr,size)
   end
-  if turn 
+  if turn
     snail_turn(res,arr,2)
     res << arr.shift
     res << arr.pop.reverse
@@ -3161,7 +3168,8 @@ end
 
 ```
 
-Roman numeral decoder 
+Roman numeral decoder
+
 
 ```ruby
 
@@ -3202,7 +3210,7 @@ Fluent Calculator
 $keeper=[]
 
 class Fixnum
-  def three 
+  def three
     $keeper << '3'
     if $keeper.size == 2
       return self
@@ -3248,7 +3256,7 @@ class Calc
     1
   end
 
-  def three 
+  def three
     $keeper << '3'
     3
   end
@@ -3266,7 +3274,7 @@ https://www.codewars.com/kata/javascript-namespacing/train/javascript
 
 var MyNamespace = {
   MyClass:function(message){
-    this.message = message ; 
+    this.message = message ;
     this.sayHello = function(){ return this.message ; };
   }
 };
@@ -3279,7 +3287,7 @@ IP Validation
 
 function isValidIP(str){
   console.log(str)
-  return (/^(\d{1,3}|\d+)(.|,)(\d{1,3}|\d+)(.|,)(\d{0,3}|\d+)(.|,)(\d+|\d{2})(.|,)(\d+|\d+)$/).test(str) 
+  return (/^(\d{1,3}|\d+)(.|,)(\d{1,3}|\d+)(.|,)(\d{0,3}|\d+)(.|,)(\d+|\d{2})(.|,)(\d+|\d+)$/).test(str)
 }
 
 ```
@@ -3294,7 +3302,7 @@ function stringify(list) {
   console.log(list)
   if(list === null){return "null"}
   var datalist = []
-  var i = list 
+  var i = list
   for(;;){
     datalist.push(i.data)
     i = i.next
@@ -3326,12 +3334,11 @@ function add(n){
 
 
 ```
-
 Flatten
 
 https://www.codewars.com/kata/flatten/train/javascript
 
-```
+```javascript
 
 // create your flatten method here
 function flatten(arr) {
@@ -3339,7 +3346,7 @@ function flatten(arr) {
     for (var i = 0 ; i < 0 ; i++){
         if (i.length > 0){ result.push(flatten(i)); }
     }
-    return result ; 
+    return result ;
   }
 
 ```
@@ -3436,24 +3443,24 @@ def calcul(nb, squares)
   carres_ok = squares.select{|e| e < nb}
   res = false
   while carres_ok.size > 0
-    carres_ok.reverse.reduce do |a,b| 
-      calc = a+b  
+    carres_ok.reverse.reduce do |a,b|
+      calc = a+b
       if calc == nb
         res = true
         break
       else
         calc
       end
-    end 
+    end
 
     break if res == true
     carres_ok.pop
   end
-  return res 
+  return res
 end
 
 def values(nombre_max)
-  racines = (1..nombre_max).map{|e| e*e}.select{|a| a < nombre_max } 
+  racines = (1..nombre_max).map{|e| e*e}.select{|a| a < nombre_max }
   (0..nombre_max).select(&:palindrome?).select{|n| calcul(n, racines)}.size
 end
 
@@ -3464,20 +3471,20 @@ def values(nbr)
   racines = (Array(1..nbr)).map{|x| x**2}.reverse.select{|n| n <= nbr}
   resultat = []
   while racines.size > 0  do
-    racines.reduce do |prev, succ|  
+    racines.reduce do |prev, succ|
       calcul = prev + succ
-      if (calcul < nbr) && (calcul).to_s == (calcul).to_s.reverse 
+      if (calcul < nbr) && (calcul).to_s == (calcul).to_s.reverse
         resultat << calcul
         calcul
       elsif calcul > nbr
         break
       else
-        calcul 
+        calcul
       end
     end
   racines.shift
   end
-  resultat.uniq.count 
+  resultat.uniq.count
 end
 
 ```
@@ -3784,7 +3791,7 @@ log(primeSeqGen.next())
 
 Nombres upsides down - Reflexion en cours
 
-```
+```javascript
 
 // createArray :: Number -> Number -> [Number]
 createArray = (debut,end) => {
@@ -3861,7 +3868,6 @@ log(y)
 }
 
 //log(solve(0,100))
-
 
 ```
 
