@@ -478,6 +478,86 @@ end
 
 ```
 
+Calculating with functions
+
+```javascript
+// Approche de solution - possibilité de refactorer
+
+const log = (something) => console.log(something)
+
+const flatten = (args) =>
+  args.reduce((a, v) => a.concat(v), [])
+
+const doOperation = (args) =>
+  args.length % 2 == 0 ? args : eval(flatten(args).reverse().join(''))
+
+
+const plus = (...something) =>
+  something.length === 0 ? '+' : doOperation(flatten(something.concat(['+'])))
+
+const minus = (...something) =>
+  something.length === 0 ? '-' : doOperation(flatten(something.concat(['-'])))
+
+const times = (...something) =>
+  something.length === 0 ? '*' : doOperation(flatten(something.concat(['*'])))
+
+const dividedBy = (...something) =>
+  something.length === 0 ? '/' : doOperation(flatten(something.concat(['/'])))
+
+
+const zero = (...something) =>
+  something.length === 0 ? 0 : doOperation(flatten(something.concat(['0'])))
+
+const one = (...something) =>
+  something.length === 0 ? 1 : doOperation(flatten(something.concat(['1'])))
+
+const two = (...something) =>
+  something.length === 0 ? 2 : doOperation(flatten(something.concat(['2'])))
+
+const three = (...something) =>
+  something.length === 0 ? 3 : doOperation(flatten(something.concat(['3'])))
+
+const four = (...something) =>
+  something.length === 0 ? 4 : doOperation(flatten(something.concat(['4'])))
+
+const five = (...something) =>
+  something.length === 0 ? 5 : doOperation(flatten(something.concat(['5'])))
+
+const six = (...something) =>
+  something.length === 0 ? 6 : doOperation(flatten(something.concat(['6'])))
+
+const seven = (...something) =>
+  something.length === 0 ? 7 : doOperation(flatten(something.concat(['7'])))
+
+const eight = (...something) =>
+  something.length === 0 ? 8 : doOperation(flatten(something.concat(['8'])))
+
+const nine = (...something)=>
+  something.length === 0 ? 9 : doOperation(flatten(something.concat(['9'])))
+
+// exemple d'operation
+log(
+  three(
+    times(
+      seven(
+        times(
+          seven(
+            times(
+              five()
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+
+
+
+```
+
+
 Sum of numerous arguments
 
 ```javascript
