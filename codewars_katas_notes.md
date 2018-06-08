@@ -3951,6 +3951,68 @@ log(y)
 
 ```
 
+Kata Simple Events -> Reflection en cours
+
+```javascript
+
+// kata link http://www.codewars.com/kata/simple-events/train/javascript
+var log = function(something){
+  console.log(something)
+  return something
+}
+var Event = function(){
+  this.handlers = []
+  this.subscribe = function(fn){
+    this.handlers.push(fn)
+  }
+
+  this.unsubscribe = function(fn){
+    // Remove a precise function from handlers so no poping way
+    var index = this.handlers.indexOf(fn);
+    if (index > -1) {
+      this.handlers.splice(index, 1);
+    }
+  }
+
+  this.emit = function(...args){
+    this.handlers.forEach(function(fn){
+      return fn.apply(null, args)
+    })
+  }
+}
+    var event = new Event();
+
+    function f() {
+        f.calls = (f.calls || 0) + 1;
+        f.args = Array.prototype.slice.call(arguments);
+    }
+
+log(
+
+    event.subscribe(f)
+)
+log(
+
+    event.emit(1, 'foo', true)
+)
+    //
+    // Test.expect(f.calls === 1); // calls a handler
+    // Test.assertSimilar(f.args, [1, 'foo', true]); // passes arguments
+
+    event.unsubscribe(f);
+    event.emit(2);
+
+log(
+
+    f.calls === 1
+)
+    //Test.expect(f.calls === 1); //no second call
+
+
+```
+
+
+
 #### Snippets a Penser
 
 ```ruby
