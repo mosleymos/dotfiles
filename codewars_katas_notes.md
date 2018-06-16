@@ -478,6 +478,56 @@ end
 
 ```
 
+Lazy Repeater
+
+```javascript
+
+// Solution propose
+var makeLooper = (iterable) => {
+	var i = 0;
+	var length = iterable.length
+	return () => {
+		if(i<length){
+			var res = iterable[i]
+			i+=1
+			return res
+	  }else{
+			i=0
+			var res = iterable[i]
+			i+=1
+			return res
+    }
+  }
+}
+
+// oooh ?
+function makeLooper(str) {
+    var i = 0,l = str.length;
+    return function(){
+        return str[(i++)%l];
+    }
+}
+
+// One liner
+makeLooper = (s,i=0) => () => s[i++ % s.length]
+
+const makeLooper = str => (i => x => str[i++ % str.length]) (0)
+
+// Generator functions
+
+function* gen(str) {
+  for(let i = 0;;i++) {
+    yield str[i % str.length];
+  }
+}
+
+function makeLooper(str) {
+  const it = gen(str);
+  return () => it.next().value;
+}
+
+```
+
 Calculating with functions
 
 ```javascript
