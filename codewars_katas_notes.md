@@ -478,6 +478,86 @@ end
 
 ```
 
+Calculating with functions
+
+```javascript
+// Approche de solution - possibilité de refactorer
+
+const log = (something) => console.log(something)
+
+const flatten = (args) =>
+  args.reduce((a, v) => a.concat(v), [])
+
+const doOperation = (args) =>
+  args.length % 2 == 0 ? args : eval(flatten(args).reverse().join(''))
+
+
+const plus = (...something) =>
+  something.length === 0 ? '+' : doOperation(flatten(something.concat(['+'])))
+
+const minus = (...something) =>
+  something.length === 0 ? '-' : doOperation(flatten(something.concat(['-'])))
+
+const times = (...something) =>
+  something.length === 0 ? '*' : doOperation(flatten(something.concat(['*'])))
+
+const dividedBy = (...something) =>
+  something.length === 0 ? '/' : doOperation(flatten(something.concat(['/'])))
+
+
+const zero = (...something) =>
+  something.length === 0 ? 0 : doOperation(flatten(something.concat(['0'])))
+
+const one = (...something) =>
+  something.length === 0 ? 1 : doOperation(flatten(something.concat(['1'])))
+
+const two = (...something) =>
+  something.length === 0 ? 2 : doOperation(flatten(something.concat(['2'])))
+
+const three = (...something) =>
+  something.length === 0 ? 3 : doOperation(flatten(something.concat(['3'])))
+
+const four = (...something) =>
+  something.length === 0 ? 4 : doOperation(flatten(something.concat(['4'])))
+
+const five = (...something) =>
+  something.length === 0 ? 5 : doOperation(flatten(something.concat(['5'])))
+
+const six = (...something) =>
+  something.length === 0 ? 6 : doOperation(flatten(something.concat(['6'])))
+
+const seven = (...something) =>
+  something.length === 0 ? 7 : doOperation(flatten(something.concat(['7'])))
+
+const eight = (...something) =>
+  something.length === 0 ? 8 : doOperation(flatten(something.concat(['8'])))
+
+const nine = (...something)=>
+  something.length === 0 ? 9 : doOperation(flatten(something.concat(['9'])))
+
+// exemple d'operation
+log(
+  three(
+    times(
+      seven(
+        times(
+          seven(
+            times(
+              five()
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+
+
+
+```
+
+
 Sum of numerous arguments
 
 ```javascript
@@ -3870,6 +3950,68 @@ log(y)
 //log(solve(0,100))
 
 ```
+
+Kata Simple Events -> Reflection en cours
+
+```javascript
+
+// kata link http://www.codewars.com/kata/simple-events/train/javascript
+var log = function(something){
+  console.log(something)
+  return something
+}
+var Event = function(){
+  this.handlers = []
+  this.subscribe = function(fn){
+    this.handlers.push(fn)
+  }
+
+  this.unsubscribe = function(fn){
+    // Remove a precise function from handlers so no poping way
+    var index = this.handlers.indexOf(fn);
+    if (index > -1) {
+      this.handlers.splice(index, 1);
+    }
+  }
+
+  this.emit = function(...args){
+    this.handlers.forEach(function(fn){
+      return fn.apply(null, args)
+    })
+  }
+}
+    var event = new Event();
+
+    function f() {
+        f.calls = (f.calls || 0) + 1;
+        f.args = Array.prototype.slice.call(arguments);
+    }
+
+log(
+
+    event.subscribe(f)
+)
+log(
+
+    event.emit(1, 'foo', true)
+)
+    //
+    // Test.expect(f.calls === 1); // calls a handler
+    // Test.assertSimilar(f.args, [1, 'foo', true]); // passes arguments
+
+    event.unsubscribe(f);
+    event.emit(2);
+
+log(
+
+    f.calls === 1
+)
+    //Test.expect(f.calls === 1); //no second call
+
+
+```
+
+
 
 #### Snippets a Penser
 
