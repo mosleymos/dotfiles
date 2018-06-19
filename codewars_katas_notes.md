@@ -477,7 +477,32 @@ def backwardsPrime(start, stop)
 end
 
 ```
+ Training JS #10: loop statement --for
 
+```javascript
+function pickIt (arr) {
+
+  let odd = []
+  let even =[]
+
+    for (var x of arr) {
+      ((x % 2) ? odd : even).push(x)
+    }
+
+  return [odd, even]
+
+}
+
+function pickIt(arr){
+	var odd=[],even=[];
+	for(i = 0; i < arr.length; i++){
+		if(arr[i]%2 == 0) even.push(arr[i]);
+		if(arr[i]%2 == 1) odd.push(arr[i]);
+	}  
+
+	return [odd,even];
+}
+```
 Lazy Repeater
 
 ```javascript
