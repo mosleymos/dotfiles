@@ -528,6 +528,48 @@ function makeLooper(str) {
 
 ```
 
+Transform to Prime
+
+```
+// Proposition d'approche de solution
+
+const isPrime = (value) => {
+  for(var i = 2; i < value; i++) {
+    if(value % i === 0) {
+      return false;
+    }
+  }
+  return value > 1;
+}
+
+const add = (a,b) => a+b
+
+const nextPrime = (n) => isPrime(n) ? n : nextPrime(n+1)
+
+const minimumNumber = (arr) => {
+  var res = arr.reduce(add)
+    return nextPrime(res) - res
+}
+
+```
+
+Sum of two integers
+
+```javascript
+// From a stackoverflow article
+// https://stackoverflow.com/questions/41455750/how-to-add-two-numbers-in-javascript-without-using-or-operators
+
+var add = function(a, b) {
+    if (b == 0) {
+        return a;
+    } else {
+        return add(a ^ b, (a & b) << 1)
+    }
+};
+
+```
+
+
 Calculating with functions
 
 ```javascript
