@@ -4127,9 +4127,33 @@ log(
 
 
 ```
+ A Reflechir Range Kata
+
+```javascript
 
 
+// Reflextion à lire
+// https://stackoverflow.com/questions/30650961/functional-way-to-iterate-over-range-es6-7
 
+function* createRange(...args){
+
+  switch(args.length){
+    case 1:
+    var begin = 1
+    var end = args[0]+1
+    var res = []
+    for (var i = begin; i < end; i++ ) res.push(yield i) ;
+    return res
+    break
+  }
+}
+var res = [].push(...createRange(4))
+console.log(res )
+
+  console.log(
+      Array.from(Array(4), (_, i) => i+1 )
+      )
+```
 #### Snippets a Penser
 
 ```ruby
