@@ -579,6 +579,48 @@ function makeLooper(str) {
 
 ```
 
+Transform to Prime
+
+```
+// Proposition d'approche de solution
+
+const isPrime = (value) => {
+  for(var i = 2; i < value; i++) {
+    if(value % i === 0) {
+      return false;
+    }
+  }
+  return value > 1;
+}
+
+const add = (a,b) => a+b
+
+const nextPrime = (n) => isPrime(n) ? n : nextPrime(n+1)
+
+const minimumNumber = (arr) => {
+  var res = arr.reduce(add)
+    return nextPrime(res) - res
+}
+
+```
+
+Sum of two integers
+
+```javascript
+// From a stackoverflow article
+// https://stackoverflow.com/questions/41455750/how-to-add-two-numbers-in-javascript-without-using-or-operators
+
+var add = function(a, b) {
+    if (b == 0) {
+        return a;
+    } else {
+        return add(a ^ b, (a & b) << 1)
+    }
+};
+
+```
+
+
 Calculating with functions
 
 ```javascript
@@ -4111,9 +4153,33 @@ log(
 
 
 ```
+ A Reflechir Range Kata
+
+```javascript
 
 
+// Reflextion à lire
+// https://stackoverflow.com/questions/30650961/functional-way-to-iterate-over-range-es6-7
 
+function* createRange(...args){
+
+  switch(args.length){
+    case 1:
+    var begin = 1
+    var end = args[0]+1
+    var res = []
+    for (var i = begin; i < end; i++ ) res.push(yield i) ;
+    return res
+    break
+  }
+}
+var res = [].push(...createRange(4))
+console.log(res )
+
+  console.log(
+      Array.from(Array(4), (_, i) => i+1 )
+      )
+```
 #### Snippets a Penser
 
 ```ruby
