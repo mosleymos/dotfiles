@@ -477,6 +477,27 @@ def backwardsPrime(start, stop)
 end
 
 ```
+
+Are the numbers in order?
+
+```javascript
+const inAscOrder = (arr) => arr.reduce((a,b)=> a < b ? b : undefined) ? true : false
+
+// other solutions
+
+function inAscOrder(arr) {
+  return arr.slice(1).every((x, i) => x >= arr[i]);
+}
+
+// autres pproches 
+let inAscOrder = arr => arr.every((v, i, a) => i ? v >= a[i - 1] : !0);
+
+let inAscOrder = a => !a.some((el,i) => i > 0 && a[i] < a[i-1]);
+
+const inAscOrder = nums => `${nums}` === `${nums.sort((a, b) => a > b)}`;
+
+```
+
 Predict your age
 
 ```javascript
