@@ -477,6 +477,32 @@ def backwardsPrime(start, stop)
 end
 
 ```
+Predict your age
+
+```javascript
+const predictAge = (...ages) => Math.floor(Math.sqrt(ages.map(a => a*a).reduce((a,b)=>a+b))/2)
+
+// Autre solutions
+const predictAge = (...ages) => Math.hypot(...ages) / 2 | 0;
+
+function predictAge(...a){
+  return ~~(a.reduce((a,x)=>a+x*x,0)**0.5/2)
+}
+
+function predictAge(...n){
+   return (Math.hypot(...n)/2)>>0 
+}
+
+const predictAge = (...a) => a.reduce((s,n)=> s+n*n,0)**0.5 *0.5|0
+
+function predictAge(){
+  return Math.floor(Math.sqrt(Array.from(arguments).reduce((sum,age)=>sum+age*age,0))/2);
+}
+
+const predictAge = (...ages) => Math.floor(Math.sqrt([...ages].map(item => item * item).reduce((prev, next) => prev + next)) / 2);
+
+```
+
  Training JS #10: loop statement --for
 
 ```javascript
