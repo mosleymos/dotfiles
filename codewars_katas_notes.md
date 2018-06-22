@@ -1226,6 +1226,25 @@ const solve = (x, y) => {
 
 ```
 
+Fun with lists: filter 
+
+
+```javascript
+// Solution perso
+function filter(head, p) {
+  console.log(head,p.toString())
+  left = undefined
+  right = (head) => p(head.data) ? new Node((head.data), filter(head.next, p)) : filter(head.next, p)
+  return !head ? left : right(head);
+}
+
+// One liner
+function filter(head, p) {
+  return !head ? null : p(head.data) ? new Node(head.data, filter(head.next, p)) : filter(head.next, p);
+}
+
+```
+
 Fun with lists: map
 
 ```javascript
