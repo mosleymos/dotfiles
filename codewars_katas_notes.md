@@ -4134,6 +4134,62 @@ log(y)
 
 ```
 
+Parse linked list to String
+
+```javascript
+
+  const stringify = (head) => {
+    if(head == null) return "null"
+    var res = []
+      const traverse = (head) => {
+          var left  = (a) =>{ res.push(String(a.data)) ; res.push("null") ; return null }
+          var right = (a) => { res.push(String(a.data)) ; return traverse(a.next) }
+        return head.next ? right(head) : left(head)
+      }
+    traverse(head)
+    return res.join(' -> ')
+  }
+
+// One liner
+function stringify(list) {
+  return list === null ? "null" : `${list.data} -> ${stringify(list.next)}`; 
+}
+
+function stringify(list) {
+  return [...(function*(){ while(list !== null) { yield list.data; list = list.next } yield "null"; })()].join(" -> ");
+}
+
+function stringify(list) {
+  if(!list) return JSON.stringify(list); 
+  let current = list;
+  let arrow = " -> ";
+  let str = "";
+  while (current) {
+    str += current.data + arrow;
+    current = current.next;
+  }
+  str += current;
+  return str;
+}
+
+function stringify(list) {
+var string = '';
+while(list) {
+  string += list.data + ' -> ';
+  list = list.next
+}
+
+string += 'null';
+return string;
+}
+
+function stringify(list) {
+  if (!list) return 'null'
+  if(arguments[0].next == null) return arguments[0].data + ' -> null'
+  return arguments[0].data + ' -> ' + stringify(arguments[0].next)
+}
+```
+
 Kata Simple Events -> Reflection en cours
 
 ```javascript
