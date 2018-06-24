@@ -4133,6 +4133,83 @@ log(y)
 //log(solve(0,100))
 
 ```
+Range function
+Use of an iterator
+
+```javascript
+
+// approche
+function* range(...args){
+  switch(args.length){
+    case 1:
+      var begin = 1;
+      var end = args[0]
+        for(var i=begin; i <= end ; i++){
+          yield i
+        }
+      break
+
+    case 2:
+      var begin = args[0];
+      var end = args[1]
+        for(var i=begin; i <= end ; i++){
+          yield i
+        }
+      break
+
+    case 3:
+      var begin = args[0];
+      var end = args[2]
+      var increment = args[1]
+        for(var i=begin; i <= end ; i+= increment){
+          yield i
+        }
+      break
+  }
+}
+
+// Recursion
+function range(min, step, max) {
+  if (arguments.length === 1) return range(1, 1, min)
+  if (arguments.length === 2) return range(min, 1, step)
+  const result = []
+  for (let i = min; i <= max; i += step) {
+    result.push(i)
+  }
+  return result
+}
+
+// Fonction plus generique
+
+function* range(n) {
+  switch (arguments.length) {
+    case 1: yield* _range(1, n, 1); break;
+    case 2: yield* _range(n, arguments[1], 1); break;
+    case 3: yield* _range(n, arguments[2], arguments[1]); break;
+  }
+}
+
+function* _range(a, b, d) {
+  for (let x = a; x <= b; x += d) yield x;
+}
+
+function range(...a) {
+  let [start, step, stop] = [1, 1, a[0]];
+  if (a.length === 2) [start, stop] = a;
+  if (a.length === 3) [start, step, stop] = a;
+  return Array(Math.ceil((stop - start + 1) / step)).fill(0).map((n, i) => start + i * step);
+}
+
+// One linerish
+
+let range = (start, step, stop) => stop ? Array.from(new Array(Math.ceil((1+stop-start)/step)),(val,index) => index*step + start) : step ? Array.from(new Array(1+step-start),(val,index)=>index+start) : Array.from(new Array(start),(val,index)=>index+1);
+
+
+range = (...〸) => {
+  let [ start, step, end ] = (〸.length == 1 ? [1, 1, 〸[0] ] : 〸.length == 2 ? [〸[0], 1, 〸[1]] : [〸[0], 〸[1], 〸[2]])
+  return [...Array(((end-start)/step^0)+1)].map(($,_)=>start+_*step)
+}
+```
 
 Parse linked list to String
 
