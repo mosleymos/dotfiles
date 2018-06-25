@@ -1280,6 +1280,71 @@ function reduce(head, f, init) {
 
 ```
 
+Concatenating functions 
+Equivalent pipe
+
+```javascript
+// Solution proposé
+Function.prototype.pipe = function(fn){
+  var self = this
+    return function(e){
+      return fn(self(e))
+    }
+}
+
+//usage 
+
+var addOne = function(e) {
+    return e + 1;
+};
+
+var square = function(e) {
+    return e * e;
+};
+
+var result = [1,2,3,4,5].map(addOne.pipe(square)) //-> [4,9,16,25,36]
+
+// Autres approches
+
+Function.prototype.pipe = function(fun) {
+  return function(param) {
+    return fun(this(param));
+  }.bind(this);
+};
+
+Function.prototype.pipe = function(fn) {
+  return (...args) => fn(this(...args))
+}
+
+Function.prototype.pipe = function(f) {
+  return function(a) { return f(this(a)); }.bind(this);
+};
+
+Function.prototype.pipe = function(){
+  var fn = this, fns = arguments;
+  
+  return function(){
+    var args = arguments;
+    return Array.prototype.concat.apply(fn, fns).reduce(function(r, p){
+      return p.apply(0, r ? [r] : args);
+    }, 0);
+  }
+}
+
+// Extend the Function prototype with a method pipe
+Function.prototype.pipe = function(right) {
+  var self = this;
+  return function() {
+    return right(self.apply(self, arguments));
+  }
+}
+
+// Fonctionnelle avec reduce
+Function.prototype.pipe = function(...fns) {
+  return (x) => fns.reduce((acc, fn) => fn(this(acc)), x);
+}
+```
+
 
 Fun with lists: filter 
 
