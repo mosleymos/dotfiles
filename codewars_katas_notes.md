@@ -1226,6 +1226,61 @@ const solve = (x, y) => {
 
 ```
 
+Fun with list reduce
+
+```javascript
+
+const reduce = (head, f, init) => {
+  var left = (head, f, init) => init
+  var right = (head, f, init) => reduce(head.next, f, f(init, head.data))
+  return head ? right(head, f, init) : left(head, f, init)
+}
+
+// One liner
+function reduce(head, f, init) {
+  return head ? reduce(head.next, f, f(init, head.data)) : init;
+}
+
+const reduce = (h, f, i) => h === null ? i : reduce(h.next, f, f(i, h.data));
+
+function reduce(head, f, init) {
+  var acc = init;
+  while(head){
+      acc = f(acc, head.data);
+          head = head.next;
+            
+  }
+    return acc;
+
+}
+
+
+function reduce(h,f,i) {
+  for(;h;h=h.next)i=f(i,h.data);
+  return i;
+}
+
+
+function reduce(head, f, init) {
+  if (head === null) return 0;
+  return head.next ? reduce(head.next, f, f(init, head.data)): f(init, head.data);
+}
+
+// Haskell like
+const reduce = (head, f, init = null) => 
+  ! head
+  ? init
+  : reduce(head.next, f,  f(init, head.data));
+// Use of call
+function reduce(head, f, init) {
+  if (!head) return init
+  init = f.call(null, init, head.data);
+  return reduce(head.next, f, init)
+}
+
+```
+
+
 Fun with lists: filter 
 
 
