@@ -1345,6 +1345,30 @@ Function.prototype.pipe = function(...fns) {
 }
 ```
 
+Fun with list length
+
+```javascript
+const length = (head, count=0) => {
+  var left = (head, count) => count
+  var right = (head, count) => length(head.next, (count+=1))
+  return head ? right(head, count) : left(head, count)
+}
+
+// One liner
+
+function length(head) {
+  if (head == null) return 0;
+  return 1 + length(head.next);
+}
+
+function length(head) {
+  return head ? length(head.next) + 1 : 0
+}
+
+const length = head => !head ? 0 : 1 + length(head.next);
+
+```
+
 
 Fun with lists: filter 
 
