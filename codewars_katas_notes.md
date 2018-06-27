@@ -478,6 +478,15 @@ end
 
 ```
 
+Find needle in a haystack
+
+```javascript
+const findNeedle = haystack =>  'found the needle at position ' + haystack.indexOf("needle")
+
+// Autre approche
+const findNeedle = haystack => `found the needle at position ${haystack.indexOf('needle')}`;
+
+```
 Are the numbers in order?
 
 ```javascript
