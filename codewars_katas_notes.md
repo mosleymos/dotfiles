@@ -1289,6 +1289,15 @@ function reduce(head, f, init) {
 
 ```
 
+Simple multiplication
+
+```javascript
+
+const simpleMultiplication = number => number % 2 == 0 ? number * 8 : number * 9
+
+```
+
+
 Concatenating functions 
 Equivalent pipe
 
