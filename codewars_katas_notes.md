@@ -642,62 +642,62 @@ var add = function(a, b) {
 ```
 
 
-Calculating with functions
+calculating with functions
 
 ```javascript
-// Approche de solution - possibilité de refactorer
+// approche de solution - possibilité de refactorer
 
 const log = (something) => console.log(something)
 
 const flatten = (args) =>
   args.reduce((a, v) => a.concat(v), [])
 
-const doOperation = (args) =>
+const dooperation = (args) =>
   args.length % 2 == 0 ? args : eval(flatten(args).reverse().join(''))
 
 
 const plus = (...something) =>
-  something.length === 0 ? '+' : doOperation(flatten(something.concat(['+'])))
+  something.length === 0 ? '+' : dooperation(flatten(something.concat(['+'])))
 
 const minus = (...something) =>
-  something.length === 0 ? '-' : doOperation(flatten(something.concat(['-'])))
+  something.length === 0 ? '-' : dooperation(flatten(something.concat(['-'])))
 
 const times = (...something) =>
-  something.length === 0 ? '*' : doOperation(flatten(something.concat(['*'])))
+  something.length === 0 ? '*' : dooperation(flatten(something.concat(['*'])))
 
-const dividedBy = (...something) =>
-  something.length === 0 ? '/' : doOperation(flatten(something.concat(['/'])))
+const dividedby = (...something) =>
+  something.length === 0 ? '/' : dooperation(flatten(something.concat(['/'])))
 
 
 const zero = (...something) =>
-  something.length === 0 ? 0 : doOperation(flatten(something.concat(['0'])))
+  something.length === 0 ? 0 : dooperation(flatten(something.concat(['0'])))
 
 const one = (...something) =>
-  something.length === 0 ? 1 : doOperation(flatten(something.concat(['1'])))
+  something.length === 0 ? 1 : dooperation(flatten(something.concat(['1'])))
 
 const two = (...something) =>
-  something.length === 0 ? 2 : doOperation(flatten(something.concat(['2'])))
+  something.length === 0 ? 2 : dooperation(flatten(something.concat(['2'])))
 
 const three = (...something) =>
-  something.length === 0 ? 3 : doOperation(flatten(something.concat(['3'])))
+  something.length === 0 ? 3 : dooperation(flatten(something.concat(['3'])))
 
 const four = (...something) =>
-  something.length === 0 ? 4 : doOperation(flatten(something.concat(['4'])))
+  something.length === 0 ? 4 : dooperation(flatten(something.concat(['4'])))
 
 const five = (...something) =>
-  something.length === 0 ? 5 : doOperation(flatten(something.concat(['5'])))
+  something.length === 0 ? 5 : dooperation(flatten(something.concat(['5'])))
 
 const six = (...something) =>
-  something.length === 0 ? 6 : doOperation(flatten(something.concat(['6'])))
+  something.length === 0 ? 6 : dooperation(flatten(something.concat(['6'])))
 
 const seven = (...something) =>
-  something.length === 0 ? 7 : doOperation(flatten(something.concat(['7'])))
+  something.length === 0 ? 7 : dooperation(flatten(something.concat(['7'])))
 
 const eight = (...something) =>
-  something.length === 0 ? 8 : doOperation(flatten(something.concat(['8'])))
+  something.length === 0 ? 8 : dooperation(flatten(something.concat(['8'])))
 
 const nine = (...something)=>
-  something.length === 0 ? 9 : doOperation(flatten(something.concat(['9'])))
+  something.length === 0 ? 9 : dooperation(flatten(something.concat(['9'])))
 
 // exemple d'operation
 log(
@@ -722,11 +722,11 @@ log(
 ```
 
 
-Sum of numerous arguments
+sum of numerous arguments
 
 ```javascript
 
-var findSum = (...args) => {
+var findsum = (...args) => {
   if(args.length === 0) return 0
   if(args.filter(e => e >= 0 ).length === args.length){
     return args.filter(e => e >= 0 ).reduce((a,b) => a+b)
@@ -735,70 +735,70 @@ var findSum = (...args) => {
   }
 }
 
-// One liners
-function findSum(...nums) {
+// one liners
+function findsum(...nums) {
   return nums.reduce((a, b) => a < 0 || b < 0 ? - 1 : a + b, 0)
 }
 
-function findSum(...x){
+function findsum(...x){
   return x.every(a=> a >= 0)? x.reduce((a,b)=>a+b,0) : -1;
 }
 
-// Interressante sur la conversion de arguments
-function findSum(){
+// interressante sur la conversion de arguments
+function findsum(){
   let args = [...arguments];
   return args.length > 0 ? args.reduce((a,b) => a >= 0 && b >= 0 ? a + b : -1) : 0;
 }
 
-const findSum = (...args) => args.every(arg => arg >= 0) ? args.reduce((total, int) => total + int, 0) : -1;
+const findsum = (...args) => args.every(arg => arg >= 0) ? args.reduce((total, int) => total + int, 0) : -1;
 
-const findSum = (...args) => args.reduce((a,s)=> (a<0||s<0) ? -1: a+s, 0);
+const findsum = (...args) => args.reduce((a,s)=> (a<0||s<0) ? -1: a+s, 0);
 
 ```
-Javascript Router
+javascript router
 
 ```javascript
 
-function Router(){
+function router(){
   var routes = {}
 
-  this.bind = function(url, method, fnRouter){
+  this.bind = function(url, method, fnrouter){
     var methods = {}
-    methods[method] = fnRouter
+    methods[method] = fnrouter
     if(routes[url] === undefined){
       routes[url] = methods
       return undefined
     }else{
-      Object.assign(routes[url], methods)
+      object.assign(routes[url], methods)
       return undefined
     }
   }
 
-  this.runRequest= function(url,method){
+  this.runrequest= function(url,method){
     try{
       return routes[url][method]()
     }catch(error){
-      return 'Error 404: Not Found'
+      return 'error 404: not found'
     }
   }
 
 }
 
-// Autres approches
+// autres approches
 
-class Router {
+class router {
 
     constructor() {
-        this.routes = new Map();
+        this.routes = new map();
     }
 
     bind(url, method, action) {
         this.routes.set(url + ":" + method, action);
     }
 
-    runRequest(url, method) {
+    runrequest(url, method) {
         if (!this.routes.has(url + ":" + method)) {
-            return "Error 404: Not Found";
+            return "error 404: not found";
         }
         return this.routes.get(url + ":" + method)();
     }
@@ -806,109 +806,109 @@ class Router {
 }
 
 
-// Autres approches Courte
+// autres approches courte
 
-var Router = function(){
-  this.responseLookup = {};
+var router = function(){
+  this.responselookup = {};
 }
 
-Object.assign(Router.prototype, {
+object.assign(router.prototype, {
   bind: function(path, method, done) {
-    this.responseLookup[path+method] = done()
+    this.responselookup[path+method] = done()
   },
 
-  runRequest: function(path, method) {
-    return this.responseLookup[path+method] || 'Error 404: Not Found';
+  runrequest: function(path, method) {
+    return this.responselookup[path+method] || 'error 404: not found';
   }
 });
 
 // autres
 
-class Router {
+class router {
   constructor() {
-    this.routes = new Map()
+    this.routes = new map()
   }
   bind(path, method, callback) {
     this.routes.set(method + path, callback)
   }
-  runRequest(path, method) {
+  runrequest(path, method) {
     return this.routes.has(method + path)
       ? this.routes.get(method + path)()
-      : "Error 404: Not Found"
+      : "error 404: not found"
   }
 }
 
 // autres interressante
 
-var Router = function() {
+var router = function() {
   this.routes = {};
 }
 
-Router.prototype.bind = function(route, method, func) {
+router.prototype.bind = function(route, method, func) {
   if(typeof this.routes[method] === 'undefined') this.routes[method] = {};
   this.routes[method][route] = func;
 }
 
-Router.prototype.runRequest = function(route, method) {
+router.prototype.runrequest = function(route, method) {
   if(this.routes[method] && this.routes[method][route]) {
     return this.routes[method][route]();
   } else {
-    return 'Error 404: Not Found';
+    return 'error 404: not found';
   }
 }
 
 
-function isObject(x) {
+function isobject(x) {
     return x != null && typeof x === 'object';
 }
 
-function isFunction(functionToCheck) {
- var getType = {};
- return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+function isfunction(functiontocheck) {
+ var gettype = {};
+ return functiontocheck && gettype.tostring.call(functiontocheck) === '[object function]';
 }
 
-var Router = function(route, method, func)
+var router = function(route, method, func)
 {
 }
 
-Router.prototype.methods = {};
+router.prototype.methods = {};
 
-Router.prototype.bind = function(route, method, func) {
-  if (!isObject(this.methods[route])) {
+router.prototype.bind = function(route, method, func) {
+  if (!isobject(this.methods[route])) {
     this.methods[route] = {};
   }
   this.methods[route][method] = func;
 }
 
-Router.prototype.runRequest = function(route, method) {
+router.prototype.runrequest = function(route, method) {
   var func = this.methods[route] && this.methods[route][method];
-  if (isFunction(func)) {
+  if (isfunction(func)) {
     return func();
   } else {
-    return 'Error 404: Not Found';
+    return 'error 404: not found';
   }
 }
 
 
-var Router = function() {
+var router = function() {
   this.routes = [];
 }
-Router.prototype.bind = function(r, method, f) {
+router.prototype.bind = function(r, method, f) {
   var found = false;
   for (var route of this.routes)
     if (route[0] == r && route[1] == method)
      {route[2] = f; found = true; break;}
   if (!found) this.routes.push([r, method, f]);
 }
-Router.prototype.runRequest = function(r, method) {
+router.prototype.runrequest = function(r, method) {
   var picked = this.routes.filter(a => a[0] == r && a[1] == method);
-  return picked.length ? picked[0][2]() : 'Error 404: Not Found';
+  return picked.length ? picked[0][2]() : 'error 404: not found';
 }
 
 ```
 
 
-Parse a linked list from a String
+parse a linked list from a string
 
 
 
@@ -916,28 +916,28 @@ Parse a linked list from a String
 
 const parse = (str) => {
   if(str === 'null'){ return null }
-  var splitted = str.split('->').map(Number)
-  var noded = splitted.slice(0, splitted.length-1).map((data) => new Node(Number(data)))
+  var splitted = str.split('->').map(number)
+  var noded = splitted.slice(0, splitted.length-1).map((data) => new node(number(data)))
   while(noded.length > 1){
-    var nodeLast = noded.pop()
-    noded[noded.length-1].next = nodeLast
+    var nodelast = noded.pop()
+    noded[noded.length-1].next = nodelast
   }
   return noded[0]
 }
 
 // autres approches
 
-// reduceRight
-const parse = string => string.split(' -> ').slice(0, -1).reduceRight((a, b) => new Node(Number(b), a), null);
+// reduceright
+const parse = string => string.split(' -> ').slice(0, -1).reduceright((a, b) => new node(number(b), a), null);
 
-// Regexp
+// regexp
 function parse(string) {
   const values = string.match(/\d+/g)
-  return values && values.reduceRight((next, value) => new Node(+value, next), null)
+  return values && values.reduceright((next, value) => new node(+value, next), null)
 }
 
 function parse(string) {
-  return string==="null" ? null : new Node(parseInt(string), parse(string.slice(string.indexOf("->")+3)))
+  return string==="null" ? null : new node(parseint(string), parse(string.slice(string.indexof("->")+3)))
 }
 
 // stacki
@@ -946,26 +946,26 @@ function parse (string) {
   string.pop()
   string.reverse()
   let node = null
-  string.forEach(nextNode => { node = new Node(parseInt(nextNode), node) })
+  string.foreach(nextnode => { node = new node(parseint(nextnode), node) })
   return node
 }
 
-// JSON ??
+// json ??
 function parse(string) {
   return string
     .split(' -> ')
     .reverse()
-    .map(val => JSON.parse(val))
-    .reduce((list, val) => new Node(val, list));
+    .map(val => json.parse(val))
+    .reduce((list, val) => new node(val, list));
 }
 
 // semblabe à la mienne
 function parse(string) {
   let arr = string.split(' -> ')
-  let node = new Node(), head = node
+  let node = new node(), head = node
   while (arr.length) {
     let curr = arr.shift()
-    node.next = curr !== 'null' ? new Node(+curr) : null
+    node.next = curr !== 'null' ? new node(+curr) : null
     node = node.next
   }
   return head.next
@@ -977,12 +977,12 @@ function parse(s) {
   var res = s.split(" -> ");
   if ( res.length == 0 || res[0] == "null") return null;
 
-  var list = new Node(parseInt(res[0]));
+  var list = new node(parseint(res[0]));
   var head = list;
   for ( var i = 1; i < res.length-1; ++i){
     if ( res[i] !="null") {
-      var num = parseInt(res[i]);
-      list.next = new Node(num);
+      var num = parseint(res[i]);
+      list.next = new node(num);
       list = list.next;
     }
   }
@@ -991,10 +991,10 @@ function parse(s) {
 
 ```
 
-Replace with Alphabet Position
+replace with alphabet position
 
 ```javascript
-function alphabetPosition(text) {
+function alphabetposition(text) {
   function range(start,stop) {
   var result={};
   var i = 1
