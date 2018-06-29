@@ -1289,6 +1289,35 @@ function reduce(head, f, init) {
 
 ```
 
+Delete nth occurences
+
+```javascript
+// Approche de solution
+const deleteNth = (arr, occ) => {
+  var stockeur = {
+
+  }
+
+  var res = []
+
+    arr.forEach((e) => {
+      if(stockeur[e] >= occ){
+        // Do nothing
+      }else{
+        if(stockeur[e] == undefined){
+          stockeur[e] = 1
+          res.push(e)
+        }else{
+          stockeur[e] += 1
+          res.push(e)
+        }
+      }
+    })
+  return res
+}
+
+```
+
 Simple multiplication
 
 ```javascript
