@@ -1288,6 +1288,40 @@ function reduce(head, f, init) {
 }
 
 ```
+Multiplication Table
+
+```javascript
+multiplicationTable = (size) => {
+  var res = []
+    for(var i =1; i <= size ; i++){
+      var table = [...Array(size+1).keys()].map(e=>e*i)
+      table.shift()
+      res.push(table)
+    }
+  return res
+}
+
+// Autre approches
+
+multiplicationTable = function(size) {
+
+  return Array.apply(null, new Array(size)).map(function(val, i) {
+    return Array.apply(null, new Array(size)).map(function(val, j) {
+      return (i+1) * (j+1);
+    });
+  });
+}
+
+
+// One liner
+multiplicationTable=(s)=>(b=s=>Array(s).fill(0),b(s).map((n,i)=>b(s).map((n,j)=>(i+1)*(j+1))))
+
+
+multiplicationTable = function(size) {
+   return Array(size).fill(0).map((_,j)=> 
+          Array(size).fill(0).map((_,i)=>(j+1)*(i+1)));
+}
+```
 
 Delete nth occurences
 
