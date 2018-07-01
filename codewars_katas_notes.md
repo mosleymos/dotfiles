@@ -1288,6 +1288,93 @@ function reduce(head, f, init) {
 }
 
 ```
+
+Argument mapper
+
+```javascript
+const createArgumentMap = (fn, ...args) => {
+  var obj = { }
+  var i = 1
+    args.forEach(function(arg){
+      obj['a'+i] = arg
+      i+=1
+    })
+  return obj
+}
+
+function createArgumentMap(func) {
+  let args = Array.from(arguments).slice(1),
+      map = {};
+    
+  for (let i=0; i < func.length; i++){
+    map[`a${i+1}`] = args[i];
+  }  
+  
+  return map;
+}
+
+function createArgumentMap(fn,...x){
+  let v = fn.toString().match(/\(.+(?=\))/);
+  return v ? v[0].slice(1).split(',').reduce((a,e,i) => (a[e] = x[i], a),{}) : [];
+}
+
+function createArgumentMap(func,...values) {
+  var obj = [];
+  var params = func.toString().match(/^function\s*[^\(]*\(\s*([^\)]*)\)/)[1].split(/\,\s*/)
+  if (values.length) params.forEach((x,y) => obj[x] = values[y])
+  return obj
+}
+
+  function createArgumentMap(func) {
+     var args = [...arguments].slice(1),
+         params = func.toString()
+                      .match(/\((.*)\)/)[1];
+                      
+     return   (params === "") ? []
+            : params.replace(/, /g, ",")
+                    .split(",")
+                    .reduce((r, e, i) => {r[e] = args[i]; return r;}, {});
+  }
+
+function createArgumentMap(func, ...args) {
+  let mapped = {}
+  for (let i = 0; i < args.length; i++) {
+    mapped['a' + (i + 1)] = args[i]
+  }
+  return mapped
+}
+
+
+function createArgumentMap(func) {
+  var args = (/function\s[^(]*\(([^)]+)\)/g.exec(func.toString()) || ['']).pop().split(/,/g);
+  return Array.prototype.slice.call(arguments, 1).reduce(function(p, c, i){ return p[args[i]] = c, p }, {});
+}
+
+// Wtf solution
+
+function createArgumentMap(func) {
+  var argumentNames = getArgumentNames(func);
+  var argumentValues = arguments;
+  var result = {};
+  argumentNames.forEach(function(key, index) {
+    result[key] = argumentValues[index+1];    
+  });
+  return result;
+}
+
+// shamelessly copied from http://stackoverflow.com/questions/1007981
+var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+var ARGUMENT_NAMES = /([^\s,]+)/g;
+function getArgumentNames(func) {
+  var fnStr = func.toString().replace(STRIP_COMMENTS, '')
+  var result = fnStr.slice(fnStr.indexOf('(')+1, fnStr.indexOf(')')).match(ARGUMENT_NAMES)
+  if(result === null)
+     result = []
+  return result
+}
+```
+
+
 Multiplication Table
 
 ```javascript
