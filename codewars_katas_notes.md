@@ -1289,6 +1289,31 @@ function reduce(head, f, init) {
 
 ```
 
+Get Divisors
+
+```javascript
+
+function getDivisorsCnt(n) {
+  for (var d = 0, i = n; i > 0; i--) {
+    if (n % i == 0) d++;
+  }
+
+  
+  return d;
+}
+
+
+// Sort of oneliner
+function getDivisorsCnt(n){c=0; for (i=1;i<=(n>>1)+1;i++) if (n%i==0) c++; return n==1?1:c+1}
+
+// plus simple
+getDivisorsCnt = n => {
+  let c = 0;
+  for (let i = 0; i < n; i++) if (!(n % i)) c++;
+  return c;
+}
+```
+
 Argument mapper
 
 ```javascript
