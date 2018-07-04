@@ -1314,6 +1314,36 @@ getDivisorsCnt = n => {
 }
 ```
 
+Sum of all the multiples of 3 or 5
+```javascript
+
+// Approche
+const findSum=n=>[...Array(++n).keys()].filter(e=>(e%3==0)||(e%5==0)).reduce((a,b)=>a+b)
+
+// One linerish
+const findSum = n => Array(n+1).fill().map((a,i)=>i).reduce((a,b)=>(b%3==0||b%5==0)?a+b:a+0);
+
+function findSum(n) {
+  return [...Array(n)].map((_,i)=>i+1).filter(n=>n%3===0||n%5===0).reduce((s,n)=>s+n,0);
+}
+
+//Cryptique
+const f = (k, n) => k * ~~(n/k) * ~~(n/k + 1) / 2;
+const findSum = n => f(3, n) + f(5, n) - f(15, n);
+
+
+function findSum(n) {
+  let c_3 = ~~(n / 0x3);
+  let c_5 = ~~(n / 0x5);
+  let c_f = ~~(n / 0xf);
+  
+  let s_3 = c_3 * (0x3 + c_3 * 0x3) / 2;
+  let s_5 = c_5 * (0x5 + c_5 * 0x5) / 2;
+  let s_f = c_f * (0xf + c_f * 0xf) / 2;
+  
+  return s_3 + s_5 - s_f;
+}
+```
 Argument mapper
 
 ```javascript
