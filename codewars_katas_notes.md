@@ -477,6 +477,36 @@ def backwardsPrime(start, stop)
 end
 
 ```
+Remove consecutive duplicative words
+
+```javascript
+// Approche
+const removeConsecutiveDuplicates = (s) => {
+ var previous =''
+ var right = (a) =>{ previous = a ; return a }
+ var left = (b) =>{ previous = b ; return 'undefined'  }
+ return s.split(' ').map(a => previous ===a ? left(a) : right(a)  ).filter((e) => e !=='undefined').join(' ')
+}
+
+// Oneliner
+const removeConsecutiveDuplicates = s => s.split(" ").filter((x,i,arr) => x!=arr[i-1]).join(" ");
+
+const removeConsecutiveDuplicates = s => s.replace(/(\b\w+)( \1\b)+/g, (_, word) => word);
+
+const removeConsecutiveDuplicates = s => s.replace(/(\b\w+)( \1\b)+/g, '$1');
+
+const removeConsecutiveDuplicates = s => s.split(' ').filter((e, i, a)=>{
+  return e !== a[i+1];
+}).join(' ');
+
+const removeConsecutiveDuplicates = s => s.replace( /\b(\S+)\s+(?=\1\b)/g, "" ) 
+
+// Meilleure presentation
+const removeConsecutiveDuplicates = s => s.split(' ')
+                                          .map((_,i,arr) => (arr[i] === arr[i+1]) ? 0 : arr[i])
+                                          .filter(x => x !== 0)
+                                          .join(' ')
+```
 
 Find needle in a haystack
 
