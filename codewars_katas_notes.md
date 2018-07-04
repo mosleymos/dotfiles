@@ -508,6 +508,12 @@ const removeConsecutiveDuplicates = s => s.split(' ')
                                           .join(' ')
 ```
 
+Calculate average
+
+```javascript
+const find_average = array =>  array.reduce((a,b)=>a+b,0) / array.length
+
+```
 Find needle in a haystack
 
 ```javascript
