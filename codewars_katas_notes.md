@@ -1344,6 +1344,34 @@ getDivisorsCnt = n => {
 }
 ```
 
+Covfefe
+
+```javascript
+
+covfefe = n => {
+  var left = (n) => n + " covfefe"
+  var right = (n) => n.replace(/coverage/g, "covfefe")
+  return n.includes("coverage") ? right(n) : left(n)
+}
+
+// Autres approches
+
+function covfefe(str) {
+  const res = str.replace(/coverage/g, "covfefe")
+  return res === str ? str + " covfefe" : res
+}
+
+function covfefe(str){
+  if (str.match(/coverage/g) === null) return str + " covfefe";
+  return str.replace(/coverage/g, "covfefe");
+}
+
+function covfefe(str){
+  if(!str.includes("coverage")) str += " coverage";
+  return str.replace(/(coverage)/g, "covfefe");
+}
+```
+
 Sum of all the multiples of 3 or 5
 ```javascript
 
@@ -1353,9 +1381,8 @@ const findSum=n=>[...Array(++n).keys()].filter(e=>(e%3==0)||(e%5==0)).reduce((a,
 // One linerish
 const findSum = n => Array(n+1).fill().map((a,i)=>i).reduce((a,b)=>(b%3==0||b%5==0)?a+b:a+0);
 
-function findSum(n) {
-  return [...Array(n)].map((_,i)=>i+1).filter(n=>n%3===0||n%5===0).reduce((s,n)=>s+n,0);
-}
+const findSum(n) => [...Array(n)].map((_,i)=>i+1).filter(n=>n%3===0||n%5===0).reduce((s,n)=>s+n,0);
+
 
 //Cryptique
 const f = (k, n) => k * ~~(n/k) * ~~(n/k + 1) / 2;
