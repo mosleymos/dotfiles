@@ -1372,6 +1372,25 @@ function covfefe(str){
 }
 ```
 
+SillyCase
+
+```javascript
+// approche de solution
+function sillycase(silly) {
+  mil = Math.round(silly.length / 2 )
+  final =''
+  for(var i= 0; i < silly.length; i++){
+    if(i>=mil){
+      final += silly[i].toUpperCase()
+    }else{
+      final += silly[i].toLowerCase()
+
+    }
+  }
+  return final
+  }
+```
+
 Sum of all the multiples of 3 or 5
 ```javascript
 
