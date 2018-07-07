@@ -4653,6 +4653,29 @@ range = (...〸) => {
   return [...Array(((end-start)/step^0)+1)].map(($,_)=>start+_*step)
 }
 ```
+Training JS #27: methods of arrayObject---filter()
+
+```javascript
+
+const countGrade = (arr) => {
+var marks = {
+  S:0,
+  A:0,
+  B:0,
+  C:0,
+  D:0,
+  X:0
+}
+  marks['S'] = arr.filter(s=>s===100).length
+  marks['A'] = arr.filter(s=>s<100 && s >=90).length
+  marks['B'] = arr.filter(s=>s<90 && s >=80).length
+  marks['C'] = arr.filter(s=>s<80 && s >=60).length
+  marks['D'] = arr.filter(s=>s<60 && s >=0).length
+  marks['X'] = arr.filter(s=>s ==-1 ).length
+  return marks
+}
+
+```
 
 Parse linked list to String
 
