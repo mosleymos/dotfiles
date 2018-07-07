@@ -4675,6 +4675,60 @@ var marks = {
   return marks
 }
 
+// Autres approches
+
+function countGrade(scores){
+  return {
+    'S': scores.filter(function(x){return x == 100}).length,
+    'A': scores.filter(function(x){return (x < 100 && x >= 90)}).length,
+    'B': scores.filter(function(x){return (x < 90 && x >= 80)}).length,
+    'C': scores.filter(function(x){return (x < 80 && x >= 60)}).length,
+    'D': scores.filter(function(x){return (x < 60 && x >= 0)}).length,
+    'X': scores.filter(function(x){return x == -1}).length,
+  };
+}
+
+
+function grade(marks) {
+  if (marks == 100) return "S";
+  if (marks >= 90) return "A";
+  if (marks >= 80) return "B";
+  if (marks >= 60) return "C";
+  if (marks >= 0) return "D";
+  return "X";
+}
+
+function countGrade(scores){
+  let result = {S: 0, A: 0, B: 0, C: 0, D: 0, X: 0};
+  scores.forEach(score => result[grade(score)] += 1);
+  return result;
+}
+
+grade = marks => {
+  if (marks == 100) return "S";
+  if (marks >= 90) return "A";
+  if (marks >= 80) return "B";
+  if (marks >= 60) return "C";
+  if (marks >= 0) return "D";
+  return "X";
+}
+
+function countGrade(scores){
+  var res = { S:0, A:0, B:0, C:0, D:0, X:0 };
+  Object.keys(res).map( (key, index) => res[key] = scores.map( score => grade(score)).filter( v => v == key).length );
+  return res;
+}
+
+// Plus separée
+function countGrade(scores) {
+  return {S: countRange(100, 100, scores), A: countRange(90, 99, scores), 
+          B: countRange(80, 89, scores), C: countRange(60, 79, scores),
+          D: countRange(0, 59, scores), X: countRange(-1, -1, scores)};
+}
+
+function countRange(start, end, array) {
+  return array.filter(x=>x<=end&&x>=start).length;
+}
 ```
 
 Parse linked list to String
