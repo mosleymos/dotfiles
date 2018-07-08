@@ -4653,6 +4653,20 @@ range = (...〸) => {
   return [...Array(((end-start)/step^0)+1)].map(($,_)=>start+_*step)
 }
 ```
+
+Training JS #26: methods of arrayObject---map()
+
+```javascript
+function isolateIt(arr){
+  function isEven(n){ return n%2 === 0 }
+  function divideEqually(n){ return n.slice(0,n.length/2)+'|'+ n.slice(n.length/2) }
+  function substitutionMethod(n){ return n.slice(0, Math.round(n.length/2)-1) +'|'  + n.slice(Math.round(n.length/2)) }
+  return arr.map(function(e){
+    return isEven(e.length) ? divideEqually(e) : substitutionMethod(e)
+  })
+}
+
+```
 Training JS #27: methods of arrayObject---filter()
 
 ```javascript
