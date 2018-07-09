@@ -1367,6 +1367,82 @@ getDivisorsCnt = n => {
 }
 ```
 
+Covfefe
+
+```javascript
+
+covfefe = n => {
+  var left = (n) => n + " covfefe"
+  var right = (n) => n.replace(/coverage/g, "covfefe")
+  return n.includes("coverage") ? right(n) : left(n)
+}
+
+// Autres approches
+
+function covfefe(str) {
+  const res = str.replace(/coverage/g, "covfefe")
+  return res === str ? str + " covfefe" : res
+}
+
+function covfefe(str){
+  if (str.match(/coverage/g) === null) return str + " covfefe";
+  return str.replace(/coverage/g, "covfefe");
+}
+
+function covfefe(str){
+  if(!str.includes("coverage")) str += " coverage";
+  return str.replace(/(coverage)/g, "covfefe");
+}
+```
+
+SillyCase
+
+```javascript
+// approche de solution
+function sillycase(silly) {
+  mil = Math.round(silly.length / 2 )
+  final =''
+  for(var i= 0; i < silly.length; i++){
+    if(i>=mil){
+      final += silly[i].toUpperCase()
+    }else{
+      final += silly[i].toLowerCase()
+
+    }
+  }
+  return final
+  }
+```
+
+Sum of all the multiples of 3 or 5
+```javascript
+
+// Approche
+const findSum=n=>[...Array(++n).keys()].filter(e=>(e%3==0)||(e%5==0)).reduce((a,b)=>a+b)
+
+// One linerish
+const findSum = n => Array(n+1).fill().map((a,i)=>i).reduce((a,b)=>(b%3==0||b%5==0)?a+b:a+0);
+
+const findSum(n) => [...Array(n)].map((_,i)=>i+1).filter(n=>n%3===0||n%5===0).reduce((s,n)=>s+n,0);
+
+
+//Cryptique
+const f = (k, n) => k * ~~(n/k) * ~~(n/k + 1) / 2;
+const findSum = n => f(3, n) + f(5, n) - f(15, n);
+
+
+function findSum(n) {
+  let c_3 = ~~(n / 0x3);
+  let c_5 = ~~(n / 0x5);
+  let c_f = ~~(n / 0xf);
+  
+  let s_3 = c_3 * (0x3 + c_3 * 0x3) / 2;
+  let s_5 = c_5 * (0x5 + c_5 * 0x5) / 2;
+  let s_f = c_f * (0xf + c_f * 0xf) / 2;
+  
+  return s_3 + s_5 - s_f;
+}
+```
 Argument mapper
 
 ```javascript
@@ -4598,6 +4674,97 @@ let range = (start, step, stop) => stop ? Array.from(new Array(Math.ceil((1+stop
 range = (...〸) => {
   let [ start, step, end ] = (〸.length == 1 ? [1, 1, 〸[0] ] : 〸.length == 2 ? [〸[0], 1, 〸[1]] : [〸[0], 〸[1], 〸[2]])
   return [...Array(((end-start)/step^0)+1)].map(($,_)=>start+_*step)
+}
+```
+
+Training JS #26: methods of arrayObject---map()
+
+```javascript
+function isolateIt(arr){
+  function isEven(n){ return n%2 === 0 }
+  function divideEqually(n){ return n.slice(0,n.length/2)+'|'+ n.slice(n.length/2) }
+  function substitutionMethod(n){ return n.slice(0, Math.round(n.length/2)-1) +'|'  + n.slice(Math.round(n.length/2)) }
+  return arr.map(function(e){
+    return isEven(e.length) ? divideEqually(e) : substitutionMethod(e)
+  })
+}
+
+```
+Training JS #27: methods of arrayObject---filter()
+
+```javascript
+
+const countGrade = (arr) => {
+var marks = {
+  S:0,
+  A:0,
+  B:0,
+  C:0,
+  D:0,
+  X:0
+}
+  marks['S'] = arr.filter(s=>s===100).length
+  marks['A'] = arr.filter(s=>s<100 && s >=90).length
+  marks['B'] = arr.filter(s=>s<90 && s >=80).length
+  marks['C'] = arr.filter(s=>s<80 && s >=60).length
+  marks['D'] = arr.filter(s=>s<60 && s >=0).length
+  marks['X'] = arr.filter(s=>s ==-1 ).length
+  return marks
+}
+
+// Autres approches
+
+function countGrade(scores){
+  return {
+    'S': scores.filter(function(x){return x == 100}).length,
+    'A': scores.filter(function(x){return (x < 100 && x >= 90)}).length,
+    'B': scores.filter(function(x){return (x < 90 && x >= 80)}).length,
+    'C': scores.filter(function(x){return (x < 80 && x >= 60)}).length,
+    'D': scores.filter(function(x){return (x < 60 && x >= 0)}).length,
+    'X': scores.filter(function(x){return x == -1}).length,
+  };
+}
+
+
+function grade(marks) {
+  if (marks == 100) return "S";
+  if (marks >= 90) return "A";
+  if (marks >= 80) return "B";
+  if (marks >= 60) return "C";
+  if (marks >= 0) return "D";
+  return "X";
+}
+
+function countGrade(scores){
+  let result = {S: 0, A: 0, B: 0, C: 0, D: 0, X: 0};
+  scores.forEach(score => result[grade(score)] += 1);
+  return result;
+}
+
+grade = marks => {
+  if (marks == 100) return "S";
+  if (marks >= 90) return "A";
+  if (marks >= 80) return "B";
+  if (marks >= 60) return "C";
+  if (marks >= 0) return "D";
+  return "X";
+}
+
+function countGrade(scores){
+  var res = { S:0, A:0, B:0, C:0, D:0, X:0 };
+  Object.keys(res).map( (key, index) => res[key] = scores.map( score => grade(score)).filter( v => v == key).length );
+  return res;
+}
+
+// Plus separée
+function countGrade(scores) {
+  return {S: countRange(100, 100, scores), A: countRange(90, 99, scores), 
+          B: countRange(80, 89, scores), C: countRange(60, 79, scores),
+          D: countRange(0, 59, scores), X: countRange(-1, -1, scores)};
+}
+
+function countRange(start, end, array) {
+  return array.filter(x=>x<=end&&x>=start).length;
 }
 ```
 
