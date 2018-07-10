@@ -4667,6 +4667,30 @@ function isolateIt(arr){
 }
 
 ```
+
+Group by commas
+
+```javascript
+
+function groupByCommas(n) {
+	var count=0
+  var stringToWork = String(n)
+  if(stringToWork.length<=3) return stringToWork
+	return stringToWork.split('').reduceRight((a,b)=>{
+		if(count === 2){
+			res = b+','+a
+			count = 0
+		}else{
+			res = b+a
+			count+=1
+		}
+		return res
+	})
+
+}
+
+```
+
 Training JS #27: methods of arrayObject---filter()
 
 ```javascript
