@@ -477,6 +477,23 @@ def backwardsPrime(start, stop)
 end
 
 ```
+
+Min Heap
+
+```javascript
+var MinHeap = function(){
+	this.stack = []
+	this.push = function(v){
+    this.stack.push(v)
+  }
+  this.pop = function(){
+    var to_pop = this.stack.sort((a,b)=> b-a)
+    return to_pop.pop()
+  }
+}
+
+```
+
 Remove consecutive duplicative words
 
 ```javascript
@@ -508,6 +525,12 @@ const removeConsecutiveDuplicates = s => s.split(' ')
                                           .join(' ')
 ```
 
+Calculate average
+
+```javascript
+const find_average = array =>  array.reduce((a,b)=>a+b,0) / array.length
+
+```
 Find needle in a haystack
 
 ```javascript
