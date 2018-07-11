@@ -271,6 +271,25 @@ class Conjurer
 end
 ```
 
+Not prime Numbers
+
+```ruby
+# Approche
+require 'prime'
+def not_primes(a,b)
+  ((a)...(b)).lazy.reject(&:prime?).map(&:to_s).select{|n| n =~ /^[2357]*$/
+  }.map(&:to_i).to_a
+end
+
+# Variation de l'approche
+require 'prime'
+def not_primes(a,b)
+  (a...b).reject(&:prime?).select do |n|
+    n.to_s.match? /^[2357]+$/
+  end
+end
+```
+
 Sum nested
 
 ```ruby
