@@ -271,6 +271,25 @@ class Conjurer
 end
 ```
 
+Not prime Numbers
+
+```ruby
+# Approche
+require 'prime'
+def not_primes(a,b)
+  ((a)...(b)).lazy.reject(&:prime?).map(&:to_s).select{|n| n =~ /^[2357]*$/
+  }.map(&:to_i).to_a
+end
+
+# Variation de l'approche
+require 'prime'
+def not_primes(a,b)
+  (a...b).reject(&:prime?).select do |n|
+    n.to_s.match? /^[2357]+$/
+  end
+end
+```
+
 Sum nested
 
 ```ruby
@@ -4690,6 +4709,30 @@ function isolateIt(arr){
 }
 
 ```
+
+Group by commas
+
+```javascript
+
+function groupByCommas(n) {
+	var count=0
+  var stringToWork = String(n)
+  if(stringToWork.length<=3) return stringToWork
+	return stringToWork.split('').reduceRight((a,b)=>{
+		if(count === 2){
+			res = b+','+a
+			count = 0
+		}else{
+			res = b+a
+			count+=1
+		}
+		return res
+	})
+
+}
+
+```
+
 Training JS #27: methods of arrayObject---filter()
 
 ```javascript
