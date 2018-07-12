@@ -4696,6 +4696,26 @@ range = (...〸) => {
 }
 ```
 
+Format words into a sentence
+Reflexion en cours
+
+```javascript
+var sentencize = arr => {
+  if(arr.length == 2) return arr[0] + " and " + arr[1]
+  begin = arr.slice(0, arr.length-2).join(", ") + ", "
+  ending = arr.slice(Math.max(arr.length - 2, 1)).join(" and ")
+  //ending = arr.slice(1).join(" and ")
+  return begin + ending
+}
+function formatWords(words){
+  if(words === null || words === undefined) return ""
+  if(words.length === 0) return ""
+  if(words.length === 1) return words[0]
+  var transf = words.filter((e)=> e !=='')
+  return transf.length === 1 ? transf[0] : sentencize(transf)
+  }
+```
+
 Training JS #26: methods of arrayObject---map()
 
 ```javascript
