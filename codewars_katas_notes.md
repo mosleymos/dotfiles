@@ -4973,6 +4973,28 @@ console.log(res )
       Array.from(Array(4), (_, i) => i+1 )
       )
 ```
+
+Wave js
+
+Reflexion en cours
+
+```javascript
+// About remove duplicate in a array
+// https://stackoverflow.com/questions/1960473/get-all-unique-values-in-an-array-remove-duplicates#14438954
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
+//[word, word[e].toUpperCase(), e]
+const wave = word => {
+  return [...Array(word.length).keys()].map((e)=>{
+    var res =Array.from(word)
+    res[e] = word[e].toUpperCase()
+    return res.join('')
+  }).filter(onlyUnique)
+}
+
+```
 #### Snippets a Penser
 
 ```ruby
