@@ -5008,3 +5008,11 @@ class Class
 end
 
 ```
+Last n elements from array in js from 
+
+```javascript
+// https://stackoverflow.com/questions/6473858/in-a-javascript-array-how-do-i-get-the-last-5-elements-excluding-the-first-ele 
+
+arr.slice(Math.max(arr.length - 5, 1))
+
+```
