@@ -497,6 +497,46 @@ end
 
 ```
 
+Coding Meetup #5 - Higher-Order Functions Series - Prepare the count of languages
+
+```javascript
+
+function countLanguages(list) {
+  var res = {}
+  list.forEach(function(a){
+    if(res[a.language]){
+       res[a.language]+=1
+    }else{
+        res[a.language]=1
+    }
+  })
+  return res
+}
+
+```
+
+Coding Meetup #3 - Higher-Order Functions Series - Is Ruby coming?
+
+```javascript
+
+function isRubyComing(list) {
+  return list.filter(function(dev){ return dev.language === "Ruby" }).length > 0
+ }
+
+```
+
+Coding Meetup #2 - Higher-Order Functions Series - Greet developers
+
+```javascript
+function greetDevelopers(list) {
+  return list.map(function(dev){
+      dev.greeting = `Hi ${dev.firstName}, what do you like the most about
+      ${dev.language}?`
+          return dev
+      })
+}
+
+```
 Min Heap
 
 ```javascript
