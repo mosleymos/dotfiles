@@ -524,6 +524,29 @@ function isRubyComing(list) {
  }
 
 ```
+Ones and Zeros
+```
+// Stack overflow sur le sujet https://stackoverflow.com/questions/11103487/convert-binary-representation-of-number-from-string-to-int-javascript
+// ex [0,0,0,1] -> 1
+const binaryArrayToNumber = arr => parseInt(arr.join(""),2)
+
+// Autres approches
+
+function binaryArrayToNumber(arr) {
+  return arr.reduce( (a, b) => a << 1 | b );
+}
+
+const binaryArrayToNumber = arr => {
+  var num = 0;
+  for (var i = 0, exponent = 3; i < arr.length; i++) {
+    if (arr[i]) {
+      num += Math.pow(2, exponent);
+    }
+    exponent--;
+  }
+  return num;
+};
+```
 
 Coding Meetup #2 - Higher-Order Functions Series - Greet developers
 
