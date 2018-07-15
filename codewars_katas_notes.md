@@ -548,6 +548,18 @@ const binaryArrayToNumber = arr => {
 };
 ```
 
+Count beads
+
+```javascript
+
+const countRedBeads = (n) => (n == 0 || n == 1 ) ? 0 : (n*2) -2
+
+// Variable nom plus explicite
+function countRedBeads(num_blue) {
+  return (num_blue >= 2) ? (num_blue-1)*2 : 0;
+}
+
+```
 Coding Meetup #2 - Higher-Order Functions Series - Greet developers
 
 ```javascript
