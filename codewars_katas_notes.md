@@ -496,6 +496,19 @@ def backwardsPrime(start, stop)
 end
 
 ```
+Fix String case
+
+```javascript
+function solve(s){
+  String.prototype.map = Array.prototype.map
+  var regexUppers = /[A-Z]/
+  var regexLowers = /[a-z]/
+  var nbUppers = s.split('').filter(e=>regexUppers.test(e))
+  var nbLowers = s.split('').filter(e=>regexLowers.test(e))
+  return nbLowers.length < nbUppers.length ? s.map(e=>e.toUpperCase()).join('') : s.map(e=>e.toLowerCase()).join('')
+}
+
+```
 
 Coding Meetup #5 - Higher-Order Functions Series - Prepare the count of languages
 
