@@ -560,6 +560,19 @@ const binaryArrayToNumber = arr => {
   return num;
 };
 ```
+Life path number
+
+```javascript
+// Approche simple - opti a faire ??
+
+function lifePathNumber(dateOfBirth) {
+	function calculate(n){
+    res =String(n.split('').map(e=>Number(e)).reduce((a,b)=>a+b))
+    return res.length === 1 ? (res) : calculate(res)
+  }
+  return Number(calculate(dateOfBirth.split('-').map(e=>calculate(e)).reduce((a,b)=>a+b)))
+}
+```
 
 Count beads
 
