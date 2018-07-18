@@ -574,6 +574,21 @@ function lifePathNumber(dateOfBirth) {
 }
 ```
 
+Every possible sum of two digits
+
+```javascript
+// Approche en cours
+function digits(num){
+  var ar = String(num).split('').map(e=>Number(e))
+	var res = []
+  while(ar.length !== 1){
+    var to_compute = ar.shift()
+    res.push(ar.map(elt=> elt+to_compute))
+  }
+  return res.reduce((a,b)=>a.concat(b),[])
+}
+
+```
 Count beads
 
 ```javascript
