@@ -496,6 +496,15 @@ def backwardsPrime(start, stop)
 end
 
 ```
+
+XoR
+
+```javascript
+
+const xor = (a, b) => (a || b) && (!a || !b)
+
+```
+
 Fix String case
 
 ```javascript
