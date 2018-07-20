@@ -582,7 +582,24 @@ function lifePathNumber(dateOfBirth) {
   return Number(calculate(dateOfBirth.split('-').map(e=>calculate(e)).reduce((a,b)=>a+b)))
 }
 ```
+Maximum Gap (Array Series)
 
+
+```javascript
+const maxGap = arr => {
+  var max = 0
+    arr.sort((d,e)=> d-e).reduce((a,b)=>{
+        if(b-a > max){
+          max = b-a
+          return b
+        }else{
+          return b
+        }
+     })
+  return max
+}
+
+```
 Every possible sum of two digits
 
 ```javascript
