@@ -118,8 +118,9 @@ def solution(roman)
 end
 
 
-
 ```
+
+Count chars
 
 ```ruby
 def count_chars(s)
@@ -192,6 +193,7 @@ def is_sorted_and_how(arr)
 	return "yes, descending" if arr == arr.sort.reverse
 	"no"
 end
+
 ```
 
 5 without numbers !!
@@ -219,11 +221,13 @@ end
 def unusual_five()
   'F'.hex.modulo 'A'.hex
 end
+
 ```
 
 Difference of squares
 
 ```ruby
+
 def difference_of_squares(n)
   (((1..n).reduce(&:+))**2) - ((1..n).map{|x| x**2}.reduce(&:+))
 end
@@ -236,6 +240,7 @@ def difference_of_squares(x)
 end
 
 ```
+
 Metaprogramming Conjurer
 
 ```ruby
@@ -269,6 +274,7 @@ class Conjurer
     end
   end
 end
+
 ```
 
 Not prime Numbers
@@ -288,6 +294,7 @@ def not_primes(a,b)
     n.to_s.match? /^[2357]+$/
   end
 end
+
 ```
 
 Sum nested
@@ -371,8 +378,8 @@ end
 def find_it(seq)
   seq.each {|x| seq.count(x)%2==1 ? (return(x)) : ()}
 end
+
 ```
-`
 
 Merge array
 
@@ -388,7 +395,9 @@ end
 
 # Next Prime
 
+
 ```ruby
+
 require 'prime'
 
 def next_prime(n)
@@ -425,6 +434,7 @@ end
 ```
 
 Backward Primes
+
 
 ```ruby
 
@@ -496,6 +506,882 @@ def backwardsPrime(start, stop)
 end
 
 ```
+
+Array and procs #1
+
+```ruby
+
+def array_procs(*args)
+	to_change = args.first
+	args[1..-1].each do |some_proc|
+    to_change = to_change.map(&some_proc)
+	end
+	to_change
+end
+
+# Autres approches
+
+def array_procs(arr, *procs)
+  procs.inject(arr){ |a, p| a.map(&p) }
+end
+
+def array_procs(arr, *procs)
+  procs.each{|p| arr = arr.map(&p) }
+  arr
+end
+
+def array_procs(array, *procs)
+  result = []
+  procs.each do |proc|
+    result = array.map(&proc)
+    array  = result
+  end
+  array
+end
+
+
+def array_procs(arr, *procs)
+  arr.map { |i| procs.reduce(i) { |x, proc| proc === x } }
+end
+
+def array_procs(array, *procs)
+  array.map { |element| procs.inject(element) { |memo, proc| proc[memo] } }
+end
+
+def array_procs(arr, *procs)
+  procs.size.times{|y| arr = arr.map{|x| procs[y][x]}}
+  arr
+end
+
+class Proc
+  def +(other)
+    ->(x) { other[self[x]] }
+  end
+
+  def self.id
+    ->(x) { x }
+  end
+end
+
+def array_procs(arr, *procs)
+  arr.map { |e| procs.inject(Proc.id, &:+)[e] }
+end
+
+def array_procs(arr, *procs)
+  arr.collect {|x| procs.inject(x) {|a,p| p[a]}}
+end
+```
+
+flattened_keys
+
+```ruby
+# Premiere solution a l'esprit
+# A améliorer
+class Hash
+
+  def flattened_keys
+
+    def flat hash
+      h = {}
+      hash.each do |k,v|
+        if v.is_a? Hash
+          keys_to_remove = hash[k].keys
+          keys_to_remove.each do |cle|
+            if (cle.is_a?(String) || k.is_a?(String))
+              h[[k.to_s,cle.to_s].join('_')] = hash[k][cle]
+            else
+              h[[k.to_s,cle.to_s].join('_').to_sym] = hash[k][cle]
+            end
+          end
+          h = flat h
+        else
+          h[k] = v
+        end
+      end
+      return h
+    end
+
+    simple_hash = self
+    flat simple_hash
+
+  end
+end
+
+```
+
+remember
+
+```ruby
+
+def remember(str)
+  stack = []
+  result = []
+  str.chars.each do |letter|
+    stack.push(letter)
+    result << letter if stack.count(letter) > 1 && !result.include?(letter)
+  end
+  result
+end
+
+# Better approaches
+
+
+def remember(str)
+  seen = Hash.new(0)
+  str.chars.select do |c|
+    seen[c] += 1
+    seen[c] == 2
+  end
+end
+
+def remember(str)
+  str.chars.select.with_index{|x,i| str.index(x) != i}.uniq
+end
+```
+
+head, tail, init and last
+
+```ruby
+
+def head(arr)
+  arr[0]
+end
+
+def tail(arr)
+  arr[1..-1]
+end
+
+def init(arr)
+  arr[0..-2]
+end
+
+def last(arr)
+  arr[-1]
+end
+
+```
+
+Counting Array Elements
+
+```ruby
+def count(array)
+  uniq_hash = {}
+  array.each do |e|
+    if uniq_hash[e].nil?
+      uniq_hash[e] = 1
+    else
+      uniq_hash[e]+=1
+    end
+  end
+  uniq_hash
+end
+
+# Other approach better
+def count(array)
+  c = Hash.new(0)
+  array.each { |i| c[i] += 1  }
+  c
+end
+
+def count(array)
+  array.reduce(Hash.new(0)) { |a, b| a[b] += 1; a }
+end
+
+```
+
+string ends with?
+
+```ruby
+
+def solution(str,ending)
+  str.end_with?(ending)
+end
+
+```
+
+binary addition
+
+```ruby
+def add_binary(a,b)
+  (a+b).to_s(2)
+  end
+
+```
+
+Odd-Even string sort
+
+```ruby
+
+def sort_my_string(s)
+   left = []
+   right = []
+    s.split('').each_with_index do |letter, index|
+      left << letter if index.odd?
+      right << letter if index.even?
+    end
+    [right, ' ' ,left].join
+end
+
+```
+
+shortest word
+
+```ruby
+
+def find_short(s)
+  s.split(" ").map(&:size).min
+end
+
+```
+
+chain me
+
+```ruby
+
+def chain(number,fns)
+  fns.size.zero? ? number : chain(Object.send(fns.shift, number),fns)
+end
+
+```
+
+backspace in string
+
+```ruby
+
+def clean_string(string)
+  res = []
+  string.chars.each{|a|
+    a == '#' ?  res.pop : res << a
+  }
+ res.join('')
+end
+
+```
+
+multiple of 3 and 5
+
+```ruby
+
+def solution(number)
+  (1...number).select{|number| number % 3 == 0 or number % 5 == 0 }.reduce(&:+)
+end
+
+```
+
+sum of all arguments
+
+```ruby
+
+function sum(nombres) {
+  result = []
+  for(i in arguments){
+    result.push(arguments[i])
+  }
+  return result.reduce(function(a,b){ return a + b });
+}
+
+```
+
+numerical palindrome
+
+```ruby
+
+
+def palindrome(num)
+  return "Not valid" unless num.is_a? Integer
+  return "Not valid" if num.zero?
+  return "Not valid" if num < 0
+  num.to_s === num.to_s.reverse
+end
+
+```
+
+Basic math (add or substract)
+
+```ruby
+def calculate(str)
+  (eval str.gsub(/plus/,'+').gsub(/minus/,'-')).to_s
+end
+
+```
+
+Two oldest ages
+
+```ruby
+
+def two_oldest_ages(ages)
+  ages.max(2).sort
+end
+
+```
+
+Persistent bugger
+
+```ruby
+
+def persistence number
+  return 0 if number.to_s.split('').size == 1
+  count = 0
+
+  begin
+    number = number.to_s.split('').map(&:to_i).reduce(:*)
+    count += 1
+  end while number.to_s.split('').size > 1
+
+  return count
+end
+
+```
+
+Sum of numbers from 0 to N
+
+```ruby
+
+class SequenceSum
+  def self.show_sequence(n)
+   return "#{n}<0" if n < 0
+   return "0=0" if n.zero?
+   "#{0.upto(n).map(&:to_s).join('+')} = #{ 0.upto(n).reduce(:+)}"
+  end
+end
+
+```
+
+Count positive/Sum of negatives
+
+```ruby
+def count_positives_sum_negatives(lst)
+  total_positive = lst.select{|nb| nb > 0}
+  total_negative = lst.select{|nb| nb < 0}
+  [total_positive.size, total_negative.empty? ? 0 : total_negative.reduce(&:+) ]
+end
+
+# Better
+def count_positives_sum_negatives(lst)
+    [lst.count{|n| n > 0}, lst.select{|n| n < 0}.reduce(0, :+)]
+end
+
+# What ???
+def count_positives_sum_negatives(lst)
+  return [] if lst.nil? || lst.empty?
+  [lst.count(&:positive?), lst.select(&:negative?).reduce(0, :+)]
+end
+
+# Wh..
+def count_positives_sum_negatives(list)
+  [list.count(&:positive?), list.select(&:negative?).reduce(0,:+)]
+end
+
+```
+
+
+
+Square(n) Sum
+
+```ruby
+
+def squareSum(numbers)
+  numbers.map{|n| n*n }.reduce(&:+)
+end
+
+```
+
+convert hash to array
+
+```ruby
+
+def convert_hash_to_array(hash)
+  new_hash = Hash[hash.collect{|k,v| [k.to_s, v]}]
+  new_hash.to_a
+end
+
+def convert_hash_to_array(hash)
+  Hash[hash.collect{|k,v| [k.to_s, v]}].to_a
+end
+
+def convert_hash_to_array(hash)
+  hash.map{ |k, v| [k.to_s, v] }
+end
+```
+
+
+
+
+CamelCase method
+
+```ruby
+
+class String
+  def camelcase
+    self.split(' ').map(&:capitalize).join('')
+  end
+end
+
+```
+
+Largest 5 digits numbers in a series
+
+```ruby
+
+def solution(digits)
+  digits.split(//).each_cons(5).to_a.map do |tb|
+    tb.join.to_i
+  end.max
+end
+
+```
+
+Array Helpers
+
+```ruby
+
+class Array
+  def square
+    self.map do |e| e**2 end
+  end
+
+  def cube
+     self.map do |e| e**3 end
+  end
+
+  def sum
+    self.inject(&:+)
+  end
+
+  def average
+    self.sum/self.length
+  end
+
+  def even
+    self.select do |e| e.even? end
+  end
+
+  def odd
+    self.select do |e| e.odd? end
+  end
+end
+
+```
+
+List filtering
+
+```ruby
+
+def filter_list(l)
+  l.select{|e| !e.is_a?(String)}
+end
+
+```
+
+is every value in the array an array?
+
+```ruby
+
+def arrCheck(value)
+  value.all?{|e| e.is_a?(Array)}
+end
+
+```
+
+Exclamation marks series #11: Replace all vowel to exclamation mark in the sentence
+
+```ruby
+
+def replace(s)
+  s.gsub(/a|e|i|o|u|A|E|I|O|U/,"!")
+end
+
+```
+
+Help Bob count letters and digits.
+
+```ruby
+
+def count_letters_and_digits(input)
+  input.scan(/[[:digit:]]|[[:alpha:]]/).size
+end
+
+```
+
+Identical elements
+
+```ruby
+
+def duplicate_elements(m, n)
+    # write your solution here
+    return m.any?{|e| n.include?(e) } ? true : false
+end
+
+```
+
+The if function
+
+```ruby
+
+# ifTrue et ifFalse sont des proc genre proc{|e| e.methode_execute }
+def _if(bool, ifTrue, ifFalse)
+  bool ? ifTrue.call : ifFalse.call
+end
+
+```
+
+Sum mixed array
+
+```ruby
+
+def sum_mix(x)
+  x.map(&:to_i).reduce(&:+)
+end
+
+```
+
+String repeat
+
+```ruby
+
+def repeat_str (n, s)
+  s * n
+end
+
+```
+
+Get numbers from a string
+
+```ruby
+
+def get_number_from_string(s)
+  s.gsub(/[[:digit:]]/).to_a.reduce(&:+).to_i
+end
+
+```
+
+Beginner Reduce but grow
+
+```ruby
+
+def grow(x)
+  x.reduce(&:*)
+end
+
+```
+
+Opposite number
+
+```ruby
+
+def opposite(num)
+  num > 0 ?  -(num) : (num).abs
+end
+
+```
+
+
+Return negative
+
+```ruby
+
+def makeNegative(num)
+  num > 0 ? -(num) : num
+end
+
+```
+
+Sum of positive
+
+```ruby
+
+def positive_sum(arr)
+  return 0 if arr.empty? || arr.all?{|e| e < 0 }
+  arr.select{|n| n >= 0}.reduce(&:+)
+end
+
+```
+
+GrassHopper shopping list
+
+```ruby
+
+#your code here
+sandwiches = 4
+salads = 6
+wraps = 5
+frenchFries = 10
+totalPrice = [sandwiches*8, salads*7, wraps*6.50, frenchFries*1.20].reduce(&:+)
+
+```
+
+
+Ruby Array invoke instance method
+
+```ruby
+
+class Array
+  def invoke(method, *args, &block)
+    select(&block)
+    .map do |elt|
+      elt.send(method.to_sym, *args.to_a)
+    end
+  end
+end
+
+```
+
+Rotate an array matrix
+
+```ruby
+
+def rotate matrix, direction
+   return matrix.transpose.map(&:reverse) if direction == 'clockwise'
+   return matrix.transpose.reverse if direction == 'counter-clockwise'
+end
+
+```
+
+```ruby
+
+def power(base, exponent)
+   return nil if exponent < 0
+   return 1 if exponent.zero?
+   Array.new(exponent,base).reduce(&:*)
+end
+
+other approaches
+
+def power(base, exponent)
+  exponent.times.inject(1){ |product| product * base } unless exponent < 0
+end
+
+def power(base, exponent)
+  (1..exponent).inject(1){|v| v * base} unless exponent < 0
+end
+
+```
+
+altERnaTIng cAsE <=> ALTerNAtiNG CaSe
+
+```ruby
+
+class String
+  def to_alternating_case
+    self.swapcase
+  end
+end
+
+```
+
+IQ test
+
+```ruby
+
+def iq_test(chaine_nbre)
+   tab_of_integer = chaine_nbre.split(' ').map(&:to_i)
+   if tab_of_integer.count(&:odd?) > tab_of_integer.count(&:even?)
+       return tab_of_integer.map(&:even?).index(true) + 1
+   else
+       return tab_of_integer.map(&:odd?).index(true) + 1
+   end
+end
+
+```
+
+find missing numbers
+
+```ruby
+
+def find_missing_numbers(arr)
+  return [] if arr ==[] || arr == [0]
+  ((arr.min)..(arr.max)).to_a - arr
+end
+
+```
+
+simple validation of username with regex
+
+```ruby
+
+def validate_usr(username)
+   return true if (username =~ /^[a-z0-9_]{4,16}$/) == 0
+   return false
+end
+
+
+```
+
+Validate code with simple regex
+
+```ruby
+
+def validate_code(code)
+  #your code here
+  code.to_s.start_with?("1","2","3")
+end
+
+```
+
+Lucky number
+
+```ruby
+
+def is_lucky(n)
+  n.to_s.split('').map(&:to_i).reduce(&:+) % 9 == 0 ? true : false
+end
+
+```
+
+Reversed Strings
+
+```ruby
+
+def solution(str)
+  str.reverse
+end
+
+```
+
+Permutations
+
+```ruby
+
+def permutations(string)
+  return string.split('').permutation(string.length).to_a.map{|e| e.reduce(&:+)}.uniq
+end
+
+```
+
+Pascal's Triangle
+
+```ruby
+
+def pascalsTriangle(depth)
+  result = []
+  case depth
+    when 1
+      return [[1]].flatten
+    when 2
+      return [[1],[1,1]].flatten
+    else
+      result = [[1]]
+      (1..depth).each do |e|
+      result.push(result[e-1].each_cons(2).map{|pred,suiv| pred+suiv}.push(1).insert(0,1))
+     end
+  end
+  return result[0,result.length-1].flatten
+end
+
+```
+
+Pascal's Triangle #2
+
+```ruby
+
+def pascal(depth)
+  result = []
+  case depth
+    when 1
+      return [[1]]
+    when 2
+      return [[1],[1,1]]
+    else
+      result = [[1]]
+      (1..depth).each do |e|
+      result.push(result[e-1].each_cons(2).map{|pred,suiv| pred+suiv}.push(1).insert(0,1))
+     end
+  end
+  return result[0,result.length-1]
+end
+
+```
+
+Pyramid Array
+
+```
+
+def pyramid(numbers)
+  result = []
+  numbers.times do |e|
+    result << Array.new(e+1,1)
+  end
+  result
+end
+
+```
+
+
+
+Number toString
+
+```ruby
+
+a = some_number.to_s
+
+```
+
+Basic variable assignement
+
+```ruby
+
+a = "code"
+b = "wa.rs"
+name = a + b
+
+```
+
+Re-Open class
+
+```ruby
+#Re-open the class String and add the my_new_method method. Solution 1
+class Object
+  def my_new_method
+  end
+end
+
+class String < Object
+  def my_new_method
+    upcase
+  end
+end
+
+# Solution 02
+class String
+  def my_new_method ; self.upcase() ; end
+end
+
+```
+
+Highest and lowest
+
+```ruby
+
+def high_and_low(numbers)
+  "#{numbers.split(' ').map(&:to_i).max} #{numbers.split(' ').map(&:to_i).min}"
+end
+
+# Other approaches
+def high_and_low(numbers)
+  numbers.split.map(&:to_i).minmax.reverse.join(' ')
+end
+
+def high_and_low(numbers)
+  numbers = numbers.split.map(&:to_i)
+  "#{numbers.max} #{numbers.min}"
+end
+
+```
+
+leet classes (approach)
+
+```ruby
+def leet_classes
+  (1..1337).to_a.map do |i|
+    Object.const_set("FooBar_#{i}", Class.new {
+      define_singleton_method("class_method_#{i}") { "class_method_value_#{i}" }
+      define_method("instance_method_#{i}") { "instance_method_value_#{i}" }
+    })
+  end
+end
+```
+
+### javascript
 
 XoR
 
@@ -2257,880 +3143,6 @@ var moveZeros = (arr, count=[]) => {
 
 ```
 
-
-Array and procs #1
-
-```ruby
-
-def array_procs(*args)
-	to_change = args.first
-	args[1..-1].each do |some_proc|
-    to_change = to_change.map(&some_proc)
-	end
-	to_change
-end
-
-# Autres approches
-
-def array_procs(arr, *procs)
-  procs.inject(arr){ |a, p| a.map(&p) }
-end
-
-def array_procs(arr, *procs)
-  procs.each{|p| arr = arr.map(&p) }
-  arr
-end
-
-def array_procs(array, *procs)
-  result = []
-  procs.each do |proc|
-    result = array.map(&proc)
-    array  = result
-  end
-  array
-end
-
-
-def array_procs(arr, *procs)
-  arr.map { |i| procs.reduce(i) { |x, proc| proc === x } }
-end
-
-def array_procs(array, *procs)
-  array.map { |element| procs.inject(element) { |memo, proc| proc[memo] } }
-end
-
-def array_procs(arr, *procs)
-  procs.size.times{|y| arr = arr.map{|x| procs[y][x]}}
-  arr
-end
-
-class Proc
-  def +(other)
-    ->(x) { other[self[x]] }
-  end
-
-  def self.id
-    ->(x) { x }
-  end
-end
-
-def array_procs(arr, *procs)
-  arr.map { |e| procs.inject(Proc.id, &:+)[e] }
-end
-
-def array_procs(arr, *procs)
-  arr.collect {|x| procs.inject(x) {|a,p| p[a]}}
-end
-```
-
-flattened_keys
-
-```ruby
-# Premiere solution a l'esprit
-# A améliorer
-class Hash
-
-  def flattened_keys
-
-    def flat hash
-      h = {}
-      hash.each do |k,v|
-        if v.is_a? Hash
-          keys_to_remove = hash[k].keys
-          keys_to_remove.each do |cle|
-            if (cle.is_a?(String) || k.is_a?(String))
-              h[[k.to_s,cle.to_s].join('_')] = hash[k][cle]
-            else
-              h[[k.to_s,cle.to_s].join('_').to_sym] = hash[k][cle]
-            end
-          end
-          h = flat h
-        else
-          h[k] = v
-        end
-      end
-      return h
-    end
-
-    simple_hash = self
-    flat simple_hash
-
-  end
-end
-
-```
-
-remember
-
-```ruby
-
-def remember(str)
-  stack = []
-  result = []
-  str.chars.each do |letter|
-    stack.push(letter)
-    result << letter if stack.count(letter) > 1 && !result.include?(letter)
-  end
-  result
-end
-
-# Better approaches
-
-
-def remember(str)
-  seen = Hash.new(0)
-  str.chars.select do |c|
-    seen[c] += 1
-    seen[c] == 2
-  end
-end
-
-def remember(str)
-  str.chars.select.with_index{|x,i| str.index(x) != i}.uniq
-end
-```
-
-head, tail, init and last
-
-```ruby
-
-def head(arr)
-  arr[0]
-end
-
-def tail(arr)
-  arr[1..-1]
-end
-
-def init(arr)
-  arr[0..-2]
-end
-
-def last(arr)
-  arr[-1]
-end
-
-```
-
-Counting Array Elements
-
-```ruby
-def count(array)
-  uniq_hash = {}
-  array.each do |e|
-    if uniq_hash[e].nil?
-      uniq_hash[e] = 1
-    else
-      uniq_hash[e]+=1
-    end
-  end
-  uniq_hash
-end
-
-# Other approach better
-def count(array)
-  c = Hash.new(0)
-  array.each { |i| c[i] += 1  }
-  c
-end
-
-def count(array)
-  array.reduce(Hash.new(0)) { |a, b| a[b] += 1; a }
-end
-
-```
-
-string ends with?
-
-```ruby
-
-def solution(str,ending)
-  str.end_with?(ending)
-end
-
-```
-
-binary addition
-
-```ruby
-def add_binary(a,b)
-  (a+b).to_s(2)
-  end
-
-```
-
-Odd-Even string sort
-
-```ruby
-
-def sort_my_string(s)
-   left = []
-   right = []
-    s.split('').each_with_index do |letter, index|
-      left << letter if index.odd?
-      right << letter if index.even?
-    end
-    [right, ' ' ,left].join
-end
-
-```
-
-shortest word
-
-```ruby
-
-def find_short(s)
-  s.split(" ").map(&:size).min
-end
-
-```
-
-chain me
-
-```ruby
-
-def chain(number,fns)
-  fns.size.zero? ? number : chain(Object.send(fns.shift, number),fns)
-end
-
-```
-
-backspace in string
-
-```ruby
-
-def clean_string(string)
-  res = []
-  string.chars.each{|a|
-    a == '#' ?  res.pop : res << a
-  }
- res.join('')
-end
-
-```
-
-multiple of 3 and 5
-
-```ruby
-
-def solution(number)
-  (1...number).select{|number| number % 3 == 0 or number % 5 == 0 }.reduce(&:+)
-end
-
-```
-
-sum of all arguments
-
-```ruby
-
-function sum(nombres) {
-  result = []
-  for(i in arguments){
-    result.push(arguments[i])
-  }
-  return result.reduce(function(a,b){ return a + b });
-}
-
-```
-
-numerical palindrome
-
-```ruby
-
-
-def palindrome(num)
-  return "Not valid" unless num.is_a? Integer
-  return "Not valid" if num.zero?
-  return "Not valid" if num < 0
-  num.to_s === num.to_s.reverse
-end
-
-```
-
-Basic math (add or substract)
-
-```ruby
-def calculate(str)
-  (eval str.gsub(/plus/,'+').gsub(/minus/,'-')).to_s
-end
-
-```
-
-Two oldest ages
-
-```ruby
-
-def two_oldest_ages(ages)
-  ages.max(2).sort
-end
-
-```
-
-Persistent bugger
-
-```ruby
-
-def persistence number
-  return 0 if number.to_s.split('').size == 1
-  count = 0
-
-  begin
-    number = number.to_s.split('').map(&:to_i).reduce(:*)
-    count += 1
-  end while number.to_s.split('').size > 1
-
-  return count
-end
-
-```
-
-Sum of numbers from 0 to N
-
-```ruby
-
-class SequenceSum
-  def self.show_sequence(n)
-   return "#{n}<0" if n < 0
-   return "0=0" if n.zero?
-   "#{0.upto(n).map(&:to_s).join('+')} = #{ 0.upto(n).reduce(:+)}"
-  end
-end
-
-```
-
-Count positive/Sum of negatives
-
-```ruby
-def count_positives_sum_negatives(lst)
-  total_positive = lst.select{|nb| nb > 0}
-  total_negative = lst.select{|nb| nb < 0}
-  [total_positive.size, total_negative.empty? ? 0 : total_negative.reduce(&:+) ]
-end
-
-# Better
-def count_positives_sum_negatives(lst)
-    [lst.count{|n| n > 0}, lst.select{|n| n < 0}.reduce(0, :+)]
-end
-
-# What ???
-def count_positives_sum_negatives(lst)
-  return [] if lst.nil? || lst.empty?
-  [lst.count(&:positive?), lst.select(&:negative?).reduce(0, :+)]
-end
-
-# Wh..
-def count_positives_sum_negatives(list)
-  [list.count(&:positive?), list.select(&:negative?).reduce(0,:+)]
-end
-
-```
-
-
-
-Square(n) Sum
-
-```ruby
-
-def squareSum(numbers)
-  numbers.map{|n| n*n }.reduce(&:+)
-end
-
-```
-
-convert hash to array
-
-```ruby
-
-def convert_hash_to_array(hash)
-  new_hash = Hash[hash.collect{|k,v| [k.to_s, v]}]
-  new_hash.to_a
-end
-
-def convert_hash_to_array(hash)
-  Hash[hash.collect{|k,v| [k.to_s, v]}].to_a
-end
-
-def convert_hash_to_array(hash)
-  hash.map{ |k, v| [k.to_s, v] }
-end
-```
-
-
-
-
-CamelCase method
-
-```ruby
-
-class String
-  def camelcase
-    self.split(' ').map(&:capitalize).join('')
-  end
-end
-
-```
-
-Largest 5 digits numbers in a series
-
-```ruby
-
-def solution(digits)
-  digits.split(//).each_cons(5).to_a.map do |tb|
-    tb.join.to_i
-  end.max
-end
-
-```
-
-Array Helpers
-
-```ruby
-
-class Array
-  def square
-    self.map do |e| e**2 end
-  end
-
-  def cube
-     self.map do |e| e**3 end
-  end
-
-  def sum
-    self.inject(&:+)
-  end
-
-  def average
-    self.sum/self.length
-  end
-
-  def even
-    self.select do |e| e.even? end
-  end
-
-  def odd
-    self.select do |e| e.odd? end
-  end
-end
-
-```
-
-List filtering
-
-```ruby
-
-def filter_list(l)
-  l.select{|e| !e.is_a?(String)}
-end
-
-```
-
-is every value in the array an array?
-
-```ruby
-
-def arrCheck(value)
-  value.all?{|e| e.is_a?(Array)}
-end
-
-```
-
-Exclamation marks series #11: Replace all vowel to exclamation mark in the sentence
-
-```ruby
-
-def replace(s)
-  s.gsub(/a|e|i|o|u|A|E|I|O|U/,"!")
-end
-
-```
-
-Help Bob count letters and digits.
-
-```ruby
-
-def count_letters_and_digits(input)
-  input.scan(/[[:digit:]]|[[:alpha:]]/).size
-end
-
-```
-
-Identical elements
-
-```ruby
-
-def duplicate_elements(m, n)
-    # write your solution here
-    return m.any?{|e| n.include?(e) } ? true : false
-end
-
-```
-
-The if function
-
-```ruby
-
-# ifTrue et ifFalse sont des proc genre proc{|e| e.methode_execute }
-def _if(bool, ifTrue, ifFalse)
-  bool ? ifTrue.call : ifFalse.call
-end
-
-```
-
-Sum mixed array
-
-```ruby
-
-def sum_mix(x)
-  x.map(&:to_i).reduce(&:+)
-end
-
-```
-
-String repeat
-
-```ruby
-
-def repeat_str (n, s)
-  s * n
-end
-
-```
-
-Get numbers from a string
-
-```ruby
-
-def get_number_from_string(s)
-  s.gsub(/[[:digit:]]/).to_a.reduce(&:+).to_i
-end
-
-```
-
-Beginner Reduce but grow
-
-```ruby
-
-def grow(x)
-  x.reduce(&:*)
-end
-
-```
-
-Opposite number
-
-```ruby
-
-def opposite(num)
-  num > 0 ?  -(num) : (num).abs
-end
-
-```
-
-
-Return negative
-
-```ruby
-
-def makeNegative(num)
-  num > 0 ? -(num) : num
-end
-
-```
-
-Sum of positive
-
-```ruby
-
-def positive_sum(arr)
-  return 0 if arr.empty? || arr.all?{|e| e < 0 }
-  arr.select{|n| n >= 0}.reduce(&:+)
-end
-
-```
-
-GrassHopper shopping list
-
-```ruby
-
-#your code here
-sandwiches = 4
-salads = 6
-wraps = 5
-frenchFries = 10
-totalPrice = [sandwiches*8, salads*7, wraps*6.50, frenchFries*1.20].reduce(&:+)
-
-```
-
-
-Ruby Array invoke instance method
-
-```ruby
-
-class Array
-  def invoke(method, *args, &block)
-    select(&block)
-    .map do |elt|
-      elt.send(method.to_sym, *args.to_a)
-    end
-  end
-end
-
-```
-
-Rotate an array matrix
-
-```ruby
-
-def rotate matrix, direction
-   return matrix.transpose.map(&:reverse) if direction == 'clockwise'
-   return matrix.transpose.reverse if direction == 'counter-clockwise'
-end
-
-```
-
-```ruby
-
-def power(base, exponent)
-   return nil if exponent < 0
-   return 1 if exponent.zero?
-   Array.new(exponent,base).reduce(&:*)
-end
-
-other approaches
-
-def power(base, exponent)
-  exponent.times.inject(1){ |product| product * base } unless exponent < 0
-end
-
-def power(base, exponent)
-  (1..exponent).inject(1){|v| v * base} unless exponent < 0
-end
-
-```
-
-altERnaTIng cAsE <=> ALTerNAtiNG CaSe
-
-```ruby
-
-class String
-  def to_alternating_case
-    self.swapcase
-  end
-end
-
-```
-
-IQ test
-
-```ruby
-
-def iq_test(chaine_nbre)
-   tab_of_integer = chaine_nbre.split(' ').map(&:to_i)
-   if tab_of_integer.count(&:odd?) > tab_of_integer.count(&:even?)
-       return tab_of_integer.map(&:even?).index(true) + 1
-   else
-       return tab_of_integer.map(&:odd?).index(true) + 1
-   end
-end
-
-```
-
-find missing numbers
-
-```ruby
-
-def find_missing_numbers(arr)
-  return [] if arr ==[] || arr == [0]
-  ((arr.min)..(arr.max)).to_a - arr
-end
-
-```
-
-simple validation of username with regex
-
-```ruby
-
-def validate_usr(username)
-   return true if (username =~ /^[a-z0-9_]{4,16}$/) == 0
-   return false
-end
-
-
-```
-
-Validate code with simple regex
-
-```ruby
-
-def validate_code(code)
-  #your code here
-  code.to_s.start_with?("1","2","3")
-end
-
-```
-
-Lucky number
-
-```ruby
-
-def is_lucky(n)
-  n.to_s.split('').map(&:to_i).reduce(&:+) % 9 == 0 ? true : false
-end
-
-```
-
-Reversed Strings
-
-```ruby
-
-def solution(str)
-  str.reverse
-end
-
-```
-
-Permutations
-
-```ruby
-
-def permutations(string)
-  return string.split('').permutation(string.length).to_a.map{|e| e.reduce(&:+)}.uniq
-end
-
-```
-
-Pascal's Triangle
-
-```ruby
-
-def pascalsTriangle(depth)
-  result = []
-  case depth
-    when 1
-      return [[1]].flatten
-    when 2
-      return [[1],[1,1]].flatten
-    else
-      result = [[1]]
-      (1..depth).each do |e|
-      result.push(result[e-1].each_cons(2).map{|pred,suiv| pred+suiv}.push(1).insert(0,1))
-     end
-  end
-  return result[0,result.length-1].flatten
-end
-
-```
-
-Pascal's Triangle #2
-
-```ruby
-
-def pascal(depth)
-  result = []
-  case depth
-    when 1
-      return [[1]]
-    when 2
-      return [[1],[1,1]]
-    else
-      result = [[1]]
-      (1..depth).each do |e|
-      result.push(result[e-1].each_cons(2).map{|pred,suiv| pred+suiv}.push(1).insert(0,1))
-     end
-  end
-  return result[0,result.length-1]
-end
-
-```
-
-Pyramid Array
-
-```ruby
-
-def pyramid(numbers)
-  result = []
-  numbers.times do |e|
-    result << Array.new(e+1,1)
-  end
-  result
-end
-
-```
-
-Number toString
-
-```ruby
-
-a = some_number.to_s
-
-```
-
-Basic variable assignement
-
-```ruby
-
-a = "code"
-b = "wa.rs"
-name = a + b
-
-```
-
-Re-Open class
-
-```ruby
-#Re-open the class String and add the my_new_method method. Solution 1
-class Object
-  def my_new_method
-  end
-end
-
-class String < Object
-  def my_new_method
-    upcase
-  end
-end
-
-# Solution 02
-class String
-  def my_new_method ; self.upcase() ; end
-end
-
-```
-
-Highest and lowest
-
-```ruby
-
-def high_and_low(numbers)
-  "#{numbers.split(' ').map(&:to_i).max} #{numbers.split(' ').map(&:to_i).min}"
-end
-
-# Other approaches
-def high_and_low(numbers)
-  numbers.split.map(&:to_i).minmax.reverse.join(' ')
-end
-
-def high_and_low(numbers)
-  numbers = numbers.split.map(&:to_i)
-  "#{numbers.max} #{numbers.min}"
-end
-
-```
-
-leet classes (approach)
-
-```ruby
-def leet_classes
-  (1..1337).to_a.map do |i|
-    Object.const_set("FooBar_#{i}", Class.new {
-      define_singleton_method("class_method_#{i}") { "class_method_value_#{i}" }
-      define_method("instance_method_#{i}") { "instance_method_value_#{i}" }
-    })
-  end
-end
-```
-
-### javascript
 
 Block building
 
