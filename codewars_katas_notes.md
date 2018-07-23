@@ -1383,6 +1383,23 @@ end
 
 ### javascript
 
+
+How many smaller than me
+
+```javascript
+
+function smaller(nums) {
+  res = []
+  while(nums.length !== 0){
+    nb = nums.shift()
+    nb_inf =nums.filter(a=>a<nb).length
+    res.push(nb_inf)
+  }
+  return res
+}
+
+```
+
 XoR
 
 ```javascript
