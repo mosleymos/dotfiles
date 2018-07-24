@@ -74,6 +74,26 @@ def find_short(s):
 
 ### Ruby
 
+RGB to Hex conversion
+
+```ruby
+# a ameliorer
+def rgb(r, g, b)
+	[r,g,b].map{|e| 
+      if e == 0
+        "00"
+      elsif e < 0
+        "00"
+      elsif e > 255 
+        255.to_s(16).upcase
+      else
+        e.to_s(16).upcase
+      end
+	}.join
+end
+
+```
+
 Inverting a hash
 
 ```ruby
