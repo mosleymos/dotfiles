@@ -74,6 +74,18 @@ def find_short(s):
 
 ### Ruby
 
+Inverting a hash
+
+```ruby
+
+def invert_hash(hash)
+  hash.map{|k,v| {v => k} }.reduce{|a,b| a.merge(b) }
+end
+
+```
+
+Roman numbers
+
 ```ruby
 
 def solution(roman_number)
