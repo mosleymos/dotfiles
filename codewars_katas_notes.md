@@ -1380,6 +1380,29 @@ end
 
 ```
 
+Odd Not prime
+
+```ruby
+
+require 'prime'
+def odd_not_prime(num)
+  (1..num).reject(&:even?).reject(&:prime?).length
+end
+
+# autre approche
+require 'prime'
+
+def odd_not_prime(num)
+   (num+1)/2-Prime.each(num).select{|x| x%2 != 0}.length
+end
+
+require 'prime'
+
+def odd_not_prime(num)
+  (1..num).count{ |x| x.odd? && !Prime.prime?(x) }
+end
+```
+
 leet classes (approach)
 
 ```ruby
