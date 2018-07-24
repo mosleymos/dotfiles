@@ -420,6 +420,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tcomment_vim'
+Plug 'mhinz/vim-grepper'
 
 """ Plugin a revoir et repenser
 """ Plug 'haya14busa/incsearch-fuzzy.vim'
