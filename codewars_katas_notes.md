@@ -1438,6 +1438,45 @@ end
 
 ### javascript
 
+Flatten
+
+```javascript
+// approche reprise sur un flatten sur 1
+const flatten = arr => arr.reduce((a, v) => a.concat(v), []);
+
+// Autres approches
+var flatten = function (lol){
+  return [].concat.apply([],lol);
+}
+
+var flatten = function (array){
+  return array.reduce(function(a,z) {
+    return a.concat(z);
+  }, []);
+}
+
+// Plus détaillée
+var flatten = function (array){
+  var res = [];
+  
+  for (var i = 0; i < array.length; i++) {
+    if (array[i] instanceof Array) {
+      for (var j = 0; j < array[i].length; j++)
+        res.push(array[i][j]);
+    } else {
+      res.push(array[i]);
+    }
+  }
+  
+  return res;
+}
+
+// flatten
+var flatten = function (array){
+let [...rest] = array;
+  return [].concat(...rest);
+}
+```
 
 How many smaller than me
 
