@@ -240,6 +240,11 @@ No self if yourself -> indiquer self partout peut être ennuyant
 
 Si une information vous prend plus d'une dizaine de minute à trouver alors votre organisation pose probleme
 
+Article sur qualités d'un développeur 139 points en discussion
+
+[139 traits that make better programmer](https://dev.to/sadick/139-traits-that-make-a-better-programmer-16fn)
+
 #### Architecture view
 
 [Software architecture vs code ](https://www.youtube.com/watch?v=GAFZcYlO5S0)
+
