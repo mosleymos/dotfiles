@@ -18,6 +18,8 @@ def is_pangram(s):
 
 ```
 
+Add Binary
+
 ```python
 def add_binary(a,b):
     return bin(a+b)[2:]
@@ -425,7 +427,7 @@ end
 
 ```
 
-# Next Prime
+Next Prime
 
 
 ```ruby
@@ -937,8 +939,6 @@ end
 ```
 
 
-
-
 CamelCase method
 
 ```ruby
@@ -1168,6 +1168,8 @@ def rotate matrix, direction
 end
 
 ```
+
+Power
 
 ```ruby
 
@@ -1543,7 +1545,9 @@ function isRubyComing(list) {
  }
 
 ```
+
 Ones and Zeros
+
 ```
 // Stack overflow sur le sujet https://stackoverflow.com/questions/11103487/convert-binary-representation-of-number-from-string-to-int-javascript
 // ex [0,0,0,1] -> 1
@@ -1566,6 +1570,7 @@ const binaryArrayToNumber = arr => {
   return num;
 };
 ```
+
 Life path number
 
 ```javascript
@@ -1579,6 +1584,7 @@ function lifePathNumber(dateOfBirth) {
   return Number(calculate(dateOfBirth.split('-').map(e=>calculate(e)).reduce((a,b)=>a+b)))
 }
 ```
+
 Maximum Gap (Array Series)
 
 
@@ -1597,6 +1603,7 @@ const maxGap = arr => {
 }
 
 ```
+
 Every possible sum of two digits
 
 ```javascript
@@ -1624,6 +1631,7 @@ function countRedBeads(num_blue) {
 }
 
 ```
+
 Coding Meetup #2 - Higher-Order Functions Series - Greet developers
 
 ```javascript
