@@ -1440,6 +1440,102 @@ end
 
 ### javascript
 
+Fibonacci generator
+
+```javascript
+
+// Solution proposée
+
+const fibonacci = (n) => {
+  return n < 1 ? 0
+    : n <= 2 ? 1
+    : fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+const genfib = () => {
+  var i = 0
+  return () => {
+    return fibonacci(i++)
+  }
+}
+
+// autre approche
+function genfib(){
+  var fibs = [0,1];
+  return function fib(){
+    fibs.push(fibs[0]+fibs[1]);
+    return fibs.shift();
+  }
+}
+
+
+function genfib(){
+   var a = -1, b = 1;
+   return function fib(){
+      b = a + b;
+      a = b - a;
+      return b;
+   };
+}
+
+function genfib(){
+  var a = 0, b = 1;
+  return function fib(){
+    var ans = a;
+    [a, b] = [b, a + b];
+    return ans;
+  }
+}
+
+function genfib() {
+  var a = [0, 1], i = 0;
+  return function fib() {
+    a.push(a[i++] + a[i]);
+    return a[i - 1];
+  }
+}
+
+// Approche avec generateur
+function *fibonacci(current = 0, next = 1) {
+  while (true) {
+    yield current;
+    [current, next] = [next, current + next];
+  }
+}
+ 
+function genfib() {
+  const sequence = fibonacci();
+  
+  return function fib() {
+    return sequence.next().value;
+  }
+}
+
+// Approche la plus simple
+
+function genfib(){
+  let a = 0,
+      b = 1
+
+  return function fib(){
+    let t = a
+    a = b
+    b += t
+
+    return t
+  }
+}
+
+// Clever
+function genfib(){
+  var a = 1, b = 0;
+  
+  return function() {
+    return a = [b, b = a + b][0];
+  };
+}
+```
+
 Flatten
 
 ```javascript
@@ -4511,7 +4607,7 @@ end
 ```
 
 Javascript creation de generateurs
-Reflextion en cours
+Reflexion en cours
 
 ```javascript
 //'use strict';
