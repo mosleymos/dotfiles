@@ -7,6 +7,32 @@ Codewars notes
 
 ### Python
 
+Find thing first
+
+```python
+
+# Solution proposee
+def solution(first,last):
+    ''' Find a way to make this work without declaring any variables'''
+    return (first(),last())[0]
+
+# Approche que je trouve plus déclarative par rapport à un objectif
+def solution(first, last):
+    try:
+        return first()
+    finally:
+        last()
+
+# Approche courte
+def solution(first,last):return next(x for x in(first(),last()))
+
+
+def solution(*fs):
+    return [f() for f in fs][0]
+
+
+```
+
 Detect Pangram
 
 ```python
