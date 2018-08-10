@@ -83,6 +83,38 @@ ${p_host}
 PS2=$'%_>'
 RPROMPT=$'${vcs_info_msg_0_}'
 
+# Inspiration zsh du gist https://gist.github.com/clementbethuys/897125
+
+fg_black=%{$'\e[0;30m'%}
+fg_red=%{$'\e[0;31m'%}
+fg_green=%{$'\e[0;32m'%}
+fg_brown=%{$'\e[0;33m'%}
+fg_blue=%{$'\e[0;34m'%}
+fg_purple=%{$'\e[0;35m'%}
+fg_cyan=%{$'\e[0;36m'%}
+fg_white=%{$'\e[0;37m'%}	
+
+fg_gray=%{$'\e[1;30m'%}
+fg_lred=%{$'\e[1;31m'%}
+fg_lgreen=%{$'\e[1;32m'%}
+fg_yellow=%{$'\e[1;33m'%}
+fg_lblue=%{$'\e[1;34m'%}
+fg_pink=%{$'\e[1;35m'%}
+fg_lcyan=%{$'\e[1;36m'%}
+
+
+# Afficher branche from
+# https://askubuntu.com/questions/85088/git-branch-in-zsh-prompt
+autoload -Uz vcs_info
+precmd () { vcs_info  }
+setopt prompt_subst
+
+PROMPT="${fg_brown}${fg_green}%n${fg_red}@${fg_purple}%m${fg_black}[${fg_blue}%~${fg_black}]\$vcs_info_msg_0_
+${fg_brown}${fg_lgreen}[${fg_cyan}%T${fg_lgreen}]: ▶ "
+
+#Look in history
+bindkey '^R' history-incremental-search-backward
+bindkey "^S" history-incremental-pattern-search-forward
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
