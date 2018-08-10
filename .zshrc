@@ -36,6 +36,15 @@ cdpath=($HOME/Documents $HOME/Images $HOME/Pictures $HOME/Documents/coding_dojo 
 
 export HISTIGNORE="cd_*"
 
+HISTFILE=~/.zsh/histfile
+HISTSIZE=5000
+SAVEHIST=5000
+
+	setopt append_history
+	setopt share_history  # partage de l'historique
+	setopt inc_append_history
+
+
 set -o vi
 
 # Bind key jj to esc vi mode 
