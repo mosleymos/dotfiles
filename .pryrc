@@ -1,3 +1,5 @@
+# TODO: Essayer un pryrc moins complexe
+
 # === EDITOR ===
 Pry.editor = 'vim'
 
