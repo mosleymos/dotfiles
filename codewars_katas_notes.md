@@ -102,6 +102,26 @@ def find_short(s):
 
 ### Ruby
 
+Sort by last char
+
+```ruby
+def last(x)
+  x.split(/\s/).sort_by{|w|w[w.length-1]}
+end
+
+# approches similaires
+
+def last(x)
+  x.split(" ").sort_by{|w|w[-1]}
+end
+
+# split naturel sur les espaces
+def last(x)
+  x.split.sort_by{|w| w[-1]}
+end
+
+```
+
 RGB to Hex conversion
 
 ```ruby
