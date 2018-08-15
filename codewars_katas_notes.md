@@ -122,6 +122,45 @@ end
 
 ```
 
+Quick (n choose k) calculator
+
+cf [Combination](https://en.wikipedia.org/wiki/Combination)
+
+```ruby
+# approche math
+def choose(n,k)
+  ((n-(k-1))..n).reduce(&:*) / (1..k).reduce(&:*)
+end
+
+# Alter
+def choose(n,k)
+  (1 + n - k..n).reduce(:*) / (1..k).reduce(:*)
+end
+
+# Approche surcharge ??
+class Numeric
+  def !
+    self == 0 ? 1 : (1..self).reduce(:*)
+  end
+end
+
+def choose(n,k)
+  return 0 if n < k
+  n.! / (k.! * (n-k).!)
+end
+
+# Recursive
+def choose n, k
+  k == 0 ? 1 : choose(n - 1, k - 1) * n / k
+end
+
+# clever
+def choose(n,k)
+  (1..n).to_a.combination(k).size
+end
+
+```
+
 RGB to Hex conversion
 
 ```ruby
