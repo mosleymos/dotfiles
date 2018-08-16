@@ -3915,7 +3915,22 @@ END
 
 ```
 
+SQL Basic mod
 
+```sql
+# Approche
+SELECT MOD(number1, number2) from decimals;
+
+# autres
+
+SELECT
+  NUMBER1 % NUMBER2 AS MOD
+FROM
+    DECIMALS
+
+SELECT MOD(number1,number2) FROM decimals AS resulttable
+
+```
 SQL Basics: Simple WHERE and ORDER BY
 
 ```SQL
