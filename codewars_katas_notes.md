@@ -102,6 +102,66 @@ def find_short(s):
 
 ### Ruby
 
+Form the minimum
+
+```ruby
+
+def min_value(digits)
+  digits.uniq.sort.join.to_i
+end
+
+# Variante
+def min_value(digits)
+  digits.uniq.sort!.join.to_i
+end
+
+# Complexe mais coup d'oeil
+class Proc
+  # compose for lambdas
+  def *(f)
+    ->(*args) { self.(f.(*args)) }
+  end
+end
+
+def min_value(digits)
+  toHash = -> (digits) { digits.reduce({}) { |acc, n| (acc[n] = n) && acc} }
+  toNumbers = -> (hash) { (1..9).to_a.map{ |n| hash[n] } }
+  toNumber = -> (numbers) { numbers.join('').to_i }
+  
+  compose = toNumber * toNumbers * toHash
+  compose.(digits)
+end
+
+
+# Autre complexe
+def min_value(digits)
+
+  accum = 0
+  
+  while !digits.empty?() do
+  
+    # find the lowest number
+    lowest = digits.inject do |memo, n|
+      if n < memo || memo == 0
+        n
+      else
+        memo
+      end
+    end
+    
+    # Put it in an accumulator
+    accum = accum * 10 + lowest
+    
+    # remove it from the array
+    digits.delete(lowest)
+    
+  end
+  
+  return accum
+  
+end
+```
+
 Sort by last char
 
 ```ruby
