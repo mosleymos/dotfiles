@@ -102,6 +102,125 @@ def find_short(s):
 
 ### Ruby
 
+Form the minimum
+
+```ruby
+
+def min_value(digits)
+  digits.uniq.sort.join.to_i
+end
+
+# Variante
+def min_value(digits)
+  digits.uniq.sort!.join.to_i
+end
+
+# Complexe mais coup d'oeil
+class Proc
+  # compose for lambdas
+  def *(f)
+    ->(*args) { self.(f.(*args)) }
+  end
+end
+
+def min_value(digits)
+  toHash = -> (digits) { digits.reduce({}) { |acc, n| (acc[n] = n) && acc} }
+  toNumbers = -> (hash) { (1..9).to_a.map{ |n| hash[n] } }
+  toNumber = -> (numbers) { numbers.join('').to_i }
+  
+  compose = toNumber * toNumbers * toHash
+  compose.(digits)
+end
+
+
+# Autre complexe
+def min_value(digits)
+
+  accum = 0
+  
+  while !digits.empty?() do
+  
+    # find the lowest number
+    lowest = digits.inject do |memo, n|
+      if n < memo || memo == 0
+        n
+      else
+        memo
+      end
+    end
+    
+    # Put it in an accumulator
+    accum = accum * 10 + lowest
+    
+    # remove it from the array
+    digits.delete(lowest)
+    
+  end
+  
+  return accum
+  
+end
+```
+
+Sort by last char
+
+```ruby
+def last(x)
+  x.split(/\s/).sort_by{|w|w[w.length-1]}
+end
+
+# approches similaires
+
+def last(x)
+  x.split(" ").sort_by{|w|w[-1]}
+end
+
+# split naturel sur les espaces
+def last(x)
+  x.split.sort_by{|w| w[-1]}
+end
+
+```
+
+Quick (n choose k) calculator
+
+cf [Combination](https://en.wikipedia.org/wiki/Combination)
+
+```ruby
+# approche math
+def choose(n,k)
+  ((n-(k-1))..n).reduce(&:*) / (1..k).reduce(&:*)
+end
+
+# Alter
+def choose(n,k)
+  (1 + n - k..n).reduce(:*) / (1..k).reduce(:*)
+end
+
+# Approche surcharge ??
+class Numeric
+  def !
+    self == 0 ? 1 : (1..self).reduce(:*)
+  end
+end
+
+def choose(n,k)
+  return 0 if n < k
+  n.! / (k.! * (n-k).!)
+end
+
+# Recursive
+def choose n, k
+  k == 0 ? 1 : choose(n - 1, k - 1) * n / k
+end
+
+# clever
+def choose(n,k)
+  (1..n).to_a.combination(k).size
+end
+
+```
+
 RGB to Hex conversion
 
 ```ruby
@@ -3856,7 +3975,22 @@ END
 
 ```
 
+SQL Basic mod
 
+```sql
+# Approche
+SELECT MOD(number1, number2) from decimals;
+
+# autres
+
+SELECT
+  NUMBER1 % NUMBER2 AS MOD
+FROM
+    DECIMALS
+
+SELECT MOD(number1,number2) FROM decimals AS resulttable
+
+```
 SQL Basics: Simple WHERE and ORDER BY
 
 ```SQL
