@@ -102,6 +102,47 @@ def find_short(s):
 
 ### Ruby
 
+Form the largest 
+
+```ruby
+
+def max_number(n)
+  n.to_s.chars.sort{|a,b| b<=>a }.join.to_i
+end
+
+# Better
+def max_number(n)
+  n.to_s.chars.sort.reverse.join.to_i
+end
+
+# Connaissait pas
+# Fixnum#digits -> depend version ruby
+def max_number(n)
+  n.digits.sort_by(&:-@).join.to_i
+end
+
+# Approche longue
+def max_number(n)
+  #your code here
+  s = n.to_s
+  s = s.split("")
+  ok  = []
+  for i in 0..s.length-1
+    ok.push s.max
+    for i in 0..s.length-1
+      if s[i] == s.max
+        s.delete_at(i)
+         break
+       end 
+    end
+    
+  end
+  ok  = ok.join("")
+  ok = ok.to_i
+  return ok
+end
+
+```
 Form the minimum
 
 ```ruby
