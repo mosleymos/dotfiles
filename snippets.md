@@ -20,4 +20,9 @@ kill -INT $(cat tmp/pids/server.pid)
 lsof -wni tcp:3000
 
 
+# mysql expression read from database 
+
+mysql -h "some_host" -u "some_user" -p "some_password"  "some_database" < some_fichier_avec_requetes_sql.sql | while read line; do echo $line >> some_file_text.txt ; done
+
+
 ```
