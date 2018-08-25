@@ -30,5 +30,6 @@ mysqldump  --verbose -hsome_host -usome_user -psome_password --databases some_da
 
 mysql -h "some_host" -u "some_user" -p "some_password"  "some_database" < some_fichier_avec_requetes_sql.sql | while read line; do echo $line >> some_file_text.txt ; done
 
-
+# netcat listen port
+nc -lp 3000
 ```
