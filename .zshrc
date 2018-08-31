@@ -20,6 +20,9 @@ alias -g G=' | grep '
 
 alias be='bundle exec'
 
+# Pretty print the path
+alias path='echo $PATH | tr -s ":" "\n"'
+
 # To think about
 #alias G=| grep
 
