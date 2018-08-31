@@ -1626,6 +1626,103 @@ end
 
 ### javascript
 
+Once
+
+```javascript
+// Approche perso
+const once = (fn) => {
+  var i = 0
+    return (...args) => {
+      if(i<1){
+        i+=1
+        return fn.apply(this,args)
+      }else{
+        return ;
+      }
+   }
+}
+
+// Solution plus generique - use mot cle arguments
+function once(fn) {
+  var call = true
+    return function() {
+      if (call) {
+        call = false
+          return fn.apply(this, arguments)
+      }
+    }
+}
+
+function once(fn) {
+    'use strict';
+
+    return function () {
+      if (!fn.ranOnce) {
+         fn.ranOnce = true;
+         return fn.apply(fn, arguments);
+      }
+    };
+}
+
+// approche try
+function once(fn) {
+  return function() {
+    try {
+      return fn && fn.apply(this, arguments);
+    } finally {
+      fn = undefined;
+    }
+  };
+}
+
+// Cryptique
+function once(fn) {
+  return function F(){
+    var args = [].slice.call(arguments);
+    return F.i ? [][[]] : (F.i = 1, fn.apply(null, args));
+  };
+}
+
+function once(fn) {
+  let k=true;
+  return (...a)=>k&&(k=undefined,fn(...a))
+}
+
+const once = fn => {
+    let done = false;
+    return (...args) => {
+        if (!done) {
+            done = true;
+            return fn(...args);
+        }
+    };
+}
+
+// Usage de Proxy
+
+function once(fn) {
+    let wasCalled = false;
+    return new Proxy(fn, {
+        apply(origFn, _, args) {
+            if (wasCalled) return;
+            wasCalled = true;
+            return origFn(...args);
+
+        }
+    });
+}
+
+function once(fn) {
+  let called = false;
+  return function(...arguments) {
+    if (!called) {
+      called = true;
+      return fn.call(null, ...arguments)
+    }
+  };
+}
+```
+
 Fibonacci generator
 
 ```javascript
