@@ -102,6 +102,83 @@ def find_short(s):
 
 ### Ruby
 
+Summation Of Primes
+
+```ruby
+
+require 'prime'
+def sum_of_primes(n)
+  (0..n).select(&:prime?).reduce(:+)
+end
+
+require 'prime'
+
+def sum_of_primes(n)
+  Prime.each(n).sum
+end
+
+# Variante
+require 'prime'
+
+def sum_of_primes(n)
+  Prime.take_while{|m| m <=n}.sum
+end
+
+# Approche SIEVES
+def sum_of_primes(n)
+  sieve = (2..n)
+    .lazy
+    .reject {|x| x % 2 == 0 && x > 2}
+    .reject {|x| x % 3 == 0 && x > 3}
+    .reject {|x| x % 5 == 0 && x > 5}
+    .reject {|x| x % 7 == 0 && x > 7}
+    .to_a
+  sum = 0
+  while !sieve.empty?
+    f = sieve.first
+    m = f
+    #puts "next prime = #{f}"
+    sum += f
+    while (f <= n) do
+      #puts "deleting #{f}"
+      sieve.delete(f)
+      #puts "sieve now #{sieve}"
+      f += m
+    end
+  end
+  sum
+end
+
+def sum_of_primes(n)
+  hash = {2 => 0}
+  (2..n).each do |number|
+    hash[number] = 0 unless number.even? # only add odd numbers
+  end
+  p = 3
+  while p**2 <= n
+    hash.each_pair do |number, value| 
+      if number % p === 0 # p is a factor of n, remove it
+        hash.delete(number) unless number === p
+      end
+    end
+    p += 2 # only try odd numbers
+  end
+  hash.keys.sum
+end
+
+# Approche compute
+$d = [2,3,5,7]
+
+def sum_of_primes(n)
+  return $d.take_while{|x| x <= n}.sum if $d[-1] >= n
+  m = $d[-1] + 1
+  while $d[-1] < n do
+    $d << m if $d.all?{|x| m % x != 0}
+    m += 1
+  end
+  sum_of_primes(n)
+end
+```
 Form the largest 
 
 ```ruby
