@@ -5739,6 +5739,19 @@ const wave = word => {
 }
 
 ```
+
+
+Reverse words
+
+```ruby
+# manque tous les mots y compris le dernier avec point
+def reverse_words(str)
+  regex = /\w+/i
+  str.gsub(regex){ $&.reverse }
+end
+
+```
+
 #### Snippets a Penser
 
 ```ruby
