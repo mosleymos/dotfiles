@@ -5752,6 +5752,29 @@ end
 
 ```
 
+Selecting Quotients From an Array
+
+Reflexion en cours
+
+```ruby
+def sel_quot(arr, m, dir_str=nil)
+res1 = arr.permutation(2).map(&:reverse)
+                         .map{|e| [e.reduce(&:/), e]}
+                         .select{|e| e[1].reduce(&:%).zero? && e[1][0] != e[1][1] }
+                         .sort_by{|e| e[0]}.uniq
+some_res = res1.select{|e| m <= e[0]  }
+if dir_str.to_s.downcase == ""
+  some_res
+elsif dir_str.to_s.downcase == "odd"
+  res_final = some_res.select{|e| e[0].odd?}.sort
+  return res_final
+else
+  res_final = some_res.select{|e| e[0].even?}.sort
+  return res_final
+end
+end
+```
+
 #### Snippets a Penser
 
 ```ruby
