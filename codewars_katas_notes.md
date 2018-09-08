@@ -5775,6 +5775,21 @@ end
 end
 ```
 
+Sum of odd Numbers - trompe d'approche mais interressant
+
+```ruby
+
+def  find_odd_pyramid n
+  return [1] if n == 1
+  return [1, 3, 5] if n == 2
+  return (1..Float::INFINITY).lazy.select{|e| e.odd? && e > find_odd_pyramid(n-1).last}.first(n)
+end
+
+def row_sum_odd_numbers(n)
+  find_odd_pyramid(n).lazy.reduce(&:+)
+end
+
+```
 #### Snippets a Penser
 
 ```ruby
