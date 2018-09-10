@@ -102,6 +102,77 @@ def find_short(s):
 
 ### Ruby
 
+Isogram
+
+```ruby
+# Approche
+def is_isogram s 
+  res = false
+  return true if s == ""
+  s.downcase.chars.inject({}){|a,b|
+    if a[b].nil?
+      a[b] = 1 
+      a
+    else
+      a[b] += 1
+      a
+    end
+  }.each{|k,l|  
+    if l>1
+      res = false ; 
+      break 
+    else 
+      res = true
+    end
+  }
+  res
+end
+
+
+# Elegant
+
+def is_isogram(string)
+  string.downcase.chars.uniq == string.downcase.chars
+end
+
+# Approche hash
+
+def is_isogram(string)
+  return true if string.length == 0
+  string = string.downcase
+  hash = Hash.new(0)
+  string.chars.map{|x| hash[x] += 1}.max > 1 ? false : true
+end
+
+# Usage du Set
+def is_isogram(string)
+  string.length === Set.new(string.downcase.chars).length
+end
+
+# Raisonnement inverse
+def is_isogram(str)
+   ('a'..'z').none?{|l| str.downcase.count(l) > 1}
+end
+
+# Raisonnement boucle
+def is_isogram(string)
+  #your code here
+  i = 0
+  while i < string.length
+    j = i + 1
+    current = string[i]
+      while j < string.length
+        if current.downcase == string[j].downcase
+          return false
+        end
+        j += 1
+      end
+    i += 1
+  end
+  return true
+end
+```
+
 Summation Of Primes
 
 ```ruby
