@@ -5846,6 +5846,62 @@ end
 end
 ```
 
+Accumulate - reflexion en cours penser a refactorer
+
+```ruby
+
+module Enumerable
+  #alias :accumulate :reduce
+  def fusion_avec_start start, a_stack, block  #
+    stack = a_stack.to_a
+    res = start
+    until stack.empty?
+      actuel = stack.shift
+      res = block.call(res, actuel)
+    end
+    return res
+  end
+
+  def fusion_sans_start start, a_stack, block  #
+    stack = a_stack.to_a 
+    res = stack.shift 
+    until stack.empty?
+      actuel = stack.shift
+      res = block.call(res, actuel)
+    end
+    return res
+  end
+
+  def fusion_avec_symbol(start, a_stack, block)
+    stack = a_stack.to_a 
+    op = start
+    res = stack.shift
+    until stack.empty?
+      actuel = stack.shift
+      #user de send
+      # 1.method(:+).call(1) #=> renvoie 2
+      res = res.method(op).call(actuel)
+    end
+    return res
+  end
+
+  def accumulate start=nil, &block
+
+    if block_given?  && start
+      return fusion_avec_start start, self, block 
+    end
+
+    if block_given?  && start.nil?
+      return fusion_sans_start start, self, block
+    end
+
+    if !block_given? && start.is_a?(Symbol)
+      return fusion_avec_symbol(start, self, block)
+    end
+  end
+end
+
+```
 Sum of odd Numbers - trompe d'approche mais interressant
 
 ```ruby
