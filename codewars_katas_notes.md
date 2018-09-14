@@ -248,6 +248,30 @@ def last(*args)
   a.is_a?(String) ? a[-1] : a
 end
 
+# Longue solution
+
+def last *ele
+if ele.length > 1
+eles=[]
+ele.each do |e|
+eles << e
+end
+return eles[eles.length-1]
+  else
+if ele.is_a?(Array)
+# puts ele
+  arr = ele.first
+  if arr.to_s.length == 1
+  return arr
+  else
+  return arr[arr.length-1]
+  end
+elsif ele.is_a?(String)
+  eles=ele.first.split("")
+  return eles[eles.length-1]
+  end
+  end
+  end
 # Autres approches
 
 def last *args
