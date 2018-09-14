@@ -3107,6 +3107,27 @@ function sillycase(silly) {
   }
 ```
 
+Returning String
+
+```javascript
+
+const greet = (name) => `Hello, ${name} how are you doing today?`
+
+const greet = x =>  "Hello, "+x+" how are you doing today?"
+
+function greet(name){
+  return ['Hello, ',name,' how are you doing today?'].join('');
+}
+
+// Funny
+function greet(name){
+  let str = "Hello, 1 how are you doing today?";
+  let result = str.replace("1",name);
+  return result;
+}
+
+```
+
 Sum of all the multiples of 3 or 5
 ```javascript
 
