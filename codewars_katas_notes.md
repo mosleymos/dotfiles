@@ -172,6 +172,43 @@ def is_isogram(string)
   return true
 end
 ```
+
+Count Odd Numbers below n
+
+```ruby
+# Ne pas s'amuser a creer le tableau et faire du un par un
+def oddCount n 
+   n.odd? ? ((n+1)/2) -1 : (n / 2)
+end
+
+# Autre approche
+def oddCount(n)
+  n / 2
+end
+
+def oddCount n 
+  n.divmod(2)[0]
+end
+
+# exotique
+def oddCount n
+  n >> 1
+end
+
+# stepique
+def oddCount n 
+  (1...n).step(2).size
+end
+
+def oddCount n 
+  (n/2)|0
+end
+
+def oddCount n 
+  n % 2 == 1 ? (n-1)/2 : n/2
+end
+```
+
 Enumerable Magic #25 - Take the First N Elements
 
 ```ruby
