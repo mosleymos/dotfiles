@@ -209,6 +209,74 @@ def oddCount n
 end
 ```
 
+Last
+
+```ruby
+# Approche effectuee - peut etre trop complexe
+class String
+  def  last
+    self.chars[-1]
+  end
+end
+
+class Fixnum
+  def last
+    self
+  end
+end
+
+def last(*n)
+  n.map(&:last).last
+end
+
+
+# One liners
+def last(*args)
+  args[-1].is_a?(String) ? args[-1][-1] : args.flatten[-1]  
+end
+
+def last(*args)
+  [String, Array].include?(args[-1].class) ? args[-1][-1] : args[-1]
+end
+
+def last(*input) 
+  input[-1].is_a?(String) ? input[-1][-1] : input.flatten[-1]
+end
+
+def last(*args)
+  a = args.flatten.last
+  a.is_a?(String) ? a[-1] : a
+end
+
+# Autres approches
+
+def last *args
+  args.last.last
+end
+
+class Fixnum
+  def last
+    self
+  end
+end
+
+class String
+  def last
+    self[-1]
+  end
+end
+
+
+def last(*arg, arg_last)
+  if arg.empty? && arg_last.respond_to?(:index) 
+    arg_last[-1] 
+  else
+    arg_last
+  end
+end
+
+```
+
 Enumerable Magic #25 - Take the First N Elements
 
 ```ruby
