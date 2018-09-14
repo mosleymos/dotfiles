@@ -1950,6 +1950,82 @@ end
 
 ### javascript
 
+
+Array.prototype.reverse() 
+
+```javascript
+// ce reverse est destructif
+Array.prototype.reverse = function(){
+  console.log(this)
+  var reversedArray =  this.reduceRight(function(a,b){
+    return a.concat(b)
+  },[])
+  this.forEach((element, index, array)=>{ this[index] = reversedArray[index] })
+  return this
+};
+
+// Autre approche
+Array.prototype.reverse = function() {
+  for(var i = 0, j = this.length-1; i < j; i++, j--) {
+    var tmp = this[i];
+    this[i] = this[j];
+    this[j] = tmp;
+  }
+  return this;
+};
+
+// Usage du slice non prévu
+Array.prototype.reverse = function() {
+  var copy = this.slice(0);
+  return this.forEach(function(el, i){ this[i] = copy.pop();}, this), this;
+};
+
+// Usage stack
+Array.prototype.reverse = function() {
+  for (var l = this.length - 2; l > -1; --l) {
+    this.push(this[l]),
+    this.splice(l, 1);
+  }
+  return this;
+};
+
+// Hacky
+Array.prototype.reverse = require('vm').runInNewContext('Array.prototype.reverse');
+
+// Return
+Array.prototype.reverse = function() {
+  for (var i = 0; i < this.length / 2; i++) {
+    [this[i], this[this.length - i - 1]] = [this[this.length - i - 1], this[i]];
+  }
+  return this;
+};
+
+// Usage du Unshift
+Array.prototype.reverse = function() {
+  var len = this.length;
+  for (var i = 0; i < len; i++){
+    this.unshift(this.splice(i, 1)[0]);
+  }
+  return this;
+};
+
+// Simple
+Array.prototype.reverse = function() {
+  for(let i = 0; i < this.length; i++) {
+    this.splice(i, 0, this.pop());
+  }
+  return this;
+};
+
+// Math
+Array.prototype.reverse = function() {
+   for (var i = 0; i < Math.floor(this.length/2); i++) {
+     [this[i], this[this.length-i-1]] = [this[this.length-i-1], this[i]]
+   }
+   return this;
+};
+```
+
 Once
 
 ```javascript
