@@ -172,7 +172,54 @@ def is_isogram(string)
   return true
 end
 ```
+Enumerable Magic #25 - Take the First N Elements
 
+```ruby
+def take list, n
+  list.first n
+end
+
+def take list, n
+  list.take(n)
+end
+
+def take list, n
+  list[0...n] # retour de la liste
+end
+
+def take list, n
+  list[0,n]
+end
+
+def take list, n
+  # your solution here
+  list - list.drop(n)
+end
+
+#Long
+def take list, n
+  newarr = []
+  i = 0
+  while i < n
+    newarr.push(list[i])
+    i += 1
+  end
+  if list.length == 0
+  return []
+  else
+  return newarr
+  end
+end
+
+def take list, n
+  return list if list.length <= n
+  r = []
+  (1..n).each do |i|
+    r << list[i-1]
+  end
+  r
+end
+```
 Summation Of Primes
 
 ```ruby
