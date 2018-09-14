@@ -2026,6 +2026,62 @@ Array.prototype.reverse = function() {
 };
 ```
 
+Anonymous return
+
+Usage des closures en javascript
+```javascript
+
+name = 'The Window';
+
+var alpha = {
+    name : 'My Alpha',
+    getNameFunc : function() {
+        var name = this.name
+        return function() {
+            return name;
+        };
+    }
+};
+
+// Approche self - sympa à lire
+name = 'The Window';
+
+var alpha = {
+    name : 'My Alpha',
+    getNameFunc : function(){
+      var self = this;
+      return function(){
+        return self.name;
+      };
+    }
+};
+
+
+// approche bind sur la fin
+name = 'The Window';
+var alpha = {
+  name : 'My Alpha',
+  getNameFunc : function() {
+    return function() {
+      return this.name;
+    }.bind(this)
+  }
+};
+
+// that better than this
+name = 'The Window';
+
+var alpha = {
+    name : 'My Alpha',
+    getNameFunc : function() {
+        var that = this; 
+        return function(){
+            return that.name;
+        };
+    }
+};
+```
+
 Once
 
 ```javascript
