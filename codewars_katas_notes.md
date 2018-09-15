@@ -2172,6 +2172,50 @@ Array.prototype.removeValue = function(thing) {
 }
 ```
 
+Find the capitals
+
+
+```javascript
+// approche
+const capital = (capitals) => capitals.reduce((a,b)=> b.state ? a.concat(`The capital of ${b.state} is ${b.capital}`) : a.concat(`The capital of ${b.country} is ${b.capital}`) ,[])
+
+//Better mais do it in new javascript version
+function capital(capitals) {
+  return capitals.map(function(e) {
+    return 'The capital of ' + (e.state || e.country) + ' is ' + e.capital
+  })
+}
+// new new syntax 
+
+const capital = (capitals) => 
+   capitals.map((e) => `The capital of ${(e.state || e.country)} is  ${e.capital}`)
+
+// Use object js
+function capital(capitals){
+  return capitals.map(function (hash) {
+    return Object.keys(hash).reduce(function (a, b) {
+      return 'The capital of ' + hash[a] + ' is ' + hash[b] 
+    })
+  })
+}
+
+function capital(capitals){
+   var returnArr = [];
+  
+    for (var i = 0; i < capitals.length; i++) {
+         
+         var str = 'The capital of '
+             + (capitals[i].state || capitals[i].country)
+             + ' is '
+             + capitals[i].capital;
+        
+        returnArr.push(str);
+    }
+  
+    return returnArr;
+}
+
+```
 Once
 
 ```javascript
