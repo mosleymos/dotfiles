@@ -2082,6 +2082,96 @@ var alpha = {
 };
 ```
 
+Splicing
+
+```javascript
+// Approche
+Array.prototype.removeValue = function(thing) {
+    return this.includes(thing) ? this.map((elt)=> elt === thing ? 're' : elt  )
+               .reduce((a,b)=> b === 're' ? a : a.concat(b),[]) : false
+}
+
+// Autres approches
+Array.prototype.removeValue = function(thing) {
+   if (this.indexOf(thing) == -1) return false;
+   var i ;
+   while ((i = this.indexOf(thing)) > -1) this.splice(i,1);
+   return this;
+}
+
+
+Array.prototype.removeValue = function(thing) {
+  var removed = false, i
+  for (i = 0; i < this.length; i++) {
+    if (this[i] === thing) {
+      this.splice(i, 1);
+      i--;
+      removed = true;
+    }
+  }
+  return (this.length && removed ? this : false);
+}
+
+Array.prototype.removeValue = function(thing) {
+    //TODO
+    if(this.indexOf(thing) === -1) return false;
+    var i;
+    while(( i = this.indexOf(thing)) > -1) {
+      this.splice(i, 1);
+    }
+    return this;
+}
+
+Array.prototype.removeValue = function(thing) {
+    var hit = false;
+    for (var i = this.length - 1; i > -1; i--) {
+        if (this[i] === thing) {
+            this.splice(i, 1);
+            hit = true;
+        }
+    }
+    return this.length && hit ? this : false;
+}
+
+Array.prototype.removeValue = function(thing) {
+  const size = this.length;
+  for (let i = this.length - 1; i >= 0; i--)
+    if (this[i] === thing) this.splice(i, 1);
+  return this.length < size && this;
+}
+
+// Hacky
+const {filter} = require("lodash");
+Array.prototype.removeValue = function(thing) { 
+    if (!this.length || !this.some(v => v === thing)) { return false; /* ????????????????? */ }
+    this.splice(0, "why the fuck would you do this using splice");
+    return filter(this, v => v !== thing);
+}
+
+Array.prototype.removeValue = function (thing) {
+  if (this.indexOf(thing) === -1)
+    return false
+  
+  for (let i = 0, n = this.length; i < n; i++) {
+    if (this[i] === thing) {
+      this.splice(i, 1)
+      i--
+      n--
+    }
+  }
+  return this
+}
+
+Array.prototype.removeValue = function(thing) {
+  if (this.length < 1 || !this.includes(thing)) return false;
+  var result = [];
+  this.map(function(x) {
+    if (x!==thing) result.push(x);
+  });
+  return result;
+}
+```
+
 Once
 
 ```javascript
