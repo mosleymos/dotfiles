@@ -1950,6 +1950,72 @@ end
 
 ### javascript
 
+Remove all the marked elements of a list
+
+```javascript
+Array.prototype.remove_ = (integer_list, values_list) => integer_list.reduce((a,b)=> values_list.includes(b) ? a : a.concat(b) , [])
+
+
+Array.prototype.remove_ = function(integer_list, values_list){
+  return integer_list.filter(function (element) {
+    return values_list.indexOf(element) === -1;
+  });
+}
+
+Array.prototype.remove_ = (integer_list, values_list) => integer_list.filter(v => values_list.indexOf(v) == -1);
+
+Object.defineProperty( Array.prototype, "remove_", { value: (xs,ys) => xs.filter( x => ! ys.includes(x) ) } );
+
+Array.prototype.remove_ = (a, b) => a.filter(x => b.indexOf(x) < 0)
+
+
+Array.prototype.remove_ = function(ints, remove) {
+  ints = ints.slice();
+  for (let i = 0; i < ints.length; i++) {
+    if (remove.includes(ints[i])) {
+      ints.splice(i,1)
+      i--
+    }
+  }
+  return ints
+}
+
+Array.prototype.remove_ = function(integer_list, values_list){
+  var arr=[];
+  for (var i=0; i<integer_list.length; ++i)
+  {
+    var count=0;
+    for (var j=0; j<values_list.length; ++j)
+      if (values_list[j]==integer_list[i])
+        count++;
+    if (count==0)
+      arr.push(integer_list[i]);
+  }
+  return arr;
+}
+
+Array.prototype.remove_ = function(integer_list, values_list){
+   return integer_list.filter(value => !values_list.includes(value));
+};
+
+// Solution longue
+Array.prototype.remove_ = function(a, b){
+    var ret = [];
+    if (!(Array.isArray(a) && Array.isArray(b))) {
+        return ret;
+    }
+    var i;
+
+    for (i = 0;  i< a.length; i++) {
+    // if element in array A  isn't in array B push that element to new array    
+         if (-1 === b.indexOf(a[i])) {
+           ret.push(a[i]);
+      }
+    }
+    return ret;
+}
+```
+
 Opposites Attract
 
 ```javascript
