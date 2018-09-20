@@ -1953,6 +1953,7 @@ end
 Remove all the marked elements of a list
 
 ```javascript
+
 Array.prototype.remove_ = (integer_list, values_list) => integer_list.reduce((a,b)=> values_list.includes(b) ? a : a.concat(b) , [])
 
 
@@ -2014,6 +2015,96 @@ Array.prototype.remove_ = function(a, b){
     }
     return ret;
 }
+
+```
+
+You only need one - Beginner
+
+```javascript
+const check = (arr, x) => arr.includes(x);
+
+const check = (array, value) => !!~array.indexOf(value);
+
+const check = (a,x) => a.some(item => item === x);
+
+function check(a,x){return a.findIndex(k => k == x) != -1};
+
+const check = (a,x) => {
+  const el = a.find(el => el === x);
+  return el === x ? true : false;
+}
+
+const check = (a, x) => a.filter( w => w === x ).length ? true : false 
+
+
+function check(a,x){
+  var ans = a.indexOf(x)
+  if (ans == -1) {
+    return false
+  }
+  return true
+};
+
+
+/*
+(5) Use ES2015 method to see if array contains the value.
+    Eliminate more cruft.
+*/
+  const check = (a,x)=>a.includes(x)
+
+
+
+
+/*
+  (4) Eliminate all the overhead setup.
+      Use the ES2015 SOME method to see if one or more
+      of the array entries matches our target.
+      Written in the form of a lambda (arrow function) to make it streamlined
+    
+    const check = (a,x)=>a.some(v=>v==x)
+*/
+
+/*
+(3) Filter the Array
+    Reduce it down to matching values or an empty set ... [66]
+    Test the length of the array   [66].length > 0
+
+  function check(a,x){
+    return (a.filter(v=>v==x)).length > 0
+  }
+*/
+
+/*
+(2) Walk the array without ability to break the loop.
+    Create a variable to hold the state of our match.
+    Check if the target is found and return the findings
+
+  function check(a,x){
+    let foundTarget = false
+    a.forEach((v,i,A)=>{
+      if (v==x){ foundTarget = true}
+    })
+    return foundTarget
+  }
+*/
+
+
+/*
+  (1) Manually Walk the array, 
+    Break out of the loop (return true) if you find a match
+    otherwise return false
+
+  function check(a,x){
+    for (let i=0; i<a.length;i++){
+      console.log(a[i])
+      if (a[i]==x){ return true }
+    }
+    return false
+  }
+*/
+
+
+
 ```
 
 Opposites Attract
