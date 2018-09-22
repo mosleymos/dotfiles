@@ -4873,6 +4873,20 @@ function generateRange(min, max, step){
 
 ### SQL
 
+
+```SQL
+
+SELECT * 
+FROM books
+ORDER BY copies_sold DESC
+LIMIT 5;
+
+# Element a reflechir
+SELECT TOP 5 *
+FROM books
+ORDER BY copies_sold DESC ;
+
+```
 Créer une fonction Sql
 
 ```
