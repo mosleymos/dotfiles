@@ -4887,6 +4887,26 @@ FROM books
 ORDER BY copies_sold DESC ;
 
 ```
+SQL concatening columns
+
+```sql
+
+   SELECT CONCAT(prefix,' ', first,' ',last,' ',suffix) AS title FROM names;
+
+   SELECT concat_ws(' ', prefix,first,last,suffix) AS title FROM names;
+
+   SELECT "prefix" || ' ' || "first" || ' ' || "last" || ' ' || "suffix" as title from names
+
+
+  SELECT CONCAT(prefix, ' ',first, ' ', last, ' ',suffix) "title" from names;
+
+  SELECT CONCAT(TRIM(prefix), ' ', TRIM(first), ' ', TRIM(last), ' ', TRIM(suffix)) AS title 
+FROM names
+
+   SELECT concat(names.prefix, ' ', names.first, ' ', names.last, ' ', names.suffix) AS title
+FROM names
+```
+
 Créer une fonction Sql
 
 ```
