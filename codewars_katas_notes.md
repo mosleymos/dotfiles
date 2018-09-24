@@ -102,6 +102,66 @@ def find_short(s):
 
 ### Ruby
 
+Sum of triangular numbers
+
+```ruby
+
+# Garder réference au kata pyramid
+def sum_triangular_number n
+  return 0 if n<0
+  res = []
+  (n).times do |nb|
+    if nb.zero?
+      res << [1]
+    else
+      prev = res[-1][-1]
+      res << ((prev+1)..(prev+nb+1)).to_a
+    end
+  end
+  res.map(&:last).reduce(&:+)
+end
+
+# Refactor
+def sum_triangular_numbers n
+  n<0 ? 0 : (1..(n-1)).inject([1]){ |a,b| a << (a[-1]+b+1) }.reduce(&:+)
+end
+
+# Approches
+def sum_triangular_numbers(n)
+  n < 0 ? 0 : n * (n + 1) * (n + 2) / 6
+end
+
+
+def sum_triangular_numbers(n)
+  n <= 0 ? 0 : n*(n+1)*(n+2)/6
+end
+
+def sum_triangular_numbers(number)
+  (1..number).map { |n| n * (n + 1) / 2 }.sum
+end
+
+def sum_triangular_numbers(n)
+    # your code here
+    sum_ = Array.new
+    for i in 1..n
+      sum_.push(i*( i + 1 ) / 2)
+    end
+
+    return sum_.map(&:to_i).reduce(0, :+)
+end
+
+def sum_triangular_numbers(n)
+  counter = 2
+  number = 1
+  arr = [1]
+  while counter <= n do
+    number += counter
+    arr.push(number)
+    counter += 1
+  end
+  n >= 0 ? arr.sum : 0
+end
+```
 Isogram
 
 ```ruby
