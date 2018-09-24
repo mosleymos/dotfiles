@@ -4887,6 +4887,32 @@ FROM books
 ORDER BY copies_sold DESC ;
 
 ```
+
+Adults only
+
+```sql
+
+SELECT * FROM users WHERE age >= 18 ;
+
+SELECT * FROM users WHERE age > 17
+
+
+SELECT *
+from users
+where age>=18
+order by age  asc
+
+
+SELECT * FROM users
+WHERE NOT age < 18;
+
+SELECT t.name
+      ,t.age
+FROM users t
+WHERE t.age >= 18;
+
+```
+
 SQL concatening columns
 
 ```sql
