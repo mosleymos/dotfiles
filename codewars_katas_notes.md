@@ -4933,6 +4933,25 @@ function generateRange(min, max, step){
 
 ### SQL
 
+Register for the Party
+
+```SQL
+
+INSERT INTO participants VALUES ('BENOIT', 28, true) ;
+SELECT * FROM participants WHERE age > 21 AND attending=true;
+
+
+INSERT into participants (name, age, attending) values ('Greg', 21, true);
+SELECT * FROM participants;
+
+INSERT INTO participants ("name", "age", "attending") values ('yourself', 21, true); --Your code here
+SELECT * FROM participants;
+
+INSERT INTO participants (name, age, attending)
+VALUES ('Krysia', 24, true);
+SELECT * FROM participants;
+
+```
 
 ```SQL
 
