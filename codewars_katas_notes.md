@@ -4933,6 +4933,51 @@ function generateRange(min, max, step){
 
 ### SQL
 
+Hello Sql World
+
+```SQL
+CREATE TABLE Greeting (Greeting);
+INSERT INTO Greeting VALUES ('hello world!'); 
+SELECT * FROM   Greeting ;
+
+
+SELECT 'hello world!' as "Greeting"
+
+
+CREATE TABLE words
+(
+Greeting varchar(255)
+);
+INSERT INTO words (Greeting) VALUES ('hello world!');
+SELECT * FROM words;
+
+
+SELECT 'hello' || ' world!' AS Greeting
+
+
+select 'hello world!' as Greeting from sqlite_sequence 
+
+
+CREATE TABLE hellosqlworld (Greeting TEXT);
+INSERT INTO hellosqlworld (Greeting) VALUES ('hello world!');
+select * from hellosqlworld;
+
+
+
+CREATE TABLE table1 (Greeting TEXT);
+INSERT INTO table1 (Greeting)
+VALUES ('hello world!');
+SELECT * FROM table1;
+
+
+drop table if exists Greet;
+create table Greet (
+  Greeting text
+);
+insert into Greet values ('hello world!');
+select * from Greet;
+```
+
 Register for the Party
 
 ```SQL
