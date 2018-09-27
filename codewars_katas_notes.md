@@ -4981,6 +4981,50 @@ function generateRange(min, max, step){
 
 ### SQL
 
+Grocery store inventory
+
+```SQL
+SELECT id, name, stock
+FROM products
+WHERE stock <= 2 AND producent='CompanyA'
+ORDER BY id;
+
+
+SELECT p.id, p.name, p.stock
+FROM products p
+WHERE (p.stock<=2) AND (p.producent='CompanyA')
+ORDER BY p.id DESC ;
+
+
+SELECT id, name, stock 
+FROM products
+WHERE producent = 'CompanyA'
+GROUP BY id, name, stock
+HAVING stock <= 2
+ORDER BY id
+
+-- select all of the items
+SELECT P.ID, P.NAME, P.STOCK
+FROM PRODUCTS P
+--INNER JOIN COMPANYA CA
+--ON P.ID= CA.ID
+WHERE STOCK < 3 AND PRODUCENT LIKE 'CompanyA'
+ORDER BY ID
+
+-- Approche stylistique sur indentation et usage du %
+SELECT
+      id,
+      name,
+      stock
+FROM
+      products
+WHERE
+      stock <= 2
+      and producent like '%CompanyA%'
+ORDER BY
+      id;
+```
+
 Easy Sql rounding decimals
 
 Round down first then round up
