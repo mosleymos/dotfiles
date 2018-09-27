@@ -4933,6 +4933,61 @@ function generateRange(min, max, step){
 
 ### SQL
 
+Easy Sql rounding decimals
+
+Round down first then round up
+
+```SQL
+
+SELECT FLOOR(number1) AS number1, CEIL(number2) AS number2 FROM decimals;
+
+SELECT FLOOR(number1) AS number1, CEILING(number2) AS number2 FROM decimals;
+
+SELECT
+  FLOOR(number1::numeric)::float as number1,
+  CEILING(number2::numeric)::float as number2
+FROM decimals;
+
+SELECT
+  floor(d.number1) number1,
+  ceil(d.number2) number2
+FROM decimals d
+
+select round(number1-.49) as number1, round(number2+.49) as number2 from decimals
+
+/*  SQL  */
+/* Select (number1 % 1) as down, round(number2) as up from decimals  */
+Select floor(number1) as number1, ceil(number2) as number2 from decimals
+
+/* SELECT number1, number2, floor(number1) as number12,
+       CASE WHEN number2 <=0
+       THEN ceil(number2)
+       ELSE ceil(number2)
+       END AS number22
+FROM decimals */
+
+
+UPDATE decimals
+SET number1=FLOOR(number1),
+number2=CEILING(number2);
+SELECT number1, number2 FROM decimals;
+
+
+select  
+ROUND(CASE
+    WHEN number1 < 0 AND (trunc(number1)-number1>0) THEN trunc(number1)-1
+    ELSE trunc(number1)
+  END) 
+  AS number1,
+ROUND(CASE
+    WHEN number2 > 0 AND (number2-trunc(number2)>0) THEN trunc(number2)+1
+    ELSE trunc(number2)
+  END) 
+  AS number2
+from decimals 
+
+```
+
 Hello Sql World
 
 ```SQL
