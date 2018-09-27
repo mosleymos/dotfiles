@@ -4981,7 +4981,44 @@ function generateRange(min, max, step){
 
 ### SQL
 
+BASICS: Length based SELECT with LIKE
+
+```SQL
+--- Approche
+--- find first_name like 6 character long
+SELECT first_name, last_name
+FROM names
+WHERE first_name LIKE '%_%_%_%_%_%_%';
+
+
+select first_name, last_name from names where first_name like '______%'
+
+select first_name, last_name from names where first_name ~ '.{6,}' -- like it :P
+
+
+select a.first_name, a.last_name
+from names a
+where a.first_name like '%______%'
+
+
+select first_name, last_name from names 
+where not (first_name like '_____' or first_name like '____' or first_name like '___' or
+first_name like '__' or first_name like '_')
+
+
+
+select
+   first_name
+  ,last_name
+from names
+where first_name like repeat('_', 6) || '%';
+
+```
+
+
 Grocery store inventory
+
+
 
 ```SQL
 SELECT id, name, stock
