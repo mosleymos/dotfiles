@@ -102,6 +102,51 @@ def find_short(s):
 
 ### Ruby
 
+Product of array items
+
+```ruby
+# Approche
+def product(arr)
+  arr.nil? ? nil : (arr.empty? ? nil : arr.reduce(:*))
+end
+
+# What version of ruby > 2.5
+# safe navigation operator cf https://en.wikipedia.org/wiki/Safe_navigation_operator
+def product(arr)
+  arr&.reduce(:*)
+end
+
+# rescue to nil ou problème
+def product(arr)
+  arr.reduce(:*) rescue nil
+end
+
+def product(arr)
+  return if arr.nil?
+  arr.inject(:*)
+end
+
+def product(arr)
+  arr.reduce(:*) unless arr.nil?
+end
+
+# Rapproche de la mienne
+def product a
+  (a.nil? or a.length == 0) ? nil : a.reduce(:*)
+end
+# Variante
+def product a
+  (a.nil? or a.length.zero?) ? nil : a.reduce(:*)
+end
+
+# insert inject sur 1
+def product(arr)
+  arr and arr.length > 0 ? arr.inject(1) { |prod, f| prod * f } : nil
+end
+
+```
+
+
 Sum of triangular numbers
 
 ```ruby
@@ -161,8 +206,11 @@ def sum_triangular_numbers(n)
   end
   n >= 0 ? arr.sum : 0
 end
+
 ```
+
 Isogram
+
 
 ```ruby
 # Approche
