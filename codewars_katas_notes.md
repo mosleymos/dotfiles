@@ -2062,6 +2062,8 @@ Combine
 
 ```javascript
 // Approche first
+
+const combine = (...args) => args.reduce(mergeObj)
 const uniq = function(item, i, ar){ return ar.indexOf(item) === i; }
 
 const mergeObj = (a,b) => {
@@ -2076,8 +2078,69 @@ const mergeObj = (a,b) => {
   return res
 }
 
-const combine = (...args) => {
-  return args.reduce(mergeObj)
+// Approche snd (refactor)
+const uniq = (item, i, ar) => ar.indexOf(item) === i
+
+const mergeObj = (a,b) => {
+  var res = {}
+  var allKeys = (Object.keys(a)).concat(Object.keys(b))
+  allKeys.filter(uniq).forEach(k=> {
+    res[k] =  (a && a[k] || 0) + (b && b[k] || 0 )
+  })
+  return res
+}
+const combine = (...args) =>  args.reduce(mergeObj)
+
+
+// Meilleure
+const combine = (...params) => params.reduce((a, b) => {
+  for (const x in b) { a[x] = x in a ? a[x] + b[x] : b[x] };
+  return a;
+ }, {});
+
+
+function combine(...obj) {
+  var res = {};
+  for (var i = 0; i < obj.length; i++) {
+     for (var o in obj[i]) {
+       res[o] !== undefined ? res[o] += obj[i][o] : res[o] = obj[i][o];
+       }
+     }
+  return res;
+}
+
+
+
+function combine() {
+  var obj = {}
+
+  for (var i = 0; i < arguments.length; i++) {
+        for (var key in arguments[i]) {
+          obj[key] = obj[key] ? obj[key] + arguments[i][key]: arguments[i][key]
+        }
+  }
+
+  return obj;
+}
+
+
+const objKeyReducer = (res, [key, val]) => (res[key] = (res[key] || 0) + val, res);
+const objReducer = (res, obj) => Object.entries(obj).reduce(objKeyReducer, res);
+const combine = (...objs) => objs.reduce(objReducer, {});
+
+
+// One liner assez hard
+const combine=(...rest)=>rest.length==0 ? {} : rest.length>1 ? combine.apply(this, [(res=>{var objA=rest[0],objB=rest[1];Object.keys(objA).map(a=>res[a]=(res[a]||0)+objA[a]);Object.keys(objB).map(a=>res[a]=(res[a]||0)+objB[a]);return res})({})].concat(rest.slice(2))) : rest[0];
+
+
+
+function combine() {
+  return Array.from(arguments).reduce((p,n) => {
+    for (var prop in n)
+      if (n.hasOwnProperty(prop))
+        p[prop] = (p[prop] || 0) + n[prop];
+    return p;
+  }, {});
 }
 
 ```
