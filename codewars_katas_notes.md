@@ -5015,6 +5015,85 @@ where first_name like repeat('_', 6) || '%';
 
 ```
 
+SQL basic truncating
+
+truncate two numbers towards zero
+
+```SQL
+
+SELECT TRUNC(number1+number2) AS towardzero FROM decimals;
+
+
+SELECT TRUNC(d.number1+d.number2) as towardzero
+from decimals d 
+
+
+select case when (sum > 0) then low else high end
+as towardzero from
+
+           (select (number1 + number2) as sum, 
+              floor(number1 + number2) as low,
+               ceil(number1 + number2) as high
+                from decimals) as foo;
+
+
+SELECT CASE 
+          WHEN number1+number2>0 
+             THEN FLOOR(number1+number2)
+          ELSE CEILING(number1+number2)
+       END as towardzero
+FROM decimals;
+
+
+SELECT
+  trunc((d.number1 + d.number2)::numeric, 0)::float AS towardzero
+FROM decimals d
+
+
+SELECT CASE 
+  WHEN D.number1 + D.number2 > 0 THEN FLOOR(D.number1 + D.number2)
+  ELSE CEIL(D.number1 + D.number2) END AS towardzero
+FROM decimals D;
+
+
+SELECT 
+CASE 
+  WHEN (number1 + number2) >= 0 THEN floor(number1 + number2)
+  ELSE ceil(number1 + number2)
+END AS towardzero
+FROM decimals;
+
+
+
+SELECT 
+    CAST(TRUNC(CAST(number1+number2 AS numeric), 0) AS float) AS towardzero
+FROM 
+    decimals;
+
+
+SELECT 
+  (
+    CASE WHEN d.number1+d.number2 > 0
+      THEN FLOOR(d.number1+d.number2)
+    ELSE
+      CEIL(d.number1+d.number2)
+    END
+  ) AS towardzero
+FROM decimals d;    
+
+
+select cast(substring(cast((number1+number2) as varchar(10))
+from '#"%#".%' for '#') as float)  as towardzero from decimals limit 100
+
+
+SELECT CASE WHEN number1+number2>0 THEN CAST(FLOOR(number1+number2) as FLOAT) WHEN 
+number1+number2<0 THEN CAST(CEILING(number1+number2) as FLOAT) END as towardzero
+FROM decimals;
+
+SELECT  TRUNC(number1 + number2)::float  AS towardzero FROM decimals 
+
+
+```
 
 Grocery store inventory
 
