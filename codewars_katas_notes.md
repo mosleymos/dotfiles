@@ -5093,6 +5093,25 @@ FROM decimals;
 SELECT  TRUNC(number1 + number2)::float  AS towardzero FROM decimals 
 
 
+select case 
+When number1+number2 > 0 THEN floor(number1 + number2)
+ELSE Ceiling(number1 + number2)
+end
+as towardzero
+from decimals
+
+SELECT to_char(TRUNC(number1 + number2), 'FM99999999.9')::FLOAT as towardzero FROM decimals
+
+
+SELECT CASE 
+WHEN (number1+number2) > 0 THEN FLOOR(number1+number2)
+WHEN (number1+number2) < 0 THEN CEIL(number1+number2)
+ELSE 0
+END AS towardzero
+FROM decimals;
+
+SELECT CAST(TRUNC(CAST((number1 + number2) AS DECIMAL),0) AS FLOAT) AS towardzero FROM decimals;
+
 ```
 
 Grocery store inventory
