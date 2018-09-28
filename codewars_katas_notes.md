@@ -2058,6 +2058,30 @@ end
 
 ### javascript
 
+Combine
+
+```javascript
+// Approche first
+const uniq = function(item, i, ar){ return ar.indexOf(item) === i; }
+
+const mergeObj = (a,b) => {
+  var res = {}
+  var arr_a = Object.keys(a)
+  var arr_b = Object.keys(b)
+  var some = [...arr_a, ...arr_b].filter(uniq).forEach(k=>{
+    var left = a && a[k] || 0
+    var right = b && b[k] || 0
+    res[k] = left  +  right
+  })
+  return res
+}
+
+const combine = (...args) => {
+  return args.reduce(mergeObj)
+}
+
+```
+
 Remove all the marked elements of a list
 
 ```javascript
