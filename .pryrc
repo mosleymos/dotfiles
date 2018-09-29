@@ -12,6 +12,17 @@ Pry.commands.alias_command 'r!', 'reload!' rescue nil
 Pry.config.color = true
 Pry.config.theme = "solarized"
 
+#=== Element du PryRc a tester
+Pry.config.commands.command "ssp", "Prend un objet et un nom de methode et affiche source" do |*args|
+  obj = args[0]
+  method_to_find = args[1].to_sym
+  obj.respond_to?(method_to_find) ? (output.puts obj.method(:method_to_find).source) : (output.puts "Aucune methode trouvé")
+ end
+
+Pry.config.commands.command "pubm", "Prend un objet et un nom de methode et affiche source" do |*args|
+  obj = args[0]
+ (output.puts obj.public_methods(false).sort)
+ end
 # === CUSTOM PROMPT ===
 # This prompt shows the ruby version (useful for RVM)
 Pry.prompt = [proc { |obj, nest_level, _| "#{RUBY_VERSION} (#{obj}):#{nest_level} > " }, proc { |obj, nest_level, _| "#{RUBY_VERSION} (#{obj}):#{nest_level} * " }]

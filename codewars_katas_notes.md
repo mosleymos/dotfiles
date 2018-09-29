@@ -102,7 +102,115 @@ def find_short(s):
 
 ### Ruby
 
+Product of array items
+
+```ruby
+# Approche
+def product(arr)
+  arr.nil? ? nil : (arr.empty? ? nil : arr.reduce(:*))
+end
+
+# What version of ruby > 2.5
+# safe navigation operator cf https://en.wikipedia.org/wiki/Safe_navigation_operator
+def product(arr)
+  arr&.reduce(:*)
+end
+
+# rescue to nil ou problème
+def product(arr)
+  arr.reduce(:*) rescue nil
+end
+
+def product(arr)
+  return if arr.nil?
+  arr.inject(:*)
+end
+
+def product(arr)
+  arr.reduce(:*) unless arr.nil?
+end
+
+# Rapproche de la mienne
+def product a
+  (a.nil? or a.length == 0) ? nil : a.reduce(:*)
+end
+# Variante
+def product a
+  (a.nil? or a.length.zero?) ? nil : a.reduce(:*)
+end
+
+# insert inject sur 1
+def product(arr)
+  arr and arr.length > 0 ? arr.inject(1) { |prod, f| prod * f } : nil
+end
+
+```
+
+
+Sum of triangular numbers
+
+```ruby
+
+# Garder réference au kata pyramid
+def sum_triangular_number n
+  return 0 if n<0
+  res = []
+  (n).times do |nb|
+    if nb.zero?
+      res << [1]
+    else
+      prev = res[-1][-1]
+      res << ((prev+1)..(prev+nb+1)).to_a
+    end
+  end
+  res.map(&:last).reduce(&:+)
+end
+
+# Refactor
+def sum_triangular_numbers n
+  n<0 ? 0 : (1..(n-1)).inject([1]){ |a,b| a << (a[-1]+b+1) }.reduce(&:+)
+end
+
+# Approches
+def sum_triangular_numbers(n)
+  n < 0 ? 0 : n * (n + 1) * (n + 2) / 6
+end
+
+
+def sum_triangular_numbers(n)
+  n <= 0 ? 0 : n*(n+1)*(n+2)/6
+end
+
+def sum_triangular_numbers(number)
+  (1..number).map { |n| n * (n + 1) / 2 }.sum
+end
+
+def sum_triangular_numbers(n)
+    # your code here
+    sum_ = Array.new
+    for i in 1..n
+      sum_.push(i*( i + 1 ) / 2)
+    end
+
+    return sum_.map(&:to_i).reduce(0, :+)
+end
+
+def sum_triangular_numbers(n)
+  counter = 2
+  number = 1
+  arr = [1]
+  while counter <= n do
+    number += counter
+    arr.push(number)
+    counter += 1
+  end
+  n >= 0 ? arr.sum : 0
+end
+
+```
+
 Isogram
+
 
 ```ruby
 # Approche
@@ -1949,6 +2057,93 @@ end
 ```
 
 ### javascript
+
+Combine
+
+```javascript
+// Approche first
+
+const combine = (...args) => args.reduce(mergeObj)
+const uniq = function(item, i, ar){ return ar.indexOf(item) === i; }
+
+const mergeObj = (a,b) => {
+  var res = {}
+  var arr_a = Object.keys(a)
+  var arr_b = Object.keys(b)
+  var some = [...arr_a, ...arr_b].filter(uniq).forEach(k=>{
+    var left = a && a[k] || 0
+    var right = b && b[k] || 0
+    res[k] = left  +  right
+  })
+  return res
+}
+
+// Approche snd (refactor)
+const uniq = (item, i, ar) => ar.indexOf(item) === i
+
+const mergeObj = (a,b) => {
+  var res = {}
+  var allKeys = (Object.keys(a)).concat(Object.keys(b))
+  allKeys.filter(uniq).forEach(k=> {
+    res[k] =  (a && a[k] || 0) + (b && b[k] || 0 )
+  })
+  return res
+}
+const combine = (...args) =>  args.reduce(mergeObj)
+
+
+// Meilleure
+const combine = (...params) => params.reduce((a, b) => {
+  for (const x in b) { a[x] = x in a ? a[x] + b[x] : b[x] };
+  return a;
+ }, {});
+
+
+function combine(...obj) {
+  var res = {};
+  for (var i = 0; i < obj.length; i++) {
+     for (var o in obj[i]) {
+       res[o] !== undefined ? res[o] += obj[i][o] : res[o] = obj[i][o];
+       }
+     }
+  return res;
+}
+
+
+
+function combine() {
+  var obj = {}
+
+  for (var i = 0; i < arguments.length; i++) {
+        for (var key in arguments[i]) {
+          obj[key] = obj[key] ? obj[key] + arguments[i][key]: arguments[i][key]
+        }
+  }
+
+  return obj;
+}
+
+
+const objKeyReducer = (res, [key, val]) => (res[key] = (res[key] || 0) + val, res);
+const objReducer = (res, obj) => Object.entries(obj).reduce(objKeyReducer, res);
+const combine = (...objs) => objs.reduce(objReducer, {});
+
+
+// One liner assez hard
+const combine=(...rest)=>rest.length==0 ? {} : rest.length>1 ? combine.apply(this, [(res=>{var objA=rest[0],objB=rest[1];Object.keys(objA).map(a=>res[a]=(res[a]||0)+objA[a]);Object.keys(objB).map(a=>res[a]=(res[a]||0)+objB[a]);return res})({})].concat(rest.slice(2))) : rest[0];
+
+
+
+function combine() {
+  return Array.from(arguments).reduce((p,n) => {
+    for (var prop in n)
+      if (n.hasOwnProperty(prop))
+        p[prop] = (p[prop] || 0) + n[prop];
+    return p;
+  }, {});
+}
+
+```
 
 Remove all the marked elements of a list
 
@@ -4915,6 +5110,364 @@ function generateRange(min, max, step){
 
 
 ### SQL
+
+BASICS: Length based SELECT with LIKE
+
+```SQL
+--- Approche
+--- find first_name like 6 character long
+SELECT first_name, last_name
+FROM names
+WHERE first_name LIKE '%_%_%_%_%_%_%';
+
+
+select first_name, last_name from names where first_name like '______%'
+
+select first_name, last_name from names where first_name ~ '.{6,}' -- like it :P
+
+
+select a.first_name, a.last_name
+from names a
+where a.first_name like '%______%'
+
+
+select first_name, last_name from names 
+where not (first_name like '_____' or first_name like '____' or first_name like '___' or
+first_name like '__' or first_name like '_')
+
+
+
+select
+   first_name
+  ,last_name
+from names
+where first_name like repeat('_', 6) || '%';
+
+```
+
+SQL basic truncating
+
+truncate two numbers towards zero
+
+```SQL
+
+SELECT TRUNC(number1+number2) AS towardzero FROM decimals;
+
+
+SELECT TRUNC(d.number1+d.number2) as towardzero
+from decimals d 
+
+
+select case when (sum > 0) then low else high end
+as towardzero from
+
+           (select (number1 + number2) as sum, 
+              floor(number1 + number2) as low,
+               ceil(number1 + number2) as high
+                from decimals) as foo;
+
+
+SELECT CASE 
+          WHEN number1+number2>0 
+             THEN FLOOR(number1+number2)
+          ELSE CEILING(number1+number2)
+       END as towardzero
+FROM decimals;
+
+
+SELECT
+  trunc((d.number1 + d.number2)::numeric, 0)::float AS towardzero
+FROM decimals d
+
+
+SELECT CASE 
+  WHEN D.number1 + D.number2 > 0 THEN FLOOR(D.number1 + D.number2)
+  ELSE CEIL(D.number1 + D.number2) END AS towardzero
+FROM decimals D;
+
+
+SELECT 
+CASE 
+  WHEN (number1 + number2) >= 0 THEN floor(number1 + number2)
+  ELSE ceil(number1 + number2)
+END AS towardzero
+FROM decimals;
+
+
+
+SELECT 
+    CAST(TRUNC(CAST(number1+number2 AS numeric), 0) AS float) AS towardzero
+FROM 
+    decimals;
+
+
+SELECT 
+  (
+    CASE WHEN d.number1+d.number2 > 0
+      THEN FLOOR(d.number1+d.number2)
+    ELSE
+      CEIL(d.number1+d.number2)
+    END
+  ) AS towardzero
+FROM decimals d;    
+
+
+select cast(substring(cast((number1+number2) as varchar(10))
+from '#"%#".%' for '#') as float)  as towardzero from decimals limit 100
+
+
+SELECT CASE WHEN number1+number2>0 THEN CAST(FLOOR(number1+number2) as FLOAT) WHEN 
+number1+number2<0 THEN CAST(CEILING(number1+number2) as FLOAT) END as towardzero
+FROM decimals;
+
+SELECT  TRUNC(number1 + number2)::float  AS towardzero FROM decimals 
+
+
+select case 
+When number1+number2 > 0 THEN floor(number1 + number2)
+ELSE Ceiling(number1 + number2)
+end
+as towardzero
+from decimals
+
+SELECT to_char(TRUNC(number1 + number2), 'FM99999999.9')::FLOAT as towardzero FROM decimals
+
+
+SELECT CASE 
+WHEN (number1+number2) > 0 THEN FLOOR(number1+number2)
+WHEN (number1+number2) < 0 THEN CEIL(number1+number2)
+ELSE 0
+END AS towardzero
+FROM decimals;
+
+SELECT CAST(TRUNC(CAST((number1 + number2) AS DECIMAL),0) AS FLOAT) AS towardzero FROM decimals;
+
+```
+
+Grocery store inventory
+
+
+
+```SQL
+SELECT id, name, stock
+FROM products
+WHERE stock <= 2 AND producent='CompanyA'
+ORDER BY id;
+
+
+SELECT p.id, p.name, p.stock
+FROM products p
+WHERE (p.stock<=2) AND (p.producent='CompanyA')
+ORDER BY p.id DESC ;
+
+
+SELECT id, name, stock 
+FROM products
+WHERE producent = 'CompanyA'
+GROUP BY id, name, stock
+HAVING stock <= 2
+ORDER BY id
+
+-- select all of the items
+SELECT P.ID, P.NAME, P.STOCK
+FROM PRODUCTS P
+--INNER JOIN COMPANYA CA
+--ON P.ID= CA.ID
+WHERE STOCK < 3 AND PRODUCENT LIKE 'CompanyA'
+ORDER BY ID
+
+-- Approche stylistique sur indentation et usage du %
+SELECT
+      id,
+      name,
+      stock
+FROM
+      products
+WHERE
+      stock <= 2
+      and producent like '%CompanyA%'
+ORDER BY
+      id;
+```
+
+Easy Sql rounding decimals
+
+Round down first then round up
+
+```SQL
+
+SELECT FLOOR(number1) AS number1, CEIL(number2) AS number2 FROM decimals;
+
+SELECT FLOOR(number1) AS number1, CEILING(number2) AS number2 FROM decimals;
+
+SELECT
+  FLOOR(number1::numeric)::float as number1,
+  CEILING(number2::numeric)::float as number2
+FROM decimals;
+
+SELECT
+  floor(d.number1) number1,
+  ceil(d.number2) number2
+FROM decimals d
+
+select round(number1-.49) as number1, round(number2+.49) as number2 from decimals
+
+/*  SQL  */
+/* Select (number1 % 1) as down, round(number2) as up from decimals  */
+Select floor(number1) as number1, ceil(number2) as number2 from decimals
+
+/* SELECT number1, number2, floor(number1) as number12,
+       CASE WHEN number2 <=0
+       THEN ceil(number2)
+       ELSE ceil(number2)
+       END AS number22
+FROM decimals */
+
+
+UPDATE decimals
+SET number1=FLOOR(number1),
+number2=CEILING(number2);
+SELECT number1, number2 FROM decimals;
+
+
+select  
+ROUND(CASE
+    WHEN number1 < 0 AND (trunc(number1)-number1>0) THEN trunc(number1)-1
+    ELSE trunc(number1)
+  END) 
+  AS number1,
+ROUND(CASE
+    WHEN number2 > 0 AND (number2-trunc(number2)>0) THEN trunc(number2)+1
+    ELSE trunc(number2)
+  END) 
+  AS number2
+from decimals 
+
+```
+
+Hello Sql World
+
+```SQL
+CREATE TABLE Greeting (Greeting);
+INSERT INTO Greeting VALUES ('hello world!'); 
+SELECT * FROM   Greeting ;
+
+
+SELECT 'hello world!' as "Greeting"
+
+
+CREATE TABLE words
+(
+Greeting varchar(255)
+);
+INSERT INTO words (Greeting) VALUES ('hello world!');
+SELECT * FROM words;
+
+
+SELECT 'hello' || ' world!' AS Greeting
+
+
+select 'hello world!' as Greeting from sqlite_sequence 
+
+
+CREATE TABLE hellosqlworld (Greeting TEXT);
+INSERT INTO hellosqlworld (Greeting) VALUES ('hello world!');
+select * from hellosqlworld;
+
+
+
+CREATE TABLE table1 (Greeting TEXT);
+INSERT INTO table1 (Greeting)
+VALUES ('hello world!');
+SELECT * FROM table1;
+
+
+drop table if exists Greet;
+create table Greet (
+  Greeting text
+);
+insert into Greet values ('hello world!');
+select * from Greet;
+```
+
+Register for the Party
+
+```SQL
+
+INSERT INTO participants VALUES ('BENOIT', 28, true) ;
+SELECT * FROM participants WHERE age > 21 AND attending=true;
+
+
+INSERT into participants (name, age, attending) values ('Greg', 21, true);
+SELECT * FROM participants;
+
+INSERT INTO participants ("name", "age", "attending") values ('yourself', 21, true); --Your code here
+SELECT * FROM participants;
+
+INSERT INTO participants (name, age, attending)
+VALUES ('Krysia', 24, true);
+SELECT * FROM participants;
+
+```
+
+```SQL
+
+SELECT * 
+FROM books
+ORDER BY copies_sold DESC
+LIMIT 5;
+
+# Element a reflechir
+SELECT TOP 5 *
+FROM books
+ORDER BY copies_sold DESC ;
+
+```
+
+Adults only
+
+```sql
+
+SELECT * FROM users WHERE age >= 18 ;
+
+SELECT * FROM users WHERE age > 17
+
+
+SELECT *
+from users
+where age>=18
+order by age  asc
+
+
+SELECT * FROM users
+WHERE NOT age < 18;
+
+SELECT t.name
+      ,t.age
+FROM users t
+WHERE t.age >= 18;
+
+```
+
+SQL concatening columns
+
+```sql
+
+   SELECT CONCAT(prefix,' ', first,' ',last,' ',suffix) AS title FROM names;
+
+   SELECT concat_ws(' ', prefix,first,last,suffix) AS title FROM names;
+
+   SELECT "prefix" || ' ' || "first" || ' ' || "last" || ' ' || "suffix" as title from names
+
+
+  SELECT CONCAT(prefix, ' ',first, ' ', last, ' ',suffix) "title" from names;
+
+  SELECT CONCAT(TRIM(prefix), ' ', TRIM(first), ' ', TRIM(last), ' ', TRIM(suffix)) AS title 
+FROM names
+
+   SELECT concat(names.prefix, ' ', names.first, ' ', names.last, ' ', names.suffix) AS title
+FROM names
+```
 
 Créer une fonction Sql
 
