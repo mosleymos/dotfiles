@@ -2018,6 +2018,49 @@ Array.prototype.remove_ = function(a, b){
 
 ```
 
+flip
+
+```javascript
+
+// Mon approche
+const flip = (fn) => (...args) => fn.apply(null,args.reverse())
+
+const flip = fn => (...args) => fn(...args.reverse());
+
+
+function flip(fn) {
+  return function() {
+    return fn.apply(this, [].reverse.call(arguments));
+  }
+}
+
+
+// Semblable
+function flip(fn) {
+  return function() {
+    return fn.apply(null, Array.prototype.slice.call(arguments).reverse())
+  }
+}
+
+
+// plus simple
+function flip(f) {
+  return function(...args) {
+    return f(...args.reverse());
+  }
+}
+
+const flip = (fn) => function () {
+  return fn.apply(null, [...arguments].reverse());
+}
+
+function flip(fn) {
+
+  return function(){return fn.apply(this,Array.from(arguments).reverse())}
+
+}
+
+```
 You only need one - Beginner
 
 ```javascript
