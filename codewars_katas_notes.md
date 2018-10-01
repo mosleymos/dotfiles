@@ -102,6 +102,30 @@ def find_short(s):
 
 ### Ruby
 
+Cumulative Triangle
+
+
+```ruby
+# Premiere approche
+def cumulative_triangle n
+  return 1 if n == 1
+  res = []
+  inc = 0
+  (1..n).to_a.each do |n|
+    if n == 1
+      res << [1]
+      inc+=1
+    else
+      prev = res.last.last + 1
+      res << (prev..(prev +inc)).to_a
+      inc+=1
+    end
+  end
+  res[n-1].reduce(&:+)
+end
+
+```
+
 Product of array items
 
 ```ruby
