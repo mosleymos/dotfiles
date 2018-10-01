@@ -104,6 +104,9 @@ def find_short(s):
 
 Cumulative Triangle
 
+Array formé en triangle [[1], [2,3], [4,5,6]] ...etc
+
+Semblabe à une pyramide
 
 ```ruby
 # Premiere approche
@@ -124,6 +127,52 @@ def cumulative_triangle n
   res[n-1].reduce(&:+)
 end
 
+# Seconde plus courte
+def cumulative_triangle n
+  return 1 if n == 1
+  (2..n).to_a.reduce([[1]]) do |a, b|
+      a << ((a.last.last+1)..(a.last.last+1+(b-1))).to_a
+      a
+  end[n-1].reduce(&:+)
+end
+
+# one liner
+# https://oeis.org/A006003
+def cumulative_triangle(n)
+  (n**3 + n) / 2
+end
+
+def cumulative_triangle(n)
+  sn=lambda {|n| n*(n+1)/2}
+  s=sn.call(n-1)
+  sn.call(s+n)-sn.call(s)
+end
+
+
+def cumulative_triangle(n)
+  n*n*(n-1)/2 + (1..n).to_a.reduce(:+)
+end
+
+def cumulative_triangle(n)
+  first =  (0...n).reduce(:+) + 1
+  (first..first + n - 1).sum
+end
+
+# Longue approche
+def cumulative_triangle(n)
+ arr = Array.new
+  arr << 1
+  for i in 0..n do
+    if arr[i] == 1
+      arr << ((arr[i] + 1)..(arr[i] + i + 2)).to_a
+      i += 1
+    else
+      arr << ((arr[i].last + 1)..(arr[i].last + i + 2)).to_a
+      i += 1
+    end
+  end
+  n == 1 ? 1 : arr[n - 1].reduce(:+)
+end
 ```
 
 Product of array items
