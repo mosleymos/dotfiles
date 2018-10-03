@@ -102,6 +102,38 @@ def find_short(s):
 
 ### Ruby
 
+
+Narcissistic numbers
+
+```ruby
+
+def is_narcissistic(n)
+  n.digits.map{|e| e**(n.digits.length) }.reduce(&:+) == n
+end
+
+# Reverse du n - plus pratique pour la lecture
+def is_narcissistic(n)
+  n == n.to_s.chars.map{ |a| a.to_i ** n.to_s.length}.reduce(:+)
+end
+
+# Usage du sum - elegant
+def is_narcissistic(n)
+  n == n.digits.map { |d| d**n.digits.size } .sum
+end
+
+# reduce(?+) -> variation sur le nil ? (supposition)
+def is_narcissistic(n)
+  n == n.digits.map{|x| x**(n.digits.count) }.reduce(?+)
+end
+
+# plus compact
+def is_narcissistic(n)
+   power = n.to_s.chars.size
+   x =  n.to_s.chars.map(&:to_i)
+   x.map {|y| y**power}.sum == n 
+end
+```
+
 Cumulative Triangle
 
 Array formé en triangle [[1], [2,3], [4,5,6]] ...etc
