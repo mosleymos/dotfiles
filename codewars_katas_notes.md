@@ -2163,6 +2163,14 @@ end
 
 ### javascript
 
+Most consecutive 0's in a row [Code-golf]
+
+```javascript
+// approche effectue
+f=x=>(x+'').split(/[1-9]/).map(e=>e.length).sort().pop()
+
+```
+
 Combine
 
 ```javascript
