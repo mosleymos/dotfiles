@@ -2151,6 +2151,7 @@ end
 leet classes (approach)
 
 ```ruby
+
 def leet_classes
   (1..1337).to_a.map do |i|
     Object.const_set("FooBar_#{i}", Class.new {
@@ -2159,9 +2160,25 @@ def leet_classes
     })
   end
 end
+
 ```
 
 ### javascript
+
+Maximum product
+
+```javascript
+// Premiere approche
+var adjacentElementsProduct = arr => {
+  var max = []
+  arr.reduce((a,b)=>{
+    max.push((a*b))
+    return b
+  })
+  return max.sort((e,f)=>e-f).pop()
+}
+
+```
 
 Most consecutive 0's in a row [Code-golf]
 
