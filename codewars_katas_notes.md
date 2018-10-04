@@ -2168,7 +2168,7 @@ end
 Maximum product
 
 ```javascript
-// Premiere approche
+// Approche
 var adjacentElementsProduct = arr => {
   var max = []
   arr.reduce((a,b)=>{
@@ -2178,6 +2178,45 @@ var adjacentElementsProduct = arr => {
   return max.sort((e,f)=>e-f).pop()
 }
 
+// Autres approches
+function adjacentElementsProduct(array) {
+  let newArr = []
+  for(i=0; i < array.length-1; i++){
+    newArr.push(array[i]*array[i+1])
+  }  
+  return Math.max(...newArr)
+}
+
+// Possibilité de non usage du apply -> a voir mais interessant
+function adjacentElementsProduct(a) {
+  return Math.max(...a.map((x,i)=>x*a[i+1]).slice(0,-1))
+}
+
+const adjacentElementsProduct = (array) => array.slice(1).reduce(
+  (max, cur, i) => Math.max(array[i] * cur, max), -Infinity
+);
+
+const adjacentElementsProduct = array => array.reduce((p,c,i) => i>0 ? Math.max(p,array[i]*array[i-1]) : -Infinity, -Infinity);
+
+function adjacentElementsProduct(array) {
+  return Math.max(...array.map((el,i) => el * array[i + 1]).filter(el => !isNaN(el)));
+}
+
+// Number.NEGATIVE_INFINITY => usage de limites en js - interessant
+const adjacentElementsProduct = array => 
+  array.reduce((acc, curr, i, arr)=>{
+    const calc = curr * arr[i + 1]
+    return calc > acc ? calc : acc
+  }, Number.NEGATIVE_INFINITY)
+
+
+// Style quelque peu court et cryptique
+function adjacentElementsProduct(array) {
+  return array
+    .map((_, i) => i == 0 ? null : _ * array[i - 1])
+    .filter(_ => _ != null)
+    .reduce((_,$)=>_>$?_:$);
+}
 ```
 
 Most consecutive 0's in a row [Code-golf]
