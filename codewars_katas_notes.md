@@ -2169,6 +2169,28 @@ Most consecutive 0's in a row [Code-golf]
 // approche effectue
 f=x=>(x+'').split(/[1-9]/).map(e=>e.length).sort().pop()
 
+// autres approches
+f=Q=>/(0+)(?!.*\1)/.exec(Q)[1].length
+
+f=inp=>(''+inp).match(/0{1,}/g).sort().pop().length
+
+f=(n,i=99)=>~`${n}`.search(`0{${i}}`)?i:f(n,i-1)
+
+f=n=>Math.log10(Math.max(...(n+"").match(/\d0+/g)))|0
+
+f=inp=>(inp+'').split(/[1-9]/).sort().reverse()[0].length
+
+f=n=>Math.log10(Math.max(...(n+"").match(/\d0+/g)))|0
+
+f=i=>(i+'').split(/[^0]/g).map(e=>e.length).sort().pop()
+
+let f = num=>("" + num).match(/0+/g).sort().pop().length;
+
+f=i=>(''+i).match(/0+/g).sort().pop().length
+
+f=i=>`${i}`.match(/0+/g).reduce((l,{length:z})=>z>l?z:l,0)
+
+
 ```
 
 Combine
