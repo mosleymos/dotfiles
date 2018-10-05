@@ -2165,7 +2165,129 @@ end
 
 ### javascript
 
+GrassHopper - Create the rooms
+
+
+```javascript
+
+var rooms = {
+ name:{
+   name:"What",
+   description:"hello",
+   completed: true
+ },
+name_2:{
+   name:"What",
+   description:"hello",
+   completed: true
+ },
+name_3:{
+   name:"What",
+   description:"hello",
+   completed: true
+ }
+}
+
+
+// Metaprogramming approach
+var rooms = {}
+for (var i = 0; i < 3; i++) {
+    rooms[`room${i}`] = {'a': 1, 'b': 2, 'c': 3}
+}
+
+// approche propre je trouve - usage d'une forme d'initialisation externe
+const Room = function(name,description,completed) {
+  var _name = name;
+  var _description = description;
+  var _completed = completed;
+  return {
+    name:_name,
+    description:_description,
+    completed:_completed
+  };
+}
+
+var rooms = {
+  1:new Room('','',false),
+  2:new Room('','',false),
+  3:new Room('','',false)
+}
+
+// Hack
+var rooms = {
+  a: this,
+  b: this,
+  c: this,
+}
+
+
+var rooms = [[[], [], []], [[], [], []], [[], [], []]];
+
+a=[[],[],[]];rooms={a,b:a,c:a}
+
+
+const rooms = {
+  bedroom: {
+    name: 'Bedroom',
+    description: 'For... sleeping',
+    completed: true,
+  },
+  bathroom: {
+    name: 'Bathroom',
+    description: 'This will get you clean',
+    completed: false,
+  },
+  kitchen: {
+    name: 'Kitchen',
+    description: 'Hungry? Why wait?',
+    completed: true,
+  },
+}
+
+var room = {
+  init : function(name, description, completed) {
+    this.name = name;
+    this.description = description;
+    this.completed = completed;
+  }
+}
+
+// Objets usage
+var room1 = Object.create(room);
+room1.init("room1", "room1", "room1");
+
+var room2 = Object.create(room);
+room2.init("room2", "room2", "room2");
+
+var room3 = Object.create(room);
+room3.init("room3", "room3", "room3");
+
+var rooms = { room1: room1, room2: room2, room3: room3 };
+
+// Approche des objets et fonction auto appellé IIFE
+var rooms = {};
+
+((obj) => {
+  for (let i = 1; i <= 3; i++) {
+    rooms[`room${i}`] = {
+      name: `Room ${i}`,
+      description: "A room",
+      completed: false
+    };
+  }
+})(rooms);
+
+// Hack
+var rooms = {
+  'name': [1,2,3] ,
+  'description': [1,2,3],
+  'completed': [1,2,3],
+}
+```
+
+
 Maximum product
+
 
 ```javascript
 // Approche
