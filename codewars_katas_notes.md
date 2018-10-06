@@ -2165,6 +2165,41 @@ end
 
 ### javascript
 
+Implementing a Queue
+
+```javascript
+var Queue = function() {
+  this.container = []
+};
+
+Queue.prototype.enqueue = function(item) {
+  return this.container = [item].concat(this.container)
+};
+
+Queue.prototype.dequeue = function() {
+  return this.container.pop()
+};
+
+Queue.prototype.size = function() {
+  return this.container.length
+};
+
+// Better
+
+class Queue {
+  constructor(){ this.q = [] }
+  enqueue(item){ this.q.unshift(item) }
+  dequeue(){ return this.q.pop() }
+  size(){ return this.q.length }
+}
+
+
+var Queue = Array;
+Queue.prototype.enqueue = Array.prototype.push;
+Queue.prototype.dequeue = Array.prototype.shift;
+Queue.prototype.size = function() {return this.length; };
+```
+
 GrassHopper - Create the rooms
 
 
