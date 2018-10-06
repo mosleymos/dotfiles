@@ -2165,7 +2165,51 @@ end
 
 ### javascript
 
+Only one
+
+
+```javascript
+
+// Approche
+const onlyOne = (...args) => args.filter(e=>e===true).length === 1 ? true : false 
+
+// plus simple
+
+const onlyOne = (...args) => args.filter(e=>e===true).length === 1 
+
+// old School
+function onlyOne() {
+  return Array.prototype.slice.call(arguments).filter( val => val ).length == 1;
+}
+
+// plus court mais approche es6 plus courte
+function onlyOne(...a){
+ return a.filter(x=>x).length==1
+}
+
+// Regex approach
+function onlyOne(...args) {
+  var match = args.toString().match(/true/g)
+  return match ? match.length === 1 : false;
+}
+
+// Conversion opérée
+function onlyOne() {
+  const x = [...arguments].map((c) => Number(c)).reduce((a, c) => a + c, 0);
+  return (x === 1) ? true : false;
+}
+
+// Nouvelle methode sur object en plus de #keys()
+function onlyOne() {
+  return Object.values(arguments).filter(boolean => boolean === true).length === 1;
+}
+
+```
+
+
 Implementing a Queue
+
+
 
 ```javascript
 var Queue = function() {
