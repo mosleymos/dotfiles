@@ -5503,6 +5503,18 @@ function generateRange(min, max, step){
 
 ### SQL
 
+Easy sql Bit length
+
+```SQL
+SELECT id, 
+       BIT_LENGTH(name) AS name, 
+       birthday, 
+       BIT_LENGTH(race) AS race 
+FROM demographics;
+
+```
+
+
 BASICS: Length based SELECT with LIKE
 
 ```SQL
