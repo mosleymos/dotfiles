@@ -5503,6 +5503,20 @@ function generateRange(min, max, step){
 
 ### SQL
 
+Easy sql Power
+
+```SQL
+SELECT POWER(number1, number2) AS result FROM decimals;
+
+select POW(number1,number2) result from decimals
+
+SELECT a.number1 ^ b.number2 as result
+FROM decimals a, decimals b
+WHERE a.id = b.id
+;
+
+```
+
 Easy sql Bit length
 
 ```SQL
