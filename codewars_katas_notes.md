@@ -126,7 +126,35 @@ end
 
 ```
 
+Grain
+
+```ruby
+
+def square(number)
+  number ==1 ? 1: square(number-1) * 2
+end
+
+def square(number)
+  2**(number - 1)
+end
+
+def square(number)
+  1 << (number - 1)
+end
+
+def square(n)
+  2.pow(n-1)
+end
+
+def square(n)
+  2**n/2
+end
+
+```
+
+
 Narcissistic numbers
+
 
 ```ruby
 
@@ -5525,6 +5553,32 @@ function generateRange(min, max, step){
 
 
 ### SQL
+
+Easy sql Power
+
+```SQL
+SELECT POWER(number1, number2) AS result FROM decimals;
+
+select POW(number1,number2) result from decimals
+
+SELECT a.number1 ^ b.number2 as result
+FROM decimals a, decimals b
+WHERE a.id = b.id
+;
+
+```
+
+Easy sql Bit length
+
+```SQL
+SELECT id, 
+       BIT_LENGTH(name) AS name, 
+       birthday, 
+       BIT_LENGTH(race) AS race 
+FROM demographics;
+
+```
+
 
 BASICS: Length based SELECT with LIKE
 
