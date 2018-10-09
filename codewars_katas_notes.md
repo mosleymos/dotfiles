@@ -103,7 +103,35 @@ def find_short(s):
 ### Ruby
 
 
+Grain
+
+```ruby
+
+def square(number)
+  number ==1 ? 1: square(number-1) * 2
+end
+
+def square(number)
+  2**(number - 1)
+end
+
+def square(number)
+  1 << (number - 1)
+end
+
+def square(n)
+  2.pow(n-1)
+end
+
+def square(n)
+  2**n/2
+end
+
+```
+
+
 Narcissistic numbers
+
 
 ```ruby
 
