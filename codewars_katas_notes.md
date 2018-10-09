@@ -102,6 +102,29 @@ def find_short(s):
 
 ### Ruby
 
+Simple Memoization
+
+```ruby
+# approche premiere solution
+class Memo
+  @@save ||= Hash.new{}
+  attr_accessor :to_call
+  def initialize(&block)
+    @to_call = block
+  end
+
+  def [](param)
+    if @@save[param].nil?
+      res = @to_call.call(param) 
+      @@save[param] = res
+      return res 
+    else
+      return @@save[param]
+    end
+  end
+end
+
+```
 
 Narcissistic numbers
 
