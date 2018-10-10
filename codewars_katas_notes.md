@@ -105,7 +105,7 @@ def find_short(s):
 Simple Memoization
 
 ```ruby
-# approche premiere solution
+# Approche 
 class Memo
   @@save ||= Hash.new{}
   attr_accessor :to_call
@@ -124,6 +124,99 @@ class Memo
   end
 end
 
+class Memo
+  def initialize(&block)
+    @method = block
+    @results = {}
+  end
+  def [](param)
+    @results[param] ||= @method.call(param)
+  end
+end
+
+
+class Memo < Hash
+  def initialize(&block)
+    super { |hash,param| hash[param] = block[param] }
+  end
+end
+
+class Memo
+  def initialize(&block)
+    @memoized = {}
+    @block = block
+  end
+  
+  def [](param)
+    if @memoized.has_key?(param)
+      @memoized[param]
+    else
+      @memoized[param] = @block.call(param)
+    end
+  end
+end
+
+# Dure sur element
+class Memo
+  @h = Hash.new
+  @p = nil
+  @b = lambda {}
+  def initialize(&block)
+    @b = block
+    @h = { "a" => 100, "b" => 200 }
+  end
+  def [](param)
+    @h[param] = @b.(param)  unless @h.has_key?(param)
+      
+    @h[param]
+  end
+end
+
+# Usage du tap (Sympa)
+class Memo
+  def initialize(&block)
+    @mm, @m = {}, block
+  end
+
+  def [](param)
+    @mm[param] ||= @m.call(param).tap{ |it| @mm[param] = it }
+  end
+end
+
+# Good
+class Memo
+  def initialize
+    @hash = Hash.new {|h, key| h[key] = yield(key) } 
+  end
+  def [](param)
+    @hash[param] 
+  end
+end
+
+# Bon et marrant
+class Memo
+  def initialize(&block)
+   @ha = Hash.new
+   @func = block
+  end
+  
+  def [](param)
+   @ha.keys.include?(param) ? @ha[param] : @ha[param] = @func.call(param)
+  end
+end
+
+class Memo
+  attr_accessor :cache
+  def initialize(&block)
+    @func = block
+    @cache = {}
+  end
+  
+  def [](param)
+    cache[param] =  @func.call(param) if cache[param].nil?  
+    cache[param]
+  end
+end
 ```
 
 Grain
