@@ -155,6 +155,57 @@ def find_short(s):
 
 ### Ruby
 
+
+Add _ - accessors to Hash
+
+
+```ruby
+# Premiere approche
+class Hash
+
+  def method_missing name, args=nil 
+    puts self
+    puts name
+    puts args
+    if name.to_s.end_with? '='
+      _create_key name, args
+    else
+      _find_key name
+    end
+  end
+
+  def _create_key name, args
+    some_key=name.to_s[1..-2].to_sym
+
+    if self.key? some_key
+      self[some_key] = args 
+      return args 
+    end
+
+    if self.key? some_key.to_s
+      self[some_key.to_s] =  args
+      return args 
+    end
+
+    self[some_key] = args
+    return args
+  end
+
+  def _find_key(name)
+    some_key=name.to_s[1..-1].to_sym
+    if self.key? some_key 
+      return self[some_key]
+    elsif self.key? some_key.to_s
+      return self[some_key.to_s]
+    else
+      return nil
+    end
+  end
+end
+
+
+```
+
 Simple Memoization
 
 ```ruby
