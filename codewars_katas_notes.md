@@ -7,6 +7,59 @@ Codewars notes
 
 ### Python
 
+Total amount of points
+
+```python
+def points(games):
+    def calcul(some):
+        x,y = [int(i) for i in some.split(':')]
+        if(x>y):
+            return 3
+        elif(x<y):
+            return 0
+        else:
+            return 1
+    return sum([calcul(e) for e in games])
+
+# autres approches
+
+def points(games):
+  return sum([0,1,3][1+(g[0]>g[2])-(g[0]<g[2])] for g in games)
+
+
+def points(a):
+    return sum((x >= y) + 2 * (x > y) for x, y in (s.split(":") for s in a))
+
+points=lambda Q:sum(3*(V[0]>V[2])+(V[0]==V[2])for V in Q)
+
+def points(games):
+  return sum(3 if i[0]>i[2] else 1 if i[0]==i[2] else 0 for i in games)
+
+
+def points(games):
+  return sum(1+2*(x>y)-(x<y)for m in games for x,y in[m.split(':')]) 
+
+
+# Separation en deux fonction meilleur je trouve
+def count_result(s):
+    return 3 if s[0]>s[1] else 0 if s[0]<s[1] else 1
+    
+def points(games):
+  return sum([count_result(s.split(':')) for s in games])
+
+# Ensemble simple reflexion à faire
+def points(games):
+    total_points = 0
+    for score_set in games:
+        x, y = score_set[0], score_set[2]
+        if x>y:
+            total_points += 3
+        elif x==y:
+            total_points += 1
+        else: pass
+    return total_points 
+
+```
 Find thing first
 
 ```python
