@@ -160,49 +160,167 @@ Add _ - accessors to Hash
 
 
 ```ruby
-# Premiere approche
+# Approche
 class Hash
-
-  def method_missing name, args=nil 
-    puts self
-    puts name
-    puts args
-    if name.to_s.end_with? '='
-      _create_key name, args
-    else
-      _find_key name
-    end
-  end
-
   def _create_key name, args
     some_key=name.to_s[1..-2].to_sym
-
-    if self.key? some_key
+    if key? some_key
       self[some_key] = args 
       return args 
     end
-
-    if self.key? some_key.to_s
+    if key? some_key.to_s
       self[some_key.to_s] =  args
       return args 
     end
-
     self[some_key] = args
-    return args
+    return self[some_key]
   end
 
   def _find_key(name)
     some_key=name.to_s[1..-1].to_sym
-    if self.key? some_key 
+    if key? some_key 
       return self[some_key]
-    elsif self.key? some_key.to_s
+    elsif key? some_key.to_s
       return self[some_key.to_s]
     else
       return nil
     end
   end
+
+  def method_missing name, args=nil 
+    return _create_key(name, args) if name.to_s.end_with? '='
+    return _find_key(name)
+  end
 end
 
+# Autres approches - geniale et interessante
+# Usage du *args
+class Hash
+  def method_missing(symbol, *args)
+    key = symbol.to_s.gsub(/^_|=$/, '')
+    key = key.to_sym if !self.has_key?(key) || self.has_key?(key.to_sym)
+    args.empty? ? self[key] : self[key] = args.first
+  end
+end
+
+
+class Hash
+  def method_missing( symbol, *args )
+    s = symbol[/[a-z]+/].to_sym
+    send(symbol[/=\Z/] ? :[]= : :[], !key?(s) && key?(s.to_s) ? s.to_s : s, *args)
+  end
+end
+
+# Usage du unless pour sortir la négation
+class Hash
+  def method_missing( symbol, *args )
+    return unless symbol =~ /^_/
+    
+    s = symbol.to_s.gsub(/(^_|=$)/, '')
+
+    unless args.empty?
+      if self.key?(s.to_sym)
+        return self[s.to_sym] = args.first
+      elsif self.key?(s)
+        return self[s] = args.first
+      end
+
+      return self[s.to_sym] = args.first
+    end
+    
+    self.key?(s.to_sym) ? self[s.to_sym] : self[s]
+  end
+end
+
+# Approche Hash problématique
+class Hash
+  def method_missing(symbol, *args)
+    if match = symbol.match(/\A_(\w+)\z/)
+      given_key = match.captures[0]
+      return send(:[], given_key.to_sym) if keys.include?(given_key.to_sym)
+      send(:[], given_key) if keys.include?(given_key)
+    elsif match = symbol.match(/\A_(\w+)=\z/)
+      given_key = match.captures[0]
+      value = args[0]
+      write_key = (keys.include?(given_key.to_sym) && given_key.to_sym) || (keys.include?(given_key) && given_key) || given_key.to_sym
+      send(:[]=, write_key, value)
+      value
+    else
+      super
+    end
+  end
+end
+
+# Approche et usage du fetch intéressante
+class Hash
+  def method_missing(symbol, *args)
+    str = symbol[1..-1]
+    if str.end_with?('=')
+      str = str.to_sym if key?(str.chop!.to_sym) || !key?(str)
+      self[str] = args.first
+    else
+      fetch(str.to_sym, self[str])
+    end
+  end
+end
+
+# Cryptique - analyser de plus près
+class Hash
+  def method_missing( symbol, *args )
+    s = symbol[/[a-z]+/].to_sym
+    send(symbol[/=\Z/] ? :[]= : :[], !key?(s) && key?(s.to_s) ? s.to_s : s, *args)
+  end
+end
+
+class Hash
+  def method_missing(symbol, *args)
+    /^_(?<key>[^=]+)(?<set>=)?$/ =~ symbol.to_s ?
+      send(:"[]#{set}", key?(key.to_sym) || ! key?(key) ? key.to_sym : key, *args) :
+      super
+  end
+end
+
+
+class Hash
+  def method_missing( symbol, *args )
+    parts = symbol.to_s.scan(/_(.*?)(=?)$/)[0]
+    method, assign = parts
+    
+    if self.has_key? method.to_sym
+      if assign == '='
+        self[method.to_sym] = args[0]
+      else
+        self[method.to_sym]
+      end
+    elsif self.has_key? method
+      if assign == '='
+        self[method] = args[0]
+      else
+        self[method]
+      end
+    elsif assign == '='
+      self[method.to_sym] = args[0]
+    end
+  end
+end
+
+class Hash
+  def method_missing(o,*a,&b)
+    k=o[1..-1]
+    if k[-1]==?=
+      n=a.size==1?a[0]:a
+      k=k[0..-2]
+      if has_key?(k)&&!has_key?(k.to_sym)
+        self[k]=n
+      else
+        self[k.to_sym]=n
+      end
+    else
+      return self[k.to_sym] if has_key?(k.to_sym)
+      self[k]
+    end
+  end
+end
 
 ```
 
