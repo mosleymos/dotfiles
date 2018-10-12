@@ -190,6 +190,11 @@ end
 def first_reverse_try(arr)
   arr.length < 3 ? arr.reverse : [arr[-1]] + arr[1..-2] + [arr[0]]
 end
+
+def first_reverse_try(arr)
+  return arr if arr.size<2
+  ([arr.last]+[arr[1...-1]]+[arr.first]).flatten.reject &:nil?
+end
 ```
 
 Add _ - accessors to Hash
