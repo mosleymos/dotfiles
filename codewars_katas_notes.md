@@ -156,6 +156,42 @@ def find_short(s):
 ### Ruby
 
 
+
+```ruby
+
+def first_reverse_try(arr)
+  return [] if arr.empty?
+  arr[0], arr[-1] = arr[-1], arr[0]
+  arr
+end
+
+def first_reverse_try(arr)
+  return arr if arr.empty?
+  [arr.pop] + arr.rotate
+end
+
+def first_reverse_try(arr)
+  [*arr.pop, *arr.rotate]
+end
+
+def first_reverse_try(arr)
+  arr[0], arr[-1] = arr[-1], arr[0] if arr.size > 1
+  arr
+end
+
+def first_reverse_try(arr)
+  arr.size > 1 ? [arr.last, *arr[1...-1], arr.first] : arr
+end
+
+def first_reverse_try(arr)
+  arr.length < 2 ? arr : arr.insert(-2,arr.shift).unshift(arr.pop)
+end
+
+def first_reverse_try(arr)
+  arr.length < 3 ? arr.reverse : [arr[-1]] + arr[1..-2] + [arr[0]]
+end
+```
+
 Add _ - accessors to Hash
 
 
