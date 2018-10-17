@@ -155,7 +155,16 @@ def find_short(s):
 
 ### Ruby
 
+Array.diff
 
+```ruby
+def array_diff(a, b)
+  a - b
+end
+
+```
+
+First Reverse Try
 
 ```ruby
 
