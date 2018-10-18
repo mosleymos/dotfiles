@@ -155,6 +155,27 @@ def find_short(s):
 
 ### Ruby
 
+Between extremes
+
+```ruby
+def between_extremes(numbers)
+  numbers.max - numbers.min
+end
+
+# Approche exotiques
+def between_extremes(numbers)
+  -numbers.minmax.reduce(:-)
+end
+
+def between_extremes(numbers)
+  numbers.minmax.reduce(:-).abs
+end
+
+def between_extremes(n) lambda{|n| n[-1]-n[0]}.(n.sort) end
+
+
+```
+
 Array.diff
 
 ```ruby
