@@ -36,6 +36,8 @@ nc -lp 3000
 
 Simple HTML webcomponent
 
+cf [article](https://dev.to/jamesrweb/an-introduction-to-custom-elements-5327)
+
 ```javascript
 
 class MyComponent extends HTMLElement {
@@ -57,6 +59,7 @@ class MyComponent extends HTMLElement {
 }
 
 window.customElements.define('my-component', MyComponent);
+
 
 // Possibilité usage 
 var $myComponent = new MyComponent
