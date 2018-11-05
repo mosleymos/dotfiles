@@ -751,6 +751,56 @@ end
 
 ```
 
+Is it an isogram
+
+```ruby
+
+def isogram?(s)
+  return false if s.is_a? Fixnum
+  return false if s.nil?
+  return false if s.empty?
+  s.chars.select{|e| e=~ /^[A-Za-z]+$/ }.map(&:downcase).group_by(&:itself).values.map(&:size).uniq.size == 1
+end
+
+# Autres approches
+
+def isogram?(s)
+    begin
+      return false if s.size == 0
+      s = s.downcase.scan(/[a-z]/)
+      s.uniq.all?{|chr| s.count(chr) == s.size / s.uniq.size}
+    rescue
+      false
+    end
+end
+
+# One liner
+
+def isogram?(s)
+  s.is_a?(String) && s.downcase.delete('^a-z').chars.group_by(&:itself).values.map(&:size).uniq.size == 1
+end
+
+
+def isogram?(s)
+  alp =  ("a".."z")
+  return false if s.nil? or s == "" or s == s.to_i
+  s.downcase.chars.reduce([]) {|res,el| alp.include?(el) ? res << s.downcase.count(el) : res}.uniq.size == 1
+end
+
+def isogram?(word)
+  return false unless word.is_a?(String)
+  word.downcase!
+  word.scan(/[a-z]/).uniq.map { |c| word.count(c) } .uniq.size == 1
+end
+
+def isogram?(s)
+  return false if s.class != String  
+  h = Hash.new(0) 
+  s = s.gsub(/[^a-zA-Z]/,"").downcase.chars.map { |x| h[x] += 1 } 
+  h.values.uniq.size == 1 ? true : false  
+end
+```
+
 Isogram
 
 
