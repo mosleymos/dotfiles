@@ -158,13 +158,12 @@ def find_short(s):
 
 Simple transposition
 
-```
+```ruby
 def simple_transposition(text)
  row1 = text.chars.each_with_index.select{|a| a.last.even?}.map(&:first).join
  row2 = text.chars.each_with_index.select{|a| a.last.odd?}.map(&:first).join
  row1 + row2
 end
-
 ```
 
 Between extremes
