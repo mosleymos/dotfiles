@@ -164,6 +164,35 @@ def simple_transposition(text)
  row2 = text.chars.each_with_index.select{|a| a.last.odd?}.map(&:first).join
  row1 + row2
 end
+
+# Autres approches
+# methode partition ex:
+# (1..6).partition {|v| v.even? }  #=> [[2, 4, 6], [1, 3, 5]]
+
+def simple_transposition(text)
+  text.chars.partition.with_index {|e,i| i.even? }.flatten.join 
+end
+
+# evite de reuser de methode chars mais mutation de text
+# usage du _ pour indiquer le non usage de la variable
+def simple_transposition(text)
+  text = text.chars
+  row_1 = text.select.with_index { |_, index| index.odd? }
+  row_2 = text.select.with_index { |_, index| index.even? }
+  (row_2 + row_1).join
+end
+
+# each_char alias de char
+def simple_transposition(text)
+  ret = ['', '']
+  text.each_char.with_index{ |c, i| ret[i % 2] << c }
+  ret.join
+end
+
+def simple_transposition(text)
+  (text.chars.select.with_index{|n,i| i%2==0}+text.chars.select.with_index{|n,i| i%2==1}).join('')
+end
+
 ```
 
 Between extremes
@@ -277,6 +306,7 @@ end
 
 # Autres approches - geniale et interessante
 # Usage du *args
+
 class Hash
   def method_missing(symbol, *args)
     key = symbol.to_s.gsub(/^_|=$/, '')
