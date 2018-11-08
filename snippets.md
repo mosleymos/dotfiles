@@ -33,3 +33,35 @@ mysql -h "some_host" -u "some_user" -p "some_password"  "some_database" < some_f
 # netcat listen port
 nc -lp 3000
 ```
+
+Simple HTML webcomponent
+
+cf [article](https://dev.to/jamesrweb/an-introduction-to-custom-elements-5327)
+
+```javascript
+
+class MyComponent extends HTMLElement {
+  static get observedAttributes() {
+    return [];
+  }
+
+  constructor(...args) {
+    super(...args);
+  }
+
+  connectedCallback() {}
+
+  disconnectedCallback() {}
+
+  adoptedCallback() {}
+
+  attributeChangedCallback(attrName, oldVal, newVal) {}
+}
+
+window.customElements.define('my-component', MyComponent);
+
+
+// Possibilité usage 
+var $myComponent = new MyComponent
+
+```

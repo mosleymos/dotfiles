@@ -60,6 +60,7 @@ def points(games):
     return total_points 
 
 ```
+
 Find thing first
 
 ```python
@@ -154,6 +155,45 @@ def find_short(s):
 ```
 
 ### Ruby
+
+Simple transposition
+
+```ruby
+def simple_transposition(text)
+ row1 = text.chars.each_with_index.select{|a| a.last.even?}.map(&:first).join
+ row2 = text.chars.each_with_index.select{|a| a.last.odd?}.map(&:first).join
+ row1 + row2
+end
+
+# Autres approches
+# methode partition ex:
+# (1..6).partition {|v| v.even? }  #=> [[2, 4, 6], [1, 3, 5]]
+
+def simple_transposition(text)
+  text.chars.partition.with_index {|e,i| i.even? }.flatten.join 
+end
+
+# evite de reuser de methode chars mais mutation de text
+# usage du _ pour indiquer le non usage de la variable
+def simple_transposition(text)
+  text = text.chars
+  row_1 = text.select.with_index { |_, index| index.odd? }
+  row_2 = text.select.with_index { |_, index| index.even? }
+  (row_2 + row_1).join
+end
+
+# each_char alias de char
+def simple_transposition(text)
+  ret = ['', '']
+  text.each_char.with_index{ |c, i| ret[i % 2] << c }
+  ret.join
+end
+
+def simple_transposition(text)
+  (text.chars.select.with_index{|n,i| i%2==0}+text.chars.select.with_index{|n,i| i%2==1}).join('')
+end
+
+```
 
 Between extremes
 
@@ -267,6 +307,7 @@ end
 
 # Autres approches - geniale et interessante
 # Usage du *args
+
 class Hash
   def method_missing(symbol, *args)
     key = symbol.to_s.gsub(/^_|=$/, '')
@@ -750,6 +791,56 @@ def sum_triangular_numbers(n)
   n >= 0 ? arr.sum : 0
 end
 
+```
+
+Is it an isogram
+
+```ruby
+
+def isogram?(s)
+  return false if s.is_a? Fixnum
+  return false if s.nil?
+  return false if s.empty?
+  s.chars.select{|e| e=~ /^[A-Za-z]+$/ }.map(&:downcase).group_by(&:itself).values.map(&:size).uniq.size == 1
+end
+
+# Autres approches
+
+def isogram?(s)
+    begin
+      return false if s.size == 0
+      s = s.downcase.scan(/[a-z]/)
+      s.uniq.all?{|chr| s.count(chr) == s.size / s.uniq.size}
+    rescue
+      false
+    end
+end
+
+# One liner
+
+def isogram?(s)
+  s.is_a?(String) && s.downcase.delete('^a-z').chars.group_by(&:itself).values.map(&:size).uniq.size == 1
+end
+
+
+def isogram?(s)
+  alp =  ("a".."z")
+  return false if s.nil? or s == "" or s == s.to_i
+  s.downcase.chars.reduce([]) {|res,el| alp.include?(el) ? res << s.downcase.count(el) : res}.uniq.size == 1
+end
+
+def isogram?(word)
+  return false unless word.is_a?(String)
+  word.downcase!
+  word.scan(/[a-z]/).uniq.map { |c| word.count(c) } .uniq.size == 1
+end
+
+def isogram?(s)
+  return false if s.class != String  
+  h = Hash.new(0) 
+  s = s.gsub(/[^a-zA-Z]/,"").downcase.chars.map { |x| h[x] += 1 } 
+  h.values.uniq.size == 1 ? true : false  
+end
 ```
 
 Isogram
@@ -7902,9 +7993,69 @@ end
 
 ```
 
-Selecting Quotients From an Array
 
 Reflexion en cours
+
+Sudoku validator
+
+reste la grille 3x3
+
+```ruby
+
+arr1 = 
+[
+  [5, 3, 4, 6, 7, 8, 9, 1, 2],
+  [6, 7, 2, 1, 9, 5, 3, 4, 8],
+  [1, 9, 8, 3, 4, 2, 5, 6, 7],
+  [8, 5, 9, 7, 6, 1, 4, 2, 3],
+  [4, 2, 6, 8, 5, 3, 7, 9, 1],
+  [7, 1, 3, 9, 2, 4, 8, 5, 6],
+  [9, 6, 1, 5, 3, 7, 2, 8, 4],
+  [2, 8, 7, 4, 1, 9, 6, 3, 5],
+  [3, 4, 5, 2, 8, 6, 1, 7, 9]
+]
+
+arr = [
+  [5, 3, 4, 6, 7, 8, 9, 1, 2], 
+  [6, 7, 2, 1, 9, 0, 3, 4, 8],
+  [1, 0, 0, 3, 4, 2, 5, 6, 0],
+  [8, 5, 9, 7, 6, 1, 0, 2, 0],
+  [4, 2, 6, 8, 5, 3, 7, 9, 1],
+  [7, 1, 3, 9, 2, 4, 8, 5, 6],
+  [9, 0, 1, 5, 3, 7, 2, 1, 4],
+  [2, 8, 7, 4, 1, 9, 6, 3, 5],
+  [3, 0, 0, 4, 8, 1, 1, 7, 9]
+]
+
+
+arr3 = [
+  [1,2,3,4,5,6,7,8,9],
+  [2,3,4,5,6,7,8,9,1],
+  [3,4,5,6,7,8,9,1,2],
+  [4,5,6,7,8,9,1,2,3],
+  [5,6,7,8,9,1,2,3,4],
+  [6,7,8,9,1,2,3,4,5],
+	[7,8,9,1,2,3,4,5,6],
+  [8,9,1,2,3,4,5,6,7],
+  [9,1,2,3,4,5,6,7,8]
+]
+
+
+
+
+res = arr3.map(&:each_with_index).map(&:to_a).flatten(1).reduce({}){|a,b| 
+  if(a[b.first].nil?)
+    a[b.first] = [b.last]
+    a
+  else
+    a[b.first] = (a[b.first] << b.last)
+    a
+  end
+}.values.uniq.size == 1
+
+```
+
+Selecting Quotients From an Array
 
 ```ruby
 def sel_quot(arr, m, dir_str=nil)
