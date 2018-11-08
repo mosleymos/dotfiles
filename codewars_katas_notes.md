@@ -231,6 +231,7 @@ Add _ - accessors to Hash
 
 
 ```ruby
+
 # Approche
 class Hash
   def _create_key name, args
