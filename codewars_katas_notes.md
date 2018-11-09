@@ -156,6 +156,39 @@ def find_short(s):
 
 ### Ruby
 
+Alphabet wars
+
+```ruby
+# Approche a refactoriser
+def alphabet_war(fight)
+left = {
+ "w": 4,
+ "p": 3, 
+ "b": 2,
+ "s":1}
+
+ right = {
+ "m": 4,
+ "q": 3, 
+ "d":2,
+ "z": 1
+ }
+
+res = [[], []]
+fight.chars.each do |letter|
+ if left[letter.to_sym]
+    res[0] << left[letter.to_sym]
+ end
+ if right[letter.to_sym]
+    res[1] << right[letter.to_sym]
+ end
+ letter
+end
+l, r = res[0].reduce(&:+).to_i , res[1].reduce(&:+).to_i
+return l > r ? "Left side wins!" : (l < r ? "Right side wins!" : "Let's fight again!" ) 
+end
+```
+
 Simple transposition
 
 ```ruby
@@ -271,6 +304,7 @@ Add _ - accessors to Hash
 
 
 ```ruby
+
 # Approche
 class Hash
   def _create_key name, args
