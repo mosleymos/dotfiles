@@ -2727,6 +2727,17 @@ end
 
 ### javascript
 
+Hello Name or World!
+
+```javascript
+const hello = name => name ? `Hello, ${ name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()}!` : `Hello, World!`;
+
+// Autre approche
+const hello = s =>
+  `Hello, ${s ? (s[0].toUpperCase() + s.slice(1).toLowerCase()) : 'World'}!`;
+
+```
+
 Only one
 
 
