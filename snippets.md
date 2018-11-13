@@ -65,3 +65,18 @@ window.customElements.define('my-component', MyComponent);
 var $myComponent = new MyComponent
 
 ```
+
+
+Aleatoire check
+
+```ruby
+
+res =  SomeActiveRecordModel.all.shuffle.take(10).map do |ft_prod|
+  formatte = sprintf "%#.4f", ft_prod.some_integer_method_or_attribute
+  stringee = ft_prod.quantite_net.to_s
+  [formatte, stringee]
+end
+
+ap res
+
+```
