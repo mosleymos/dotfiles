@@ -2727,9 +2727,17 @@ end
 
 ### javascript
 
-get ascii value of a character
+Reversed sequence
+
+```javascript
+// Approche abordee
+const reverseSeq = n => ([...Array(n)].map((_,i)=>i+1).reverse())
 
 ```
+
+get ascii value of a character
+
+```javascript
 // Solution
 const getASCII = c => c.charCodeAt(0)
 
