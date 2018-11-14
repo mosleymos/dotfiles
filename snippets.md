@@ -80,3 +80,44 @@ end
 ap res
 
 ```
+
+```ruby
+
+<%= link_to(fa_icon('trash').html_safe,
+                        {:remote => true,
+                         :ps_fiches_technique_id => @ps_fiches_technique.id,
+                         :ps_fiches_techniques_regime_id => ps_fiches_techniques_regime.id,
+                         :ad_regime_id => ps_fiches_techniques_regime.ad_regime.id,
+                         :controller => :ps_fiches_techniques,
+                         :method => :delete,
+                         :onclick => 'delete_regime()',
+                         :action => 'delete_regime'},
+                        {:title => 'Permet l effacement de cette ligne de régime',
+                         :confirm => 'êtes vous sur de vouloir détruire ce régime ? ',
+                         :id => id_condi}) %>
+
+
+
+  def save_presentation_planning_reception
+    _enregistrement_presentation_planning_reception(params)
+    render :json => {:message => 'information transmise'}, :status => :ok
+  end
+
+def essai
+  lambda do 
+    puts 1
+  end
+end
+
+def essai2
+  lambda do 
+    puts 2
+  end
+end
+
+[essai, essai2].each do |e|
+   e.call
+end
+
+
+```
