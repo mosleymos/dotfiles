@@ -2730,9 +2730,114 @@ end
 Perfect Number Verifier
 
 ```javascript
-// Approche brute - Sequence existante OEIS
+// Approche brute - Sequence existante site OEIS
 const isPerfect = n => [
 	6, 28, 496, 8128, 33550336, 8589869056, 137438691328, 2305843008139952128, 2658455991569831744654692615953842176, 191561942608236107294793378084303638130997321548169216].includes(n)
+
+// Autres approches
+
+function isPerfect(n) {
+  const perfectInts = [6, 28, 496, 8128, 33550336, 8589869056, 137438691328, 2305843008139952128,
+  2658455991569831744654692615953842176, 191561942608236107294793378084303638130997321548169216];
+  return !!~perfectInts.indexOf(n);
+}
+
+function isPerfect(n) {
+  for (var i=2,max=Math.sqrt(n),rs=0;i<=max;i++) if (n%i==0) rs+= i==n/i ? i : i+n/i; 
+  return n!=1&&rs+1==n;
+}
+
+// boucle pour calcul des sommes
+function isPerfect(n) {
+ if (n < 6) return false;
+ let sum = 1;
+ let end = Math.sqrt(n);
+ for (let i = 2; (i <= end) && (sum <= n); i++) {
+   if (n % i === 0) {
+       sum += (i + n/i);
+   }
+ }
+ return (sum === n);
+}
+
+// Approches par les nombres premiers
+function isPerfect(n) {
+var primes = [2,3,5,7,13,17,19,31,61,89];
+var res = primes.map(function(p){return n === Math.pow(2,p-1)*(Math.pow(2,p)-1)?true:false;})
+return res.some(function(r){return r===true})
+}
+
+// Some pour un array - non connaissance de la méthode
+function isPerfect(n) {
+  return [6, 28, 496, 8128, 33550336, 8589869056, 137438691328, 2305843008139952128].some(x=>x == n)
+}
+
+// Solution longue revoir des points
+function isPerfect(n) {
+  var factors = findPrimeNums(31);
+  
+  var r = factors.some(
+  function(p){
+    return n == Math.pow(2,p-1) * (Math.pow(2,p)-1)
+  })
+  return r;
+  
+}
+function findPrimeNums(n)
+    { 
+       var x= 3,j,i=2,
+       primeArr=[2],isPrime;
+       for (;x<=n;x+=2){
+           j = parseInt(Math.sqrt (x));
+           isPrime = true;
+           for (i = 2; i <= j; i++)
+           {
+                if (x % i == 0){
+                    isPrime = false;
+                    break;
+                }
+            }
+            if(isPrime){
+                primeArr.push(x);
+            }
+
+        }   
+
+        return primeArr;
+    }
+
+// Autres approches
+function divisors(n) {
+  if ( n===1 ) return [];
+  for ( var r=[1], i=2; i*i<n; i++ )
+    if ( n%i===0 )
+      r.push(i, n/i);
+  if ( i*i === n ) r.push(i);
+  return r;
+}
+const plus = (v,w) => v+w ;
+const sum = a => a.reduce(plus,0) ;
+const isPerfect = n => sum(divisors(n))===n ;
+
+// Approche isPerfect element
+function isPerfect(n) {
+  if(n === 1) return false
+  var arr = [1];
+  for(var i = 2; i < Math.sqrt(n); i++){
+    if(n % i === 0) {
+      arr.push(i);
+      arr.push(n / i);
+    }
+  }
+  return n === arr.reduce((t, a)=>t+a,0)
+}
+
+// isPerfect approche divisee
+function isPerfect(n) {
+  if (n == 120 || n == 2016) return false
+  const factors = x => (y = Math.ceil(x/2) , x == 1 ? [] : [y, ...factors(y)])
+  return factors(n).reduce((x, y) => x + y, 0) == n
+}
 
 ```
 getNames
