@@ -2727,6 +2727,50 @@ end
 
 ### javascript
 
+GrassHopper Summation
+
+```javascript
+const summation = num => [...Array((num+=1)).keys()].slice(1).reduce((a,b)=>a+b)
+// Approches sur meme principe au dessus
+
+const summation = num => (
+  Array(num).fill(true)
+      .reduce((sum, item, index) => sum + index + 1, 0));
+
+const summation = num => [...Array(num)].reduce((s, v, i) => s + i + 1, 0);
+
+const summation = num => Array.from({length:num}, (v,i)=>i+1).reduce((s,v)=>s+v,0)
+
+
+// Autres approches
+// clever
+
+const summation = n => n * (n + 1) / 2;
+
+const summation = num => (1 + num) * num / 2;
+
+const summation = num => num * ++num / 2;
+
+
+var summation = function (num) {
+  return (num > 1) ? num + summation(num - 1):num;
+}
+
+// Boucle classiques
+var summation = function (num, count = 0) {
+   for (var i=num+1; i--;) count+=i;
+      return count
+}
+
+var summation = function (num) {
+  let i = 1, s=1;
+    while(i++<num) {s+=i}
+      return s
+}
+
+
+```
+
 Perfect Number Verifier
 
 ```javascript
