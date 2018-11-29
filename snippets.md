@@ -121,3 +121,41 @@ end
 
 
 ```
+
+```ruby
+
+  def _tableau_klasses_restor_ayant_codes_metiers
+    klasses_names = []
+    Dir.foreach("#{Rails.root.to_s}/app/models") do |model_path|
+      klasses_names << model_path[0..-4] if _fichier_modele_inclus_application_restor?(model_path)
+    end
+    klasses_names.map{|model| model.capitalize.singularize.camelize.constantize}
+  end
+
+  def _selectionner_les_modeles_comportant_les_methodes_metier(list_klasses)
+    list_klasses.select do |klass| 
+      (klass.ancestors.include?(ActiveRecord::Base) && _objet_comporant_methode_metier?(klass)) 
+      # (klass.ancestors.include?(ActiveRecord::Base) && _klass_comporant_methode_metier?(klass))
+    end
+  end
+
+  def _objet_comporant_methode_metier?(klass)
+    klass.new.attributes.key?("code") &&  klass.new.public_methods(false).reject{|meth| meth.to_s =~ /before_|_one|after_|callback|autosave|validate/ }.any?{|meth| meth.to_s.end_with?('?') }
+  end
+
+  def _klass_comporant_methode_metier?(klass)
+    regexp_trouver_occurence_symbole_code = /(:code +(\s*))|(code:+(\s*))|(:code=>)|code==/i
+    (klass.methods - ActiveRecord::Base.methods).map{|methode_klass| klass.method(methode_klass).source }
+                                                .any?{|code_source| code_source =~ regexp_trouver_occurence_symbole_code}
+  end
+  def _fichier_modele_inclus_application_restor?(fichier_modele)
+    fichier_modele.start_with?('ad_','bj_','ef_','fi_','ge_','lo_','pr_', 'ps_', 'sa_', 'se_', 'st_')
+  end
+
+  def _methodes_metiers_implementes?(klass)
+      raise NotImplementedError.new("Absence de methode initialisation des valeurs metier #{klass.name}") if !klass.respond_to?(:initialisation_des_valeurs_metier)
+      raise NotImplementedError.new("Absence de liste code protégés des valeurs metier #{klass.name}") if !klass.respond_to?(:liste_codes_proteges)
+  end
+
+
+```

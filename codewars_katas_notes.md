@@ -2763,6 +2763,415 @@ function countSheeps(arrayOfSheep) {
 
 ```
 
+Harshad or Niven Numbers
+
+```javascript
+// Approches par multiples fonctions
+// ------------------------
+const toNumber = n => Number(n)
+
+const add = (a,b) => a+b
+
+const isValid = num =>
+     (num % ((num +'').split('').map(toNumber).reduce(add))) === 0
+
+const getNext = number =>
+     isValid((number+1))
+     ? number+1
+     : getNext((number+=1))
+
+const getSerie = (size=1, start) =>
+     start == undefined
+     ? [...Array(size)].reduce((a,b)=> a.concat(getNext(a[a.length-1])) ,[1])
+     : [...Array(size)].reduce((a,b)=> a.concat(getNext(a[a.length-1])) ,[start]).splice(1)
+// ------------------------
+
+// Approches proposée - 1ere approche
+/**
+ * Utility class for Harshad numbers (also called Niven numbers).
+ *
+ * @namespace Harshad
+ */
+var Harshad = ( function() {
+  'use strict';
+
+  return {
+    /**
+     * Returns true when the given number is a valid Harshad number.
+     *
+     * @param {Number} number The given number
+     * @returns {Boolean}
+     * @function Harshad.isValid
+     */
+    isValid: function( num ) {
+      // Your implementation goes here
+           var toNumber = n => Number(n)
+           var add = (a,b) => a+b
+           return (num % ((num +'').split('').map(toNumber).reduce(add))) === 0
+    },
+    /**
+     * Gets the next Harshad number after the given number.
+     *
+     * @param {Number} number The given number
+     * @returns {Number}
+     * @function Harshad.getNext
+     */
+    getNext: function( number ) {
+      // Your implementation goes here
+      
+      return this.isValid((number+1))
+     ? number+1
+     : this.getNext((number+=1))
+    },
+    /**
+     * Returns the suite of Harshad numbers, starting after a given number.
+     *
+     * @param {Number} count The number of elements to return
+     * @param {Number} start The number after which the serie should start;
+     *  defaults to 0
+     * @returns {Array}
+     * @function Harshad.getSerie
+     */
+    getSerie: function( count, start ) {
+      // Your implementation goes here
+      return  start == undefined
+     ? [...Array(count)].reduce((a,b)=> a.concat(this.getNext(a[a.length-1])) ,[1]).slice(0,count)
+     : [...Array(count)].reduce((a,b)=> a.concat(this.getNext(a[a.length-1])) ,[start]).splice(1)
+      
+    }
+  };
+
+} () );
+
+// Après reduction
+
+var Harshad = ( function() {
+  'use strict';
+  return {
+    isValid: function( num ) {
+      return (num % ((num +'').split('').map(n => Number(n)).reduce((a,b) => a+b))) === 0
+    },
+    getNext: function( number ) {
+      return this.isValid((number+1)) ? number+1 : this.getNext((number+=1))
+    },
+    getSerie: function( count, start ) {
+      return  start == undefined
+      ? [...Array(count)].reduce((a,b)=> a.concat(this.getNext(a[a.length-1])) ,[1]).slice(0,count)
+      : [...Array(count)].reduce((a,b)=> a.concat(this.getNext(a[a.length-1])) ,[start]).splice(1)
+    }
+  };
+}());
+
+// Better
+var Harshad = { 
+  isValid(n) { return n % (''+n).split('').reduce((s, d) => s + +d, 0) == 0; },
+  getNext(n) { while (!this.isValid(++n)); return n; },
+  getSerie(count, start = 0) { 
+    for (var list = []; list.length < count; list.push(start))
+      start = this.getNext(start);
+    return list;
+  }
+}
+
+const Harshad = (function() {
+  return {
+    isValid: function(n) {
+      return !(n % ([...''+n].reduce((a, b) => a+(+(b)),0)))
+    },
+    getNext: function(n) {
+      return Harshad.isValid(n + 1) ? n + 1 : Harshad.getNext(n + 1)
+    },
+    getSerie: function(c, s = 0) {
+      return Array.from({length: c}, _ => 0).map(n => {
+        s = Harshad.getNext(s)
+        return s
+      })
+    }
+  };
+}());
+
+var Harshad = ( function() {
+  'use strict';
+  return {
+    isValid: function(n) {
+      return n % (''+n).split('').map(e => +e).reduce((a,b) => a+b, 0) === 0
+    },
+    getNext: function(n) {
+      return this.isValid(++n) ? n : this.getNext(n)
+    },
+    getSerie: function(c, s=0) {
+      let n = this.getNext(s)
+      return c === 1 ? [n] : [n, ...(this.getSerie(--c, n))]
+    }
+  };
+} () );
+
+// Cryptique
+const isv=n=>n%[...n+""].reduce((a,b)=>+b+a,0)==0,
+      nxt=n=>isv(++n)?n:nxt(n),
+      gsr=(c,s=0,r=[])=>r.length<c?(n=nxt(s),gsr(c,n,r.concat(n))):r
+var Harshad = ( function() {
+  return {
+    isValid: isv,
+    getNext: nxt,
+    getSerie: gsr
+  }
+} () );
+
+function g(n){return v(++n)?n:g(n)}function v(n)
+{return!(n/eval((n+'').split('').join('+'))%1)}
+Harshad={isValid:v,getNext:g,getSerie:function(
+c,s,a){for(a=[];c--;)a.push(s=g(s|0));return a}}
+
+// nb existence de la methode parseInt(something) en js
+
+var Harshad = ( function() {
+  const next = n => valid(++n) ? n : next(n),
+  valid = n => n % [...''+n].reduce((a,b)=>+a+ +b) === 0,
+  seq = (c,n,r=[next(n|0)])=> {
+    while (--c) 
+      r.push(next(r[r.length-1]))
+    return r
+  }
+  return {
+    getNext: next,
+    isValid: valid,
+    getSerie: seq,
+  }
+} () );
+
+// Solution Longue
+var Harshad = ( function() {
+  'use strict';
+  var MAX_SAFE_INTEGER = Math.pow( 2, 53 ) - 1;
+
+  return {
+    isValid: function(number) {
+      if (number === Infinity) {
+        throw new TypeError("null is not an integer");
+      }
+      if (typeof number != 'number' || Math.floor(number) != number) {
+        throw new TypeError(number + " is not an integer");
+      }
+      if (number < 0 || number > MAX_SAFE_INTEGER) {
+        throw new RangeError(number + " is not in the range [ 1, " + MAX_SAFE_INTEGER + " ]");
+      }
+      var n = number;
+      var sumDigits = 0;
+      while (n > 0) {
+        sumDigits += n % 10;
+        n = n / 10 | 0;
+      }
+      return number % sumDigits == 0;
+    },
+    getNext: function(number) {
+      if (number === Infinity) {
+        throw new TypeError("null is not an integer");
+      }
+      if (typeof number != 'number' || Math.floor(number) != number) {
+        throw new TypeError(number + " is not an integer");
+      }
+      if (number < 0 || number > MAX_SAFE_INTEGER) {
+        throw new RangeError(number + " is not in the range [ 0, " + MAX_SAFE_INTEGER + " ]");
+      }
+      var n = number + 1;
+      while (!this.isValid(n)) {
+        n++;
+      }
+      return n;
+    },
+    getSerie: function(count, start) {
+      if (start === undefined) {
+        start = 0;
+      }
+      if (count === Infinity || start == Infinity) {
+        throw new TypeError("null is not an integer");
+      }
+      if (typeof count != 'number' || Math.floor(count) != count) {
+        throw new TypeError(count + " is not an integer");
+      }
+      if (typeof start != 'number' || Math.floor(start) != start) {
+        throw new TypeError(start + " is not an integer");
+      }
+      if (count < 1 || count > MAX_SAFE_INTEGER) {
+        throw new RangeError(count + " is not in the range [ 1, " + MAX_SAFE_INTEGER + " ]");
+      }
+      if (start < 0 || start > MAX_SAFE_INTEGER) {
+        throw new RangeError(start + " is not in the range [ 0, " + MAX_SAFE_INTEGER + " ]");
+      }
+      var result = [];
+      while (result.length < count) {
+        start = Harshad.getNext(start);
+        result.push(start);
+      }
+      return result;
+    }
+  };
+
+} () );
+
+
+```
+
+
+GrassHopper Summation
+
+```javascript
+const summation = num => [...Array((num+=1)).keys()].slice(1).reduce((a,b)=>a+b)
+// Approches sur meme principe au dessus
+
+const summation = num => (
+  Array(num).fill(true)
+      .reduce((sum, item, index) => sum + index + 1, 0));
+
+const summation = num => [...Array(num)].reduce((s, v, i) => s + i + 1, 0);
+
+const summation = num => Array.from({length:num}, (v,i)=>i+1).reduce((s,v)=>s+v,0)
+
+
+// Autres approches
+// clever
+
+const summation = n => n * (n + 1) / 2;
+
+const summation = num => (1 + num) * num / 2;
+
+const summation = num => num * ++num / 2;
+
+
+var summation = function (num) {
+  return (num > 1) ? num + summation(num - 1):num;
+}
+
+// Boucle classiques
+var summation = function (num, count = 0) {
+   for (var i=num+1; i--;) count+=i;
+      return count
+}
+
+var summation = function (num) {
+  let i = 1, s=1;
+    while(i++<num) {s+=i}
+      return s
+}
+
+
+```
+
+Perfect Number Verifier
+
+```javascript
+// Approche brute - Sequence existante site OEIS
+const isPerfect = n => [
+	6, 28, 496, 8128, 33550336, 8589869056, 137438691328, 2305843008139952128, 2658455991569831744654692615953842176, 191561942608236107294793378084303638130997321548169216].includes(n)
+
+// Autres approches
+
+function isPerfect(n) {
+  const perfectInts = [6, 28, 496, 8128, 33550336, 8589869056, 137438691328, 2305843008139952128,
+  2658455991569831744654692615953842176, 191561942608236107294793378084303638130997321548169216];
+  return !!~perfectInts.indexOf(n);
+}
+
+function isPerfect(n) {
+  for (var i=2,max=Math.sqrt(n),rs=0;i<=max;i++) if (n%i==0) rs+= i==n/i ? i : i+n/i; 
+  return n!=1&&rs+1==n;
+}
+
+// boucle pour calcul des sommes
+function isPerfect(n) {
+ if (n < 6) return false;
+ let sum = 1;
+ let end = Math.sqrt(n);
+ for (let i = 2; (i <= end) && (sum <= n); i++) {
+   if (n % i === 0) {
+       sum += (i + n/i);
+   }
+ }
+ return (sum === n);
+}
+
+// Approches par les nombres premiers
+function isPerfect(n) {
+var primes = [2,3,5,7,13,17,19,31,61,89];
+var res = primes.map(function(p){return n === Math.pow(2,p-1)*(Math.pow(2,p)-1)?true:false;})
+return res.some(function(r){return r===true})
+}
+
+// Some pour un array - non connaissance de la méthode
+function isPerfect(n) {
+  return [6, 28, 496, 8128, 33550336, 8589869056, 137438691328, 2305843008139952128].some(x=>x == n)
+}
+
+// Solution longue revoir des points
+function isPerfect(n) {
+  var factors = findPrimeNums(31);
+  
+  var r = factors.some(
+  function(p){
+    return n == Math.pow(2,p-1) * (Math.pow(2,p)-1)
+  })
+  return r;
+  
+}
+function findPrimeNums(n)
+    { 
+       var x= 3,j,i=2,
+       primeArr=[2],isPrime;
+       for (;x<=n;x+=2){
+           j = parseInt(Math.sqrt (x));
+           isPrime = true;
+           for (i = 2; i <= j; i++)
+           {
+                if (x % i == 0){
+                    isPrime = false;
+                    break;
+                }
+            }
+            if(isPrime){
+                primeArr.push(x);
+            }
+
+        }   
+
+        return primeArr;
+    }
+
+// Autres approches
+function divisors(n) {
+  if ( n===1 ) return [];
+  for ( var r=[1], i=2; i*i<n; i++ )
+    if ( n%i===0 )
+      r.push(i, n/i);
+  if ( i*i === n ) r.push(i);
+  return r;
+}
+const plus = (v,w) => v+w ;
+const sum = a => a.reduce(plus,0) ;
+const isPerfect = n => sum(divisors(n))===n ;
+
+// Approche isPerfect element
+function isPerfect(n) {
+  if(n === 1) return false
+  var arr = [1];
+  for(var i = 2; i < Math.sqrt(n); i++){
+    if(n % i === 0) {
+      arr.push(i);
+      arr.push(n / i);
+    }
+  }
+  return n === arr.reduce((t, a)=>t+a,0)
+}
+
+// isPerfect approche divisee
+function isPerfect(n) {
+  if (n == 120 || n == 2016) return false
+  const factors = x => (y = Math.ceil(x/2) , x == 1 ? [] : [y, ...factors(y)])
+  return factors(n).reduce((x, y) => x + y, 0) == n
+}
+
+```
+
 getNames
 
 ```javascript
