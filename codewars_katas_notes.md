@@ -2727,6 +2727,42 @@ end
 
 ### javascript
 
+Counting sheep
+
+```javascript
+// Approche effectue
+const countSheeps = arrayOfSheep => arrayOfSheep.reduce((a,b)=> b ?
+a.concat([b]) : a , []).length
+
+// autres approches
+function countSheeps(arrayOfSheeps) {
+  return arrayOfSheeps.filter(Boolean).length;
+}
+
+let countSheeps = x => x.filter( s => s  ).length;
+
+// Brute Force
+function countSheeps(arrayOfSheep) {
+  // TODO May the force be with you
+  var num = 0;
+  
+  for(var i = 0; i < arrayOfSheep.length; i++)
+    if(arrayOfSheep[i] == true)
+      num++;
+      
+  return num;
+}
+
+// Renvoi d'une somme
+let countSheeps = (arrayOfSheep) => arrayOfSheep.reduce((sum, i)=>{return i == true ? sum+= 1 : sum }, 0);
+
+// Conversion forcee
+function countSheeps(arrayOfSheep) {
+  return arrayOfSheep.filter(function(v) {return !!v}).length;
+}
+
+```
+
 getNames
 
 ```javascript
