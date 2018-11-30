@@ -157,5 +157,30 @@ end
       raise NotImplementedError.new("Absence de liste code protégés des valeurs metier #{klass.name}") if !klass.respond_to?(:liste_codes_proteges)
   end
 
+```
+
+Recherche de méthodes sur methodes avec interrogation
+
+```ruby
+
+  def _selectionner_les_modeles_comportant_les_methodes_metier(list_klasses)
+    list_klasses.select do |klass| 
+      not_start_with_lide_or_traca   = !(klass.to_s.underscore.start_with?('lide_', 'tr_'))
+      is_it_have_a_code_attribute    = klass.new.attributes.key?("code")
+
+      (not_start_with_lide_or_traca && is_it_have_a_code_attribute && _objet_comportant_methode_metier?(klass))
+    end
+  end
+
+  def _objet_comportant_methode_metier?(klass)
+    begin
+      obj_methods = klass.new.public_methods(false)
+      inclus_method_terminant_par_point_dinterrogation = obj_methods.any?{|meth| meth.to_s.end_with?('?')}
+      source_methodes_inclus_dans_code_source_code     = obj_methods.any?{|meth| klass.new.method(meth).source.include?('code')}
+      inclus_method_terminant_par_point_dinterrogation && source_methodes_inclus_dans_code_source_code
+    rescue => e
+      puts e 
+    end
+  end
 
 ```
