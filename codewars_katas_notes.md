@@ -2727,6 +2727,76 @@ end
 
 ### javascript
 
+Nth Smallest Element (Array Series #4)
+
+```javascript
+
+const nthSmallest = (arr, pos) => arr.sort((a,b)=>a-b)[(pos-1)]
+
+// Ancienne approche
+function nthSmallest(arr, pos){
+  return arr.sort((a,b)=>a-b)[pos-1]
+}
+
+// Approche courte via un array form
+const nthSmallest = (a, n) => {
+  a2 = Array.from(a).sort((x,y) => x-y)
+  return a2[n-1]
+}
+
+// Approche par un slice
+function nthSmallest(arr, pos){
+  var sort = arr.sort(function(x, y){
+    return x - y;
+  });
+  return Number(sort.slice(pos - 1, pos));
+}
+
+// Approche mixte
+function nthSmallest(arr, pos){
+  let i = 0
+  function smallest(element) {return element == Math.min(...arr)};
+  while (i<(pos-1)){   
+    let index = arr.findIndex(smallest)    
+    arr.splice([index], 1)
+    i++}
+  return Math.min(...arr)
+}
+
+// Smallest arr et informations
+function nthSmallest(arr, pos){
+  arr.sort((a, b) => {
+    if(a < b) {
+      return -1;
+    } else if(a > b) {
+      return 1;
+    }else {
+      return 0;
+    }
+  });
+  return arr[pos - 1];
+}
+
+// Approche longue
+function nthSmallest(arr, pos){
+  var temp = null
+    for(var i =0; i<arr.length; i++){
+      for(var j =i+1; j< arr.length; j++){
+        if(arr[i] > arr[j]){
+          temp = arr[i]
+            arr[i] = arr[j]
+            arr[j] = temp 
+
+        }
+
+      }
+
+    }
+  return (arr[pos - 1])
+}
+
+```
+
 Harshad or Niven Numbers
 
 ```javascript
