@@ -184,3 +184,73 @@ Recherche de méthodes sur methodes avec interrogation
   end
 
 ```
+
+Websocket approach
+
+```javascript
+// JS
+
+var success = function(response) {
+  console.log("Wow it worked: "+response.message);
+}
+
+var failure = function(response) {
+  console.log("That just totally failed: "+response.message);
+}
+
+var task = {
+  name: 'Start taking advantage of WebSockets',
+  completed: false
+}
+
+var dispatcher = new WebSocketRails('localhost:3000/websocket');
+
+
+function addCommentToDom(comment) {
+  console.log('just received new comment: ', comment.name);
+}
+
+dispatcher.bind('comments.new', addCommentToDom);
+
+
+// dispatcher.trigger('task.create', task, success, failure);
+
+ dispatcher.trigger('task', task, success, failure);
+
+ ```
+
+
+ ```ruby
+// BACKEND
+// Controller
+
+# Essai de quelques essais avec des websockets
+# voir la documentation officielle
+# https://github.com/websocket-rails/websocket-rails/wiki
+class TaskController < WebsocketRails::BaseController
+  def initialize_session
+    # perform application setup here
+    controller_store[:message_count] = 0
+  end
+
+  def create
+    # The `message` method contains the data received
+    WebsocketRails[:hello].trigger(:event_name, {:hello => 'websocket'})
+
+    logger.info '*' * 500
+    logger.info message
+    logger.info '*' * 500
+
+    task = {
+      :name => 'hello',
+      :completed => true
+    }
+		#send_message :create_success, task, :namespace => :task
+    #trigger_success({ :message => 'awesome level is sufficient'})
+    new_message = {:message => 'this is a message'}
+    send_message :event_name, new_message
+  end
+end
+
+```
+
