@@ -6832,6 +6832,21 @@ function generateRange(min, max, step){
 
 ### SQL
 
+Easy sql square root and log
+
+```SQL
+
+select sqrt(number1) as root, log(number2) from decimals
+
+select SQRT(number1) as root, LOG(number2)/LOG(10) as log from decimals;
+
+Select 
+  SQRT(number1) AS "root", 
+  LOG(number2) AS "log" 
+FROM decimals
+
+```
+
 Easy sql Power
 
 ```SQL
