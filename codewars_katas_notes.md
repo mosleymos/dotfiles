@@ -6832,6 +6832,32 @@ function generateRange(min, max, step){
 
 ### SQL
 
+Easy SQL: Absolute Value and Log to Base
+
+Log et correction en base64
+
+```SQL
+
+SELECT  abs(number1), log(64,number2) FROM decimals;
+
+SELECT
+ @NUMBER1 AS ABS,
+ LOG(64.0, NUMBER2) AS LOG
+FROM
+  DECIMALS
+
+SELECT
+  ABS(NUMBER1)AS ABS,
+  LOG(64.0,NUMBER2)AS LOG
+FROM
+  DECIMALS
+
+
+SELECT ABS(d.number1) AS abs, 
+       LOG(64, d.number2) AS log
+       FROM decimals d;
+```
+
 Easy sql square root and log
 
 ```SQL
