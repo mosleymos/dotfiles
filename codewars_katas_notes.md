@@ -6832,6 +6832,45 @@ function generateRange(min, max, step){
 
 ### SQL
 
+SQL Basics: Simple GROUP BY
+
+For this challenge you need to create a simple GROUP BY statement, you want to group all the people by their age and count the people who have the same age.
+
+people table schema
+
+  * id
+  * name
+  * age
+
+select table schema
+
+  * age [group by]
+  * people_count (people count)
+
+```SQL
+
+SELECT COUNT(age) AS people_count , age AS age FROM people GROUP BY people.age ;
+
+-- autres approches
+
+SELECT
+  age,
+  COUNT(*) people_count
+FROM
+  people
+GROUP BY
+  age
+
+-- lisible ?
+
+Select p.age, count(p.age) as people_count 
+from people p
+group by p.age;
+
+SELECT age, Count(*) AS "people_count" FROM people GROUP BY age;
+
+```
+
 Easy SQL: Absolute Value and Log to Base
 
 Log et correction en base64
