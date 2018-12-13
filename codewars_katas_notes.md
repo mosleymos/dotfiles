@@ -6832,6 +6832,29 @@ function generateRange(min, max, step){
 
 ### SQL
 
+EASY SQL: Convert to Hexadecimal
+
+nb existence d'autres approches MAIS dans d'autres idiomes Sql
+
+CONV(num , from_base , to_base );
+
+ex SELECT CONV(15,10, 16)
+
+HEX
+
+ex SELECT HEX(15)
+
+autres approches voir [stack overflow](https://stackoverflow.com/questions/703019/convert-integer-to-hex-and-hex-to-integer#703212)
+
+SELECT CONVERT(VARBINARY(8), 16777215)
+
+```SQL
+SELECT TO_HEX(legs) AS legs, TO_HEX(arms) AS arms FROM monsters;
+
+SELECT to_hex(monsters.arms) as arms, to_hex(monsters.legs) as legs  from monsters
+
+```
+
 Easy SQL: Counting and Grouping
 
 Outil intéressant pour essai de db
