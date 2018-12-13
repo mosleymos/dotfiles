@@ -6832,6 +6832,39 @@ function generateRange(min, max, step){
 
 ### SQL
 
+Easy SQL: Counting and Grouping
+
+Outil intéressant pour essai de db
+
+
+```SQL
+
+--- approche
+SELECT race,  COUNT(race) AS count 
+FROM demographics 
+GROUP BY race
+ORDER BY count DESC;
+
+
+SELECT race, COUNT(race)
+  FROM demographics
+  GROUP BY race
+  ORDER BY Count(race) desc
+  
+  
+SELECT
+  RACE,
+    COUNT(1) AS COUNT
+  FROM
+    DEMOGRAPHICS
+  GROUP BY
+    RACE
+  ORDER BY
+    COUNT DESC
+
+    
+```
+
 SQL Basics: Simple GROUP BY
 
 For this challenge you need to create a simple GROUP BY statement, you want to group all the people by their age and count the people who have the same age.
