@@ -6832,6 +6832,35 @@ function generateRange(min, max, step){
 
 ### SQL
 
+Easy SQL: SQL Basics: Simple JOIN
+
+```SQL
+
+SELECT  products.*, companies.name AS company_name
+FROM products
+JOIN companies ON companies.id=products.company_id;
+
+--other better
+
+SELECT 
+  products.id,
+  products.name,
+  products.isbn,
+  products.company_id,
+  products.price,
+  companies.name as company_name
+FROM
+  products
+JOIN
+  companies on companies.id = products.company_id
+
+
+SELECT P.*, C.name AS company_name
+FROM products AS P, companies AS C
+WHERE P.company_id = C.id
+
+```
+
 Easy SQL: ASCII Converter
 
 ```SQL
