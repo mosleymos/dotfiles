@@ -6832,6 +6832,126 @@ function generateRange(min, max, step){
 
 ### SQL
 
+Easy SQL: ASCII Converter
+
+```SQL
+
+SELECT 
+  id, 
+  name , 
+  ASCII(name) AS name , 
+  birthday, 
+  ASCII(race) AS race 
+FROM demographics;
+
+--- better
+select id,ascii(name) as name,birthday,ascii(race) as race from demographics
+
+SELECT
+  ID,
+  ASCII(SUBSTRING(NAME FROM 1 FOR 1))AS NAME,
+  BIRTHDAY,
+  ASCII(SUBSTRING(RACE FROM 1 FOR 1))AS RACE
+FROM
+  DEMOGRAPHICS
+
+
+SELECT
+  id,
+  ascii(left(name, 1)) AS name,
+  birthday,
+  ascii(left(race, 1)) AS race
+FROM demographics
+
+
+SELECT demographics.id AS "id", ASCII(LEFT(demographics.name, 1)) AS "name", birthday AS "birthday", ASCII(LEFT(demographics.race, 1)) AS "race"
+FROM demographics;
+
+
+SELECT id, cast(ascii(substring(name, 1, 1)) as integer) as name, birthday, cast(ascii(substring(race, 1, 1)) as integer) as race
+from demographics 
+
+
+--- Approche plus complexe mais néanmoins à noter
+CREATE OR REPLACE FUNCTION converter(varchar) RETURNS int AS
+$$ SELECT ascii(substr($1,1,1)) $$ LANGUAGE SQL;
+
+
+SELECT id,
+       converter(name) AS name,
+       birthday,
+       converter(race) AS race
+FROM demographics
+
+---- Approche Longue
+SELECT id, birthday,
+  CASE
+    WHEN LEFT(name, 1) = 'A' THEN 65
+    WHEN LEFT(name, 1) = 'B' THEN 66
+    WHEN LEFT(name, 1) = 'C' THEN 67
+    WHEN LEFT(name, 1) = 'D' THEN 68
+    WHEN LEFT(name, 1) = 'E' THEN 69
+    WHEN LEFT(name, 1) = 'F' THEN 70
+    WHEN LEFT(name, 1) = 'G' THEN 71
+    WHEN LEFT(name, 1) = 'H' THEN 72
+    WHEN LEFT(name, 1) = 'I' THEN 73
+    WHEN LEFT(name, 1) = 'J' THEN 74
+    WHEN LEFT(name, 1) = 'K' THEN 75
+    WHEN LEFT(name, 1) = 'L' THEN 76
+    WHEN LEFT(name, 1) = 'M' THEN 77
+    WHEN LEFT(name, 1) = 'N' THEN 78
+    WHEN LEFT(name, 1) = 'O' THEN 79
+    WHEN LEFT(name, 1) = 'P' THEN 80
+    WHEN LEFT(name, 1) = 'Q' THEN 81
+    WHEN LEFT(name, 1) = 'R' THEN 82
+    WHEN LEFT(name, 1) = 'S' THEN 83
+    WHEN LEFT(name, 1) = 'T' THEN 84
+    WHEN LEFT(name, 1) = 'U' THEN 85
+    WHEN LEFT(name, 1) = 'V' THEN 86
+    WHEN LEFT(name, 1) = 'W' THEN 87
+    WHEN LEFT(name, 1) = 'X' THEN 88
+    WHEN LEFT(name, 1) = 'Y' THEN 89
+    ELSE 90
+  END
+  AS name,
+  CASE
+    WHEN LEFT(race, 1) = 'A' THEN 65
+    WHEN LEFT(race, 1) = 'B' THEN 66
+    WHEN LEFT(race, 1) = 'C' THEN 67
+    WHEN LEFT(race, 1) = 'D' THEN 68
+    WHEN LEFT(race, 1) = 'E' THEN 69
+    WHEN LEFT(race, 1) = 'F' THEN 70
+    WHEN LEFT(race, 1) = 'G' THEN 71
+    WHEN LEFT(race, 1) = 'H' THEN 72
+    WHEN LEFT(race, 1) = 'I' THEN 73
+    WHEN LEFT(race, 1) = 'J' THEN 74
+    WHEN LEFT(race, 1) = 'K' THEN 75
+    WHEN LEFT(race, 1) = 'L' THEN 76
+    WHEN LEFT(race, 1) = 'M' THEN 77
+    WHEN LEFT(race, 1) = 'N' THEN 78
+    WHEN LEFT(race, 1) = 'O' THEN 79
+    WHEN LEFT(race, 1) = 'P' THEN 80
+    WHEN LEFT(race, 1) = 'Q' THEN 81
+    WHEN LEFT(race, 1) = 'R' THEN 82
+    WHEN LEFT(race, 1) = 'S' THEN 83
+    WHEN LEFT(race, 1) = 'T' THEN 84
+    WHEN LEFT(race, 1) = 'U' THEN 85
+    WHEN LEFT(race, 1) = 'V' THEN 86
+    WHEN LEFT(race, 1) = 'W' THEN 87
+    WHEN LEFT(race, 1) = 'X' THEN 88
+    WHEN LEFT(race, 1) = 'Y' THEN 89
+    ELSE 90
+  END
+  AS race
+FROM demographics
+
+--- Selection
+select id, ASCII(substring(name, 1, 1)) as name, birthday, ascii(substring(race,1,1)) as
+race FROM demographics;
+
+
+```
+
 SQL Basics: Simple GROUP BY
 
 For this challenge you need to create a simple GROUP BY statement, you want to group all the people by their age and count the people who have the same age.
