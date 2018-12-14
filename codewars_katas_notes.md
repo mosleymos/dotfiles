@@ -6949,6 +6949,36 @@ FROM demographics
 select id, ASCII(substring(name, 1, 1)) as name, birthday, ascii(substring(race,1,1)) as
 race FROM demographics;
 
+```
+
+Easy SQL: Counting and Grouping
+
+Outil intéressant pour essai de dbfiddle
+
+```SQL
+
+--- approche
+SELECT race,  COUNT(race) AS count 
+FROM demographics 
+GROUP BY race
+ORDER BY count DESC;
+
+
+SELECT race, COUNT(race)
+  FROM demographics
+  GROUP BY race
+  ORDER BY Count(race) desc
+  
+  
+SELECT
+  RACE,
+    COUNT(1) AS COUNT
+  FROM
+    DEMOGRAPHICS
+  GROUP BY
+    RACE
+  ORDER BY
+    COUNT DESC
 
 ```
 
