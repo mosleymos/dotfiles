@@ -2727,6 +2727,47 @@ end
 
 ### javascript
 
+Tidy Numbers
+
+```javascript
+
+// cas limite qui ne passe pas avec 102 mais autre chiffres
+const tidyNumber=n=>!!Array.from((n+'')).reduce((a,b)=>Number(a)<=Number(b)?b:false)
+
+// Solution adoptée
+const tidyNumber=n=>!!Array.from((n+'')).reduce((a,b)=>parseInt(a)<=parseInt(b)?b:false)
+
+// Solution assez intelligente
+function tidyNumber(n){
+  return [...n+=""].sort().join``==n
+}
+
+const tidyNumber = (n) => n == [...''+n].sort().join``;
+
+// Solution similaire
+function tidyNumber(n){
+  let arr = [...n.toString()].map(Number);
+  return arr.every((el, ind, arr) => !ind || el >= arr[ind - 1]);
+}
+
+const tidyNumber = n => String(n).split('').every((el, i, arr) => i === arr.length - 1 || el <= arr[i + 1]);
+
+const tidyNumber = n => +[...`${n}`].sort().join('') === n;
+
+function tidyNumber(n){
+  var bood = true, arr = n.toString().split("");
+  for(var i=0; i<arr.length-1; i++) 
+    if(arr[i] > arr[i+1]) bood = false;
+    return bood
+}
+
+function tidyNumber(n){
+  return !n.toString().split('').some((d, i, a) => i > 0 && d < a[i - 1]);
+}
+
+```
+
+
 Nth Smallest Element (Array Series #4)
 
 ```javascript
