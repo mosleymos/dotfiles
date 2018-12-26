@@ -2727,6 +2727,43 @@ end
 
 ### javascript
 
+Recursive Application
+
+
+```javascript
+
+const replicate = (times, number) => times >= 0 ? [...Array(times--).keys()].map(e=>number) : []
+
+// Usage de recursion
+function replicate(times, number) {
+  return times > 0 ? [number, ...replicate( times - 1, number  )] : [];
+
+}
+
+// Autre approche, usage de la methode fill pour Utilisation de remplisage du array
+function replicate(times, number) {
+  return times > 0 ? Array(times).fill(number) : [];
+
+}
+
+// Usage Array#from  pour création de tableau
+const replicate=(t, n)=>Array.from({length:t},a=>n)
+
+// approche par repeat
+  function replicate(times, number) {
+    if(times <=0){ return []; }
+    else return (number+' ').repeat(times).trim().split(' ').map(el=>+el); }
+
+
+function replicate(times, number) {
+  if (times <= 0) return []
+  else return [number].concat(replicate(--times, number))
+
+}
+```
+
+
+
 Tidy Numbers
 
 ```javascript
