@@ -2727,6 +2727,90 @@ end
 
 ### javascript
 
+T combinator
+
+```javascript
+// Il s'agit d'une forme de composition
+// Approche effectuée
+var compose = (...elts) =>  elts.slice(1, elts.length).reduce((a,b)=> b(a), elts[0])
+
+// One liner - on peut destructurer sur deux arguments nouveauté apprise
+const compose = (x, ...fs) => fs.reduce((a, f) => f(a), x);
+
+
+
+// Solution impérative je trouve interressante sur arguments[i](value)
+var compose = function(value) {
+  for(var i = 1 ; i< arguments.length ; i++) {
+    value = arguments[i](value);
+  }
+  return value;
+}
+
+// Semblabe avec une approche boucle while
+var compose = function(value, ...rest) {
+  // If there is value only, and no other arguments.
+  if(value && rest.length === 0) return value;
+
+  // Initialize i.
+  let i = 0;
+
+  // Go through each function in rest array.
+  while(i < rest.length) {
+
+    // Rewrite the current value 
+    // by calling the functions from rest array with value as a parameter.
+    value = rest[i](value);
+
+    // Increment i to prevent infinite loop.
+    i++;
+
+    // Exit point.
+    if(i === rest.length) {
+      return value;
+      break;
+
+    }
+
+  }
+
+}
+
+
+// Ressemble à ma première approche sur les tests
+function compose(...a) {
+  var v = a.shift();
+    return a.reduce((c, f) => f(c), v);
+}
+
+// Approche classique ?
+var compose = function(input) {
+  return [].slice.call(arguments, 1)
+    .reduce(function (acc, fn) {
+        return fn(acc);
+        }, input);
+}
+
+// Slice.call (old)
+var compose = function(n) {
+  var args = Array.prototype.slice.call(arguments).splice(1);
+    return !args.length ? n : args.reduce((p, c) => c(p), n)
+}
+
+function compose(val) {
+  [].slice.call(arguments, 1).forEach(function(fn) {val = fn(val);});
+    return val;
+}
+
+// Usage par forEach
+function compose(value, ...args) {
+  args.forEach(callback => {
+      value = callback(value);
+  });
+  return value;
+}
+
+```
 Recursive Application
 
 
