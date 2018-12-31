@@ -2727,6 +2727,46 @@ end
 
 ### javascript
 
+Capitalization and mutability
+
+```
+const capitalizeWord = word => word[0].toUpperCase() + word.slice(1,word.length)
+// Autre meilleure
+const capitalizeWord = word => word[0].toUpperCase() + word.slice(1)
+
+// Interpolation
+const capitalizeWord = w => `${w[0].toUpperCase()}${w.slice(1)}`;
+
+// Destructuration sur les string :o
+const capitalizeWord = ([ a, ...w  ]) => a.toUpperCase() + w.join('')
+
+// destructuration de la string ?
+const capitalizeWord = (word) => {
+  return [...word].map((w, i) => {if (i === 0)
+      return  w.toUpperCase();
+      else  return w
+      }).join('');
+}
+
+// Aliasing
+const capitalizeWord = require('lodash').capitalize;
+
+// word.charAt 
+function capitalizeWord(word) {
+  let i = word[0].toUpperCase();
+  let capIt = word.replace(word.charAt(0), i);
+  return capIt;
+}
+
+function capitalizeWord(word) {
+  let capWord = word.charAt(0).toUpperCase() + word.substr(1);
+    return capWord;
+
+};
+
+
+```
+
 T combinator
 
 ```javascript
