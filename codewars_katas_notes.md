@@ -2727,9 +2727,40 @@ end
 
 ### javascript
 
-Capitalization and mutability
+Mr Freeze
+Freeze an Object in javascript
+
+```javascript
+// mark the MrFreeze object instance as frozen
+Object.freeze(MrFreeze)
+
+// Technique Deep Freeze provient de mozilla firefox
+  function deepFreeze (o) {
+    var prop, propKey;
+
+    Object.freeze( o  );
+    for ( propKey in o  ) {
+      prop = o[ propKey  ];
+
+      if ( !o.hasOwnProperty( propKey  ) || !(typeof prop === "object") || Object.isFrozen( prop  )  ) {
+        continue;
+      }
+      deepFreeze(prop);
+    }
+  }
+deepFreeze(MrFreeze);
+
+
+// Freeze sous condition ???
+// mark the MrFreeze object instance as frozen
+var MyFreeze = {};
+(Object.freeze || object)(MrFreeze);
 
 ```
+
+Capitalization and mutability
+
+```javascript
 const capitalizeWord = word => word[0].toUpperCase() + word.slice(1,word.length)
 // Autre meilleure
 const capitalizeWord = word => word[0].toUpperCase() + word.slice(1)
