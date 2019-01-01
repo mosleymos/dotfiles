@@ -2727,6 +2727,23 @@ end
 
 ### javascript
 
+Sum even numbers
+Il me semble kata en doublons
+
+  ```javascrips
+// approche mise
+const sumevennumbers =  input => input.filter(e=>e%2==0).reduce((a,b)=>a+b)
+
+// approche courte et meilleure
+const sumEvenNumbers = a => a.reduce((r, e) => r + (e % 2 ? 0 : e), 0);
+
+// variation
+function sumEvenNumbers(a) {
+  return a.reduce((a,b)=>a+(b%2==0&&b),0)
+}
+
+```
+
 Mr Freeze
 Freeze an Object in javascript
 
@@ -2755,6 +2772,10 @@ deepFreeze(MrFreeze);
 // mark the MrFreeze object instance as frozen
 var MyFreeze = {};
 (Object.freeze || object)(MrFreeze);
+
+// Savoir si objet est frozen
+Object.freeze(MrFreeze);
+Object.isFrozen(MrFreeze);
 
 ```
 
