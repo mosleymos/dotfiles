@@ -2727,10 +2727,34 @@ end
 
 ### javascript
 
+Smallest product
+
+```javascript
+// approche mise
+const smallestProduct = arr => arr.map(e=>e.reduce((a,b)=>a*b)).sort((a,b)=>a-b)[0]
+
+// Approche intelligente
+const smallestProduct = a => Math.min(...a.map(e => e.reduce((p, c) => p * c)))
+
+// classique
+  function smallestProduct(arr) {
+    return Math.min(...arr.map(x => x.reduce((a,b) => a*b, 1)));
+
+  } 
+
+
+// Usage du let désormais possible en js
+function smallestProduct(arr) {
+  return arr.reduce((min,subarray) => {let multiply=subarray.reduce((a,e)=>a*e); return min>multiply ? multiply : min},
+  Number.MAX_VALUE);
+
+}
+```
+
 Sum even numbers
 Il me semble kata en doublons
 
-  ```javascrips
+  ```javascript
 // approche mise
 const sumevennumbers =  input => input.filter(e=>e%2==0).reduce((a,b)=>a+b)
 
