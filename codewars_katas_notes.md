@@ -156,6 +156,35 @@ def find_short(s):
 
 ### Ruby
 
+Automorphic Number (Special Numbers Series #6)
+
+```ruby
+# Approche effectue
+def automorphic(n)
+  (n**2).to_s.end_with?(n.to_s) ? "Automorphic" : "Not!!"
+end
+
+# Usage d'un hash comme structure de decision
+# Let's have some coding fun. :-)
+def automorphic(n)
+  {true => "Automorphic", false =>  "Not!!"}[(n**2).to_s.end_with? n.to_s]
+end
+
+# Regexp approach
+# regexp appellée a la suite de to_s
+def automorphic(n)
+  (n*n).to_s[/#{n}$/] ? 'Automorphic' : 'Not!!'
+end
+
+def automorphic(n)
+  (n**2).to_s =~ /#{n}\z/ ? "Automorphic" : "Not!!"
+end
+
+def automorphic(n)
+  (Regexp.new n.to_s + "$").match((n ** 2).to_s) ? "Automorphic" : "Not!!"
+end
+```
+
 Alphabet wars
 
 ```ruby
