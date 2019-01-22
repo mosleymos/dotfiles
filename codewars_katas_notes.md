@@ -84,7 +84,6 @@ def solution(first,last):return next(x for x in(first(),last()))
 def solution(*fs):
     return [f() for f in fs][0]
 
-
 ```
 
 Detect Pangram
@@ -9536,6 +9535,7 @@ arr.slice(Math.max(arr.length - 5, 1))
 ```
 
 Linq - sorte de solution pour le kata getNames - etrange c'est plus une librairie qu'autre chose
+Element à creuser
 
 ```javascript
 const getNames = d => new Linq(d).Select(o => o.name).ToArray();
