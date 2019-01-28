@@ -7,6 +7,55 @@ Codewars notes
 
 ### Python
 
+Return the day
+
+```python
+# Approche perso
+def whatday(n):
+  try:
+    return {1: "Sunday",2: "Monday",3: "Tuesday",4: "Wednesday",5: "Thursday", 6: "Friday", 7: "Saturday"}[n]
+  except:
+    return "Wrong, please enter a number between 1 and 7"
+
+# Usage de constantes et get pour gestion des erreurs - semblabe à un fetch ruby ?
+WEEKDAY = {
+    1: 'Sunday',
+    2: 'Monday',
+    3: 'Tuesday',
+    4: 'Wednesday',
+    5: 'Thursday',
+    6: 'Friday',
+    7: 'Saturday' }
+ERROR = 'Wrong, please enter a number between 1 and 7'
+
+
+def whatday(n):
+    return WEEKDAY.get(n, ERROR)
+
+
+# Elegant en usant d'un tableau
+def whatday(num):
+    days = ('Sun', 'Mon', 'Tues', 'Wednes', 'Thurs', 'Fri', 'Satur')
+    return days[num-1] + 'day' if 0 < num < 8 else 'Wrong, please enter a number between 1 and 7' 
+
+# Lambda + classes natives + ternaire
+whatday=lambda n:'Wrong, please enter a number between 1 and 7'*(n>7or n<1)or __import__('calendar').day_name[n-2]
+
+
+WEEK =' Sunday Monday Tuesday Wednesday Thursday Friday Saturday'.split(" ")
+def whatday(n):
+    return WEEK[n] if 0<n<8 else 'Wrong, please enter a number between 1 and 7'
+
+def whatday(num):
+  days = ("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+  dict = {a: days[a-1] for a in range(1, 8)}
+  return dict.get(num, "Wrong, please enter a number between 1 and 7")
+
+def whatday(num):
+  day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  return 'Wrong, please enter a number between 1 and 7' if  num > 7 or num <= 0 else day[num-1]
+```
+
 Total amount of points
 
 ```python
