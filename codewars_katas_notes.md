@@ -207,22 +207,58 @@ def find_short(s):
 Tree Depth
 
 ```ruby
-# Approche effectuée a refactor
-def parcours_tree some_hash, depth=0
-  return nil if some_hash.nil? || !some_hash.is_a?( Hash )
-  if some_hash.values.any?{|e| e.is_a? Hash } 
-    some_hash[:depth] = (depth+1) 
-    some_hash.select{|k,v| v.is_a? Hash }.map{|k,v| parcours_tree( v, (depth+1))}
-    some_hash
-  else
-    some_hash[:depth] = depth+1 
-    some_hash
-  end
+# Approche refactor
+def record_depth(some_tree, depth=-1) 
+  return nil if not some_tree.is_a? Hash 
+  some_tree[:depth] = (depth + 1) 
+  some_tree.map{|k,v| v.is_a?(Hash) ? record_depth( v, (depth+1)) : next }
+  some_tree
 end
 
-def record_depth(some_tree) 
-  res = parcours_tree( some_tree, -1)
-  return res
+# Autres approches
+# Usage du each pour eviter le map
+def record_depth(tree, depth = 0)
+  return nil if not tree.is_a?(Hash)
+  tree[:depth] = depth
+  tree.each{ |k, v| record_depth(v, depth + 1) }
+end
+
+def record_depth(tree, depth = 0)
+  return unless tree.is_a?(Hash)
+  tree[:depth] = depth
+  tree.each_value { |value| record_depth(value, depth + 1) }
+end
+
+
+
+# Usage du tap
+def record_depth(tree, d=0)
+    if tree.is_a?(Hash)
+        return tree.map{ |k,v| [k, v.is_a?(Hash) ? record_depth(v,d+1) : v] }
+                   .tap { |arr| arr << [:depth, d] }
+                   .to_h
+    end
+end
+
+# Variante sur le unless
+def record_depth(tree, depth = 0)
+  return unless tree.is_a?(Hash)
+  tree[:depth] = depth
+  tree.values.grep(Hash).each { |h| record_depth(h, depth + 1) }
+  tree
+end
+
+def record_depth(tree, depth = 0)
+  return nil unless tree.is_a?(Hash)
+  
+  tree.each_with_object({}) do |(key, value), memo|
+    case value
+    when Hash
+      memo[key] = record_depth(value, depth+1)
+    else
+      memo[key] = value
+    end
+  end.merge(depth: depth)
 end
 
 ```
