@@ -204,6 +204,28 @@ def find_short(s):
 
 ### Ruby
 
+Tree Depth
+
+```ruby
+# Approche effectuée a refactor
+def parcours_tree some_hash, depth=0
+  return nil if some_hash.nil? || !some_hash.is_a?( Hash )
+  if some_hash.values.any?{|e| e.is_a? Hash } 
+    some_hash[:depth] = (depth+1) 
+    some_hash.select{|k,v| v.is_a? Hash }.map{|k,v| parcours_tree( v, (depth+1))}
+    some_hash
+  else
+    some_hash[:depth] = depth+1 
+    some_hash
+  end
+end
+
+def record_depth(some_tree) 
+  res = parcours_tree( some_tree, -1)
+  return res
+end
+
+```
 Automorphic Number (Special Numbers Series #6)
 
 ```ruby
