@@ -2938,6 +2938,19 @@ Object.isFrozen(MrFreeze);
 
 ```
 
+Deep Freeze
+
+```javascript
+// Premiere approche
+Object.deepFreeze = function (object) {
+  Object.keys(object).forEach(k => typeof(object[k]) === 'object' ? Object.deepFreeze(object[k]) : k )
+  Object.freeze(object);
+  return object
+}
+```
+
+Freeze objects internals
+
 Capitalization and mutability
 
 ```javascript
