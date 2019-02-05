@@ -2944,8 +2944,56 @@ Deep Freeze
 // Premiere approche
 Object.deepFreeze = function (object) {
   Object.keys(object).forEach(k => typeof(object[k]) === 'object' ? Object.deepFreeze(object[k]) : k )
-  Object.freeze(object);
-  return object
+  return Object.freeze(object);
+}
+
+// One liner
+Object.deepFreeze = o => Object.keys(o).forEach(k => typeof o[k]=='object' && Object.deepFreeze(o[k])) || Object.freeze(o);
+
+
+// Parcours objet qui est classique absence du hasOwnProperty
+Object.deepFreeze = function (object) {
+
+if( typeof(object) === 'object') { // checking to see if parameter is actually an object
+  Object.freeze(object); //freeze it 
+}
+  
+  for(var prop in object) {
+        if( typeof(object[prop] === 'object' && object[prop] !== null) ) { // loop through 
+           Object.deepFreeze(object[prop]); // and recusively freeze it
+           }
+      }
+      return object;
+}
+
+// usage du for in avec var
+Object.deepFreeze = function (object) {
+    Object.freeze(object);
+    for (var key in object)
+        Object.deepFreeze(object[key]);
+}
+// usage du for in avec let
+Object.deepFreeze = function(object) {
+  for(let i in object) {
+    if(typeof object[i] === "object")
+      Object.deepFreeze(object[i]);
+    else
+      Object.freeze(object[i]);
+  }
+  Object.freeze(object)
+}
+
+// getOwnPropertyNames -> non connaissait 
+Object.deepFreeze = function(obj) {
+  var props = Object.getOwnPropertyNames(obj);
+  
+  props.forEach(function(prop) {
+    prop = obj[prop];
+    
+    if (typeof prop === 'object') Object.deepFreeze(prop);
+  });
+  
+  return Object.freeze(obj);
 }
 ```
 
