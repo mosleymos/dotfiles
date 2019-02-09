@@ -7,6 +7,55 @@ Codewars notes
 
 ### Python
 
+Return the day
+
+```python
+# Approche perso
+def whatday(n):
+  try:
+    return {1: "Sunday",2: "Monday",3: "Tuesday",4: "Wednesday",5: "Thursday", 6: "Friday", 7: "Saturday"}[n]
+  except:
+    return "Wrong, please enter a number between 1 and 7"
+
+# Usage de constantes et get pour gestion des erreurs - semblabe à un fetch ruby ?
+WEEKDAY = {
+    1: 'Sunday',
+    2: 'Monday',
+    3: 'Tuesday',
+    4: 'Wednesday',
+    5: 'Thursday',
+    6: 'Friday',
+    7: 'Saturday' }
+ERROR = 'Wrong, please enter a number between 1 and 7'
+
+
+def whatday(n):
+    return WEEKDAY.get(n, ERROR)
+
+
+# Elegant en usant d'un tableau
+def whatday(num):
+    days = ('Sun', 'Mon', 'Tues', 'Wednes', 'Thurs', 'Fri', 'Satur')
+    return days[num-1] + 'day' if 0 < num < 8 else 'Wrong, please enter a number between 1 and 7' 
+
+# Lambda + classes natives + ternaire
+whatday=lambda n:'Wrong, please enter a number between 1 and 7'*(n>7or n<1)or __import__('calendar').day_name[n-2]
+
+
+WEEK =' Sunday Monday Tuesday Wednesday Thursday Friday Saturday'.split(" ")
+def whatday(n):
+    return WEEK[n] if 0<n<8 else 'Wrong, please enter a number between 1 and 7'
+
+def whatday(num):
+  days = ("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+  dict = {a: days[a-1] for a in range(1, 8)}
+  return dict.get(num, "Wrong, please enter a number between 1 and 7")
+
+def whatday(num):
+  day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  return 'Wrong, please enter a number between 1 and 7' if  num > 7 or num <= 0 else day[num-1]
+```
+
 Total amount of points
 
 ```python
@@ -84,7 +133,6 @@ def solution(first,last):return next(x for x in(first(),last()))
 def solution(*fs):
     return [f() for f in fs][0]
 
-
 ```
 
 Detect Pangram
@@ -155,6 +203,93 @@ def find_short(s):
 ```
 
 ### Ruby
+
+Tree Depth
+
+```ruby
+# Approche refactor
+def record_depth(some_tree, depth=-1) 
+  return nil if not some_tree.is_a? Hash 
+  some_tree[:depth] = (depth + 1) 
+  some_tree.map{|k,v| v.is_a?(Hash) ? record_depth( v, (depth+1)) : next }
+  some_tree
+end
+
+# Autres approches
+# Usage du each pour eviter le map
+def record_depth(tree, depth = 0)
+  return nil if not tree.is_a?(Hash)
+  tree[:depth] = depth
+  tree.each{ |k, v| record_depth(v, depth + 1) }
+end
+
+def record_depth(tree, depth = 0)
+  return unless tree.is_a?(Hash)
+  tree[:depth] = depth
+  tree.each_value { |value| record_depth(value, depth + 1) }
+end
+
+
+
+# Usage du tap
+def record_depth(tree, d=0)
+    if tree.is_a?(Hash)
+        return tree.map{ |k,v| [k, v.is_a?(Hash) ? record_depth(v,d+1) : v] }
+                   .tap { |arr| arr << [:depth, d] }
+                   .to_h
+    end
+end
+
+# Variante sur le unless
+def record_depth(tree, depth = 0)
+  return unless tree.is_a?(Hash)
+  tree[:depth] = depth
+  tree.values.grep(Hash).each { |h| record_depth(h, depth + 1) }
+  tree
+end
+
+def record_depth(tree, depth = 0)
+  return nil unless tree.is_a?(Hash)
+  
+  tree.each_with_object({}) do |(key, value), memo|
+    case value
+    when Hash
+      memo[key] = record_depth(value, depth+1)
+    else
+      memo[key] = value
+    end
+  end.merge(depth: depth)
+end
+
+```
+Automorphic Number (Special Numbers Series #6)
+
+```ruby
+# Approche effectue
+def automorphic(n)
+  (n**2).to_s.end_with?(n.to_s) ? "Automorphic" : "Not!!"
+end
+
+# Usage d'un hash comme structure de decision
+# Let's have some coding fun. :-)
+def automorphic(n)
+  {true => "Automorphic", false =>  "Not!!"}[(n**2).to_s.end_with? n.to_s]
+end
+
+# Regexp approach
+# regexp appellée a la suite de to_s
+def automorphic(n)
+  (n*n).to_s[/#{n}$/] ? 'Automorphic' : 'Not!!'
+end
+
+def automorphic(n)
+  (n**2).to_s =~ /#{n}\z/ ? "Automorphic" : "Not!!"
+end
+
+def automorphic(n)
+  (Regexp.new n.to_s + "$").match((n ** 2).to_s) ? "Automorphic" : "Not!!"
+end
+```
 
 Alphabet wars
 
@@ -2726,6 +2861,345 @@ end
 ```
 
 ### javascript
+
+Smallest product
+
+```javascript
+// approche mise
+const smallestProduct = arr => arr.map(e=>e.reduce((a,b)=>a*b)).sort((a,b)=>a-b)[0]
+
+// Approche intelligente
+const smallestProduct = a => Math.min(...a.map(e => e.reduce((p, c) => p * c)))
+
+// classique
+  function smallestProduct(arr) {
+    return Math.min(...arr.map(x => x.reduce((a,b) => a*b, 1)));
+
+  } 
+
+
+// Usage du let désormais possible en js
+function smallestProduct(arr) {
+  return arr.reduce((min,subarray) => {let multiply=subarray.reduce((a,e)=>a*e); return min>multiply ? multiply : min},
+  Number.MAX_VALUE);
+
+}
+```
+
+Sum even numbers
+Il me semble kata en doublons
+
+  ```javascript
+// approche mise
+const sumevennumbers =  input => input.filter(e=>e%2==0).reduce((a,b)=>a+b)
+
+// approche courte et meilleure
+const sumEvenNumbers = a => a.reduce((r, e) => r + (e % 2 ? 0 : e), 0);
+
+// variation
+function sumEvenNumbers(a) {
+  return a.reduce((a,b)=>a+(b%2==0&&b),0)
+}
+
+```
+
+Mr Freeze
+Freeze an Object in javascript
+
+```javascript
+// mark the MrFreeze object instance as frozen
+Object.freeze(MrFreeze)
+
+// Technique Deep Freeze provient de mozilla firefox
+  function deepFreeze (o) {
+    var prop, propKey;
+
+    Object.freeze( o  );
+    for ( propKey in o  ) {
+      prop = o[ propKey  ];
+
+      if ( !o.hasOwnProperty( propKey  ) || !(typeof prop === "object") || Object.isFrozen( prop  )  ) {
+        continue;
+      }
+      deepFreeze(prop);
+    }
+  }
+deepFreeze(MrFreeze);
+
+
+// Freeze sous condition ???
+// mark the MrFreeze object instance as frozen
+var MyFreeze = {};
+(Object.freeze || object)(MrFreeze);
+
+// Savoir si objet est frozen
+Object.freeze(MrFreeze);
+Object.isFrozen(MrFreeze);
+
+```
+
+Deep Freeze
+
+```javascript
+// Premiere approche
+Object.deepFreeze = function (object) {
+  Object.keys(object).forEach(k => typeof(object[k]) === 'object' ? Object.deepFreeze(object[k]) : k )
+  return Object.freeze(object);
+}
+
+// One liner
+Object.deepFreeze = o => Object.keys(o).forEach(k => typeof o[k]=='object' && Object.deepFreeze(o[k])) || Object.freeze(o);
+
+
+// Parcours objet qui est classique absence du hasOwnProperty
+Object.deepFreeze = function (object) {
+
+if( typeof(object) === 'object') { // checking to see if parameter is actually an object
+  Object.freeze(object); //freeze it 
+}
+  
+  for(var prop in object) {
+        if( typeof(object[prop] === 'object' && object[prop] !== null) ) { // loop through 
+           Object.deepFreeze(object[prop]); // and recusively freeze it
+           }
+      }
+      return object;
+}
+
+// usage du for in avec var
+Object.deepFreeze = function (object) {
+    Object.freeze(object);
+    for (var key in object)
+        Object.deepFreeze(object[key]);
+}
+// usage du for in avec let
+Object.deepFreeze = function(object) {
+  for(let i in object) {
+    if(typeof object[i] === "object")
+      Object.deepFreeze(object[i]);
+    else
+      Object.freeze(object[i]);
+  }
+  Object.freeze(object)
+}
+
+// getOwnPropertyNames -> non connaissait 
+Object.deepFreeze = function(obj) {
+  var props = Object.getOwnPropertyNames(obj);
+  
+  props.forEach(function(prop) {
+    prop = obj[prop];
+    
+    if (typeof prop === 'object') Object.deepFreeze(prop);
+  });
+  
+  return Object.freeze(obj);
+}
+```
+
+Freeze objects internals
+
+Capitalization and mutability
+
+```javascript
+const capitalizeWord = word => word[0].toUpperCase() + word.slice(1,word.length)
+// Autre meilleure
+const capitalizeWord = word => word[0].toUpperCase() + word.slice(1)
+
+// Interpolation
+const capitalizeWord = w => `${w[0].toUpperCase()}${w.slice(1)}`;
+
+// Destructuration sur les string :o
+const capitalizeWord = ([ a, ...w  ]) => a.toUpperCase() + w.join('')
+
+// destructuration de la string ?
+const capitalizeWord = (word) => {
+  return [...word].map((w, i) => {if (i === 0)
+      return  w.toUpperCase();
+      else  return w
+      }).join('');
+}
+
+// Aliasing
+const capitalizeWord = require('lodash').capitalize;
+
+// word.charAt 
+function capitalizeWord(word) {
+  let i = word[0].toUpperCase();
+  let capIt = word.replace(word.charAt(0), i);
+  return capIt;
+}
+
+function capitalizeWord(word) {
+  let capWord = word.charAt(0).toUpperCase() + word.substr(1);
+    return capWord;
+
+};
+
+
+```
+
+T combinator
+
+```javascript
+// Il s'agit d'une forme de composition
+// Approche effectuée
+var compose = (...elts) =>  elts.slice(1, elts.length).reduce((a,b)=> b(a), elts[0])
+
+// One liner - on peut destructurer sur deux arguments nouveauté apprise
+const compose = (x, ...fs) => fs.reduce((a, f) => f(a), x);
+
+
+
+// Solution impérative je trouve interressante sur arguments[i](value)
+var compose = function(value) {
+  for(var i = 1 ; i< arguments.length ; i++) {
+    value = arguments[i](value);
+  }
+  return value;
+}
+
+// Semblabe avec une approche boucle while
+var compose = function(value, ...rest) {
+  // If there is value only, and no other arguments.
+  if(value && rest.length === 0) return value;
+
+  // Initialize i.
+  let i = 0;
+
+  // Go through each function in rest array.
+  while(i < rest.length) {
+
+    // Rewrite the current value 
+    // by calling the functions from rest array with value as a parameter.
+    value = rest[i](value);
+
+    // Increment i to prevent infinite loop.
+    i++;
+
+    // Exit point.
+    if(i === rest.length) {
+      return value;
+      break;
+
+    }
+
+  }
+
+}
+
+
+// Ressemble à ma première approche sur les tests
+function compose(...a) {
+  var v = a.shift();
+    return a.reduce((c, f) => f(c), v);
+}
+
+// Approche classique ?
+var compose = function(input) {
+  return [].slice.call(arguments, 1)
+    .reduce(function (acc, fn) {
+        return fn(acc);
+        }, input);
+}
+
+// Slice.call (old)
+var compose = function(n) {
+  var args = Array.prototype.slice.call(arguments).splice(1);
+    return !args.length ? n : args.reduce((p, c) => c(p), n)
+}
+
+function compose(val) {
+  [].slice.call(arguments, 1).forEach(function(fn) {val = fn(val);});
+    return val;
+}
+
+// Usage par forEach
+function compose(value, ...args) {
+  args.forEach(callback => {
+      value = callback(value);
+  });
+  return value;
+}
+
+```
+Recursive Application
+
+
+```javascript
+
+const replicate = (times, number) => times >= 0 ? [...Array(times--).keys()].map(e=>number) : []
+
+// Usage de recursion
+function replicate(times, number) {
+  return times > 0 ? [number, ...replicate( times - 1, number  )] : [];
+
+}
+
+// Autre approche, usage de la methode fill pour Utilisation de remplisage du array
+function replicate(times, number) {
+  return times > 0 ? Array(times).fill(number) : [];
+
+}
+
+// Usage Array#from  pour création de tableau
+const replicate=(t, n)=>Array.from({length:t},a=>n)
+
+// approche par repeat
+  function replicate(times, number) {
+    if(times <=0){ return []; }
+    else return (number+' ').repeat(times).trim().split(' ').map(el=>+el); }
+
+
+function replicate(times, number) {
+  if (times <= 0) return []
+  else return [number].concat(replicate(--times, number))
+
+}
+```
+
+
+
+Tidy Numbers
+
+```javascript
+
+// cas limite qui ne passe pas avec 102 mais autre chiffres
+const tidyNumber=n=>!!Array.from((n+'')).reduce((a,b)=>Number(a)<=Number(b)?b:false)
+
+// Solution adoptée
+const tidyNumber=n=>!!Array.from((n+'')).reduce((a,b)=>parseInt(a)<=parseInt(b)?b:false)
+
+// Solution assez intelligente
+function tidyNumber(n){
+  return [...n+=""].sort().join``==n
+}
+
+const tidyNumber = (n) => n == [...''+n].sort().join``;
+
+// Solution similaire
+function tidyNumber(n){
+  let arr = [...n.toString()].map(Number);
+  return arr.every((el, ind, arr) => !ind || el >= arr[ind - 1]);
+}
+
+const tidyNumber = n => String(n).split('').every((el, i, arr) => i === arr.length - 1 || el <= arr[i + 1]);
+
+const tidyNumber = n => +[...`${n}`].sort().join('') === n;
+
+function tidyNumber(n){
+  var bood = true, arr = n.toString().split("");
+  for(var i=0; i<arr.length-1; i++) 
+    if(arr[i] > arr[i+1]) bood = false;
+    return bood
+}
+
+function tidyNumber(n){
+  return !n.toString().split('').some((d, i, a) => i > 0 && d < a[i - 1]);
+}
+
+```
+
 
 Nth Smallest Element (Array Series #4)
 
@@ -6856,9 +7330,158 @@ SELECT to_hex(monsters.arms) as arms, to_hex(monsters.legs) as legs  from monste
 ```
 
 Easy SQL: Counting and Grouping
+=======
+Easy SQL: SQL Basics: Simple JOIN
 
-Outil intéressant pour essai de db
+```SQL
 
+SELECT  products.*, companies.name AS company_name
+FROM products
+JOIN companies ON companies.id=products.company_id;
+
+--other better
+
+SELECT 
+  products.id,
+  products.name,
+  products.isbn,
+  products.company_id,
+  products.price,
+  companies.name as company_name
+FROM
+  products
+JOIN
+  companies on companies.id = products.company_id
+
+
+SELECT P.*, C.name AS company_name
+FROM products AS P, companies AS C
+WHERE P.company_id = C.id
+
+```
+
+Easy SQL: ASCII Converter
+
+```SQL
+
+SELECT 
+  id, 
+  name , 
+  ASCII(name) AS name , 
+  birthday, 
+  ASCII(race) AS race 
+FROM demographics;
+
+--- better
+select id,ascii(name) as name,birthday,ascii(race) as race from demographics
+
+SELECT
+  ID,
+  ASCII(SUBSTRING(NAME FROM 1 FOR 1))AS NAME,
+  BIRTHDAY,
+  ASCII(SUBSTRING(RACE FROM 1 FOR 1))AS RACE
+FROM
+  DEMOGRAPHICS
+
+
+SELECT
+  id,
+  ascii(left(name, 1)) AS name,
+  birthday,
+  ascii(left(race, 1)) AS race
+FROM demographics
+
+
+SELECT demographics.id AS "id", ASCII(LEFT(demographics.name, 1)) AS "name", birthday AS "birthday", ASCII(LEFT(demographics.race, 1)) AS "race"
+FROM demographics;
+
+
+SELECT id, cast(ascii(substring(name, 1, 1)) as integer) as name, birthday, cast(ascii(substring(race, 1, 1)) as integer) as race
+from demographics 
+
+
+--- Approche plus complexe mais néanmoins à noter
+CREATE OR REPLACE FUNCTION converter(varchar) RETURNS int AS
+$$ SELECT ascii(substr($1,1,1)) $$ LANGUAGE SQL;
+
+
+SELECT id,
+       converter(name) AS name,
+       birthday,
+       converter(race) AS race
+FROM demographics
+
+---- Approche Longue
+SELECT id, birthday,
+  CASE
+    WHEN LEFT(name, 1) = 'A' THEN 65
+    WHEN LEFT(name, 1) = 'B' THEN 66
+    WHEN LEFT(name, 1) = 'C' THEN 67
+    WHEN LEFT(name, 1) = 'D' THEN 68
+    WHEN LEFT(name, 1) = 'E' THEN 69
+    WHEN LEFT(name, 1) = 'F' THEN 70
+    WHEN LEFT(name, 1) = 'G' THEN 71
+    WHEN LEFT(name, 1) = 'H' THEN 72
+    WHEN LEFT(name, 1) = 'I' THEN 73
+    WHEN LEFT(name, 1) = 'J' THEN 74
+    WHEN LEFT(name, 1) = 'K' THEN 75
+    WHEN LEFT(name, 1) = 'L' THEN 76
+    WHEN LEFT(name, 1) = 'M' THEN 77
+    WHEN LEFT(name, 1) = 'N' THEN 78
+    WHEN LEFT(name, 1) = 'O' THEN 79
+    WHEN LEFT(name, 1) = 'P' THEN 80
+    WHEN LEFT(name, 1) = 'Q' THEN 81
+    WHEN LEFT(name, 1) = 'R' THEN 82
+    WHEN LEFT(name, 1) = 'S' THEN 83
+    WHEN LEFT(name, 1) = 'T' THEN 84
+    WHEN LEFT(name, 1) = 'U' THEN 85
+    WHEN LEFT(name, 1) = 'V' THEN 86
+    WHEN LEFT(name, 1) = 'W' THEN 87
+    WHEN LEFT(name, 1) = 'X' THEN 88
+    WHEN LEFT(name, 1) = 'Y' THEN 89
+    ELSE 90
+  END
+  AS name,
+  CASE
+    WHEN LEFT(race, 1) = 'A' THEN 65
+    WHEN LEFT(race, 1) = 'B' THEN 66
+    WHEN LEFT(race, 1) = 'C' THEN 67
+    WHEN LEFT(race, 1) = 'D' THEN 68
+    WHEN LEFT(race, 1) = 'E' THEN 69
+    WHEN LEFT(race, 1) = 'F' THEN 70
+    WHEN LEFT(race, 1) = 'G' THEN 71
+    WHEN LEFT(race, 1) = 'H' THEN 72
+    WHEN LEFT(race, 1) = 'I' THEN 73
+    WHEN LEFT(race, 1) = 'J' THEN 74
+    WHEN LEFT(race, 1) = 'K' THEN 75
+    WHEN LEFT(race, 1) = 'L' THEN 76
+    WHEN LEFT(race, 1) = 'M' THEN 77
+    WHEN LEFT(race, 1) = 'N' THEN 78
+    WHEN LEFT(race, 1) = 'O' THEN 79
+    WHEN LEFT(race, 1) = 'P' THEN 80
+    WHEN LEFT(race, 1) = 'Q' THEN 81
+    WHEN LEFT(race, 1) = 'R' THEN 82
+    WHEN LEFT(race, 1) = 'S' THEN 83
+    WHEN LEFT(race, 1) = 'T' THEN 84
+    WHEN LEFT(race, 1) = 'U' THEN 85
+    WHEN LEFT(race, 1) = 'V' THEN 86
+    WHEN LEFT(race, 1) = 'W' THEN 87
+    WHEN LEFT(race, 1) = 'X' THEN 88
+    WHEN LEFT(race, 1) = 'Y' THEN 89
+    ELSE 90
+  END
+  AS race
+FROM demographics
+
+--- Selection
+select id, ASCII(substring(name, 1, 1)) as name, birthday, ascii(substring(race,1,1)) as
+race FROM demographics;
+
+```
+
+Easy SQL: Counting and Grouping
+
+Outil intéressant pour essai de dbfiddle
 
 ```SQL
 
@@ -6885,7 +7508,6 @@ SELECT
   ORDER BY
     COUNT DESC
 
-    
 ```
 
 SQL Basics: Simple GROUP BY
@@ -9106,6 +9728,7 @@ arr.slice(Math.max(arr.length - 5, 1))
 ```
 
 Linq - sorte de solution pour le kata getNames - etrange c'est plus une librairie qu'autre chose
+Element à creuser
 
 ```javascript
 const getNames = d => new Linq(d).Select(o => o.name).ToArray();

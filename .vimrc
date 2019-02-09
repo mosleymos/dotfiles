@@ -64,7 +64,7 @@ set lazyredraw
 set autoindent
 set smarttab
 set expandtab
-set textwidth=80
+set textwidth=120
 set colorcolumn=+1
 set tabstop=2
 set softtabstop=2
@@ -173,10 +173,10 @@ nnoremap k gk
 """ nnoremap <C-k> <C-w>k :vertical resize 85<cr>
 """ nnoremap <C-l> <C-w>l :vertical resize 85<cr>
 
-nnoremap <C-h> <C-w>h :vertical resize 85<cr>
-nnoremap <C-j> <C-w>j :vertical resize 85<cr>
-nnoremap <C-k> <C-w>k :vertical resize 85<cr>
-nnoremap <C-l> <C-w>l :vertical resize 85<cr>
+nnoremap <C-h> <C-w>h<cr>
+nnoremap <C-j> <C-w>j<cr>
+nnoremap <C-k> <C-w>k<cr>
+nnoremap <C-l> <C-w>l<cr>
 
 nnoremap <BS> cb<esc>h 
 
@@ -256,6 +256,10 @@ inoremap JJ <esc><c-r>
 """ no backs
 inoremap <BS> <NOP>
 
+""" Esc key then escape terminal
+""" Attention
+"""inoremap <Esc> <C-w>N
+
 """ Simple mappings
 map Q <nop>
 map <left> :echoe "Use h"<cr>
@@ -325,7 +329,9 @@ iabbrev mori keitamori@gmail.com iabbrev signature Date: <esc>:read !date<esc>o 
 
 """***********************************
 """ Save when focus is lost always save everything wikia snippet to think about //  bad idea
+
 autocmd FocusLost * :wa
+
 """***********************************
 
 
@@ -532,6 +538,7 @@ let g:ctrlp_cmd = 'CtrlPLastMode'
 let g:ctrlp_extensions = ['buffertag', 'tag', 'line', 'dir']
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*/node_modules/*     " Ignorer nodes modules non utiles
 
 ""Fuzzy find" from stack overflow
 """https://superuser.com/questions/390011/fuzzy-find-within-file-in-vim
