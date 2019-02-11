@@ -204,6 +204,30 @@ def find_short(s):
 
 ### Ruby
 
+Maximum Subarray sum
+
+```ruby
+
+def max_sequence(arr)
+  return 0 if arr.empty?
+  return arr.reduce(&:+) if arr.all?{|x| x>=0  }
+  max_so_far = 0
+  max_ending_here = 0
+  arr.each do |element|
+    max_ending_here += element
+    if max_ending_here < 0
+      max_ending_here = 0
+    end
+    if max_so_far < max_ending_here
+      max_so_far = max_ending_here
+    end
+  end
+  max_so_far
+end
+
+
+```
+
 Tree Depth
 
 ```ruby
