@@ -226,6 +226,91 @@ def max_sequence(arr)
 end
 
 
+# autres approches
+ # existence methode positive?
+  def max_sequence(arr)
+    return 0 unless arr.length > 0 && arr.any?(&:positive?)
+    (1..(arr.length)).to_a.map { |c| arr.each_cons(c).map {|a| a.sum}.max }.max
+  end
+
+def max_sequence(array)
+  (1..array.size).map { |i| array.each_cons(i).map(&:sum)  }.flatten.push(0).max
+  end
+
+def max_sequence(arr)
+  return 0 if arr.empty?
+
+  max_ending_here = max_so_far = 0
+
+  arr.each do |n|
+  max_ending_here = [n, max_ending_here + n].max
+  max_so_far = [max_so_far, max_ending_here].max
+  end
+
+  max_so_far
+end
+
+# approche optimisee
+def max_sequence(arr)
+  ret_val = 0
+  #first iterate over the indexes of the array
+  for i in (0...arr.length) do
+    #iterate over the length of the remaining array
+    for j in (1..arr.length-i) do
+      subarr = arr.slice(i, j)
+      print(subarr)
+      sum = subarr.sum
+      
+      #optimization: if at any point the sum of numbers for a sub-array is less than zero,
+      #then stop processing.  This makes it so that any negative number doesn't start a sequence, 
+      #and large negative numbers act as a barrier.
+      #this also makes the algorithm O(n) rather than O(n^2)
+      break if sum < 0
+      
+      ret_val = sum if sum > ret_val
+    end
+  end
+  
+  return ret_val
+  
+end
+
+
+def max_sequence(arr)
+    sum = 0
+    for p in (0...arr.length)
+        for l  in (1..arr.length-p)
+            s = arr[p, l].sum
+            sum = s if s > sum
+        end
+    end
+    sum
+end
+
+
+def max_sequence(arr)
+  n = 0
+  arr.length.times { |i| arr.each_cons(i+1) { |nums| n = nums.reduce(:+) if nums.reduce(:+) > n } }
+  n
+end
+
+def max_sequence(arr)
+  sum = (1..arr.count).map do |i|
+    arr.each_cons(i).map(&:sum).max
+  end.max.to_i
+  
+  sum < 0 ? 0 : sum
+end
+
+
+# one liner - hard
+def max_sequence(arr)
+  arr.inject([0]) { |arr,e| arr<<[arr[-1]+e,0].max }.max.to_i
+end
+
+def max_sequence(arr)
+  (0..arr.size-1).map { |i| arr[i] = [arr[i]+ (i==0 ? 0: arr[i-1]), 0].max }.max.to_i
+end
 ```
 
 Tree Depth
