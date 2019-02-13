@@ -428,6 +428,12 @@ Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tcomment_vim'
 Plug 'mhinz/vim-grepper'
 Plug 'junegunn/goyo.vim'
+Plug 'vimwiki/vimwiki'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+Plug 'sunaku/vim-shortcut'
 
 """ Plugin a revoir et repenser
 """ Plug 'haya14busa/incsearch-fuzzy.vim'
@@ -674,3 +680,6 @@ let g:syntastic_check_on_wq = 0
 map <C-e> :NERDTreeToggle<CR>
 
 """ gcc -> Toggle comment selected text
+
+Shortcut! [f       go to previous file in current file's directory
+Shortcut! ]f       go to next     file in current file's directory
