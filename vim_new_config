@@ -8,11 +8,11 @@
 "    -> Visual mode related
 "    -> Status line
 "    -> Editing mappings
-"    -> vimgrep searching and cope displaying
 "    -> Spell checking
 "    -> Misc
 "    -> Helper functions
 "    -> Configuration
+"    -> External Plugins 
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -142,10 +142,6 @@ set textwidth=120
 """ splits
 set splitright
 set splitbelow
-
-" Display numbers
-set number
-set numberwidth=5
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -543,3 +539,51 @@ nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 
 """ Reload our vimrc on demand
 nnoremap <leader>sv :source ~/.vimrc<cr>
+
+""""""""""""""""""""""""""""""
+" => External plugins
+""""""""""""""""""""""""""""""
+" Plug manager 
+
+call plug#begin('~/.vim/plugged/')
+
+Plug 'MaxSt/FlatColor'
+Plug 'itchyny/lightline.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'vim-scripts/vim-auto-save'
+Plug 'mileszs/ack.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'vim-syntastic/syntastic'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'godlygeek/tabular'
+Plug 'jpalardy/vim-slime'
+Plug 'christoomey/vim-tmux-runner'
+Plug 'kien/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'craigemery/vim-autotag'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'ggVGc/vim-fuzzysearch'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'scrooloose/nerdtree'
+Plug 'tomtom/tcomment_vim'
+Plug 'mhinz/vim-grepper'
+Plug 'junegunn/goyo.vim'
+Plug 'vimwiki/vimwiki'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+
+""" Plugin a revoir et repenser
+"""Plug 'sunaku/vim-shortcut'
+"""Plug 'haya14busa/incsearch-fuzzy.vim'
+"""Plug 'jpalardy/vim-slime'
+
+
+call plug#end()
+
+map <C-e> :NERDTreeToggle<CR>
+nnoremap <Leader>u :Unite -start-insert -auto-resize file file_rec/async file_mru<CR> 
