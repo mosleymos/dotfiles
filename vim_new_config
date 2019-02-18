@@ -13,7 +13,10 @@
 "    -> Helper functions
 "    -> Configuration
 "    -> External Plugins 
-"
+"        -> 'scrooloose/nerdtree'
+"        -> 'Shougo/Unite'
+"        -> 'vim-scripts/vim-auto-save'
+"        -> 'easymotion/vim-easymotion'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -585,5 +588,41 @@ Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
+"        -> 'scrooloose/nerdtree'
 map <C-e> :NERDTreeToggle<CR>
+
+"        -> 'Shougo/Unite'
 nnoremap <Leader>u :Unite -start-insert -auto-resize file file_rec/async file_mru<CR> 
+
+let g:unite_source_menu_menus = {}
+let g:unite_source_menu_menus.tagbar = {
+            \     'Tagbar' : 'Affiche les tags sur un fichier source',
+            \ }
+
+let g:unite_source_menu_menus.tagbar.command_candidates = {
+		      \   'Tagbar:toogle'      : 'TagbarToggle',
+		      \ }
+let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save_in_insert_mode = 0  " do not save while in insert mode
+
+
+" -> 'easymotion/vim-easymotion'
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <leader>h <plug>(easymotion-linebackward)
+
+" VIM AUTOTAG PLUGIN
+let g:autotagTagsFile=".tags"
