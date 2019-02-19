@@ -624,5 +624,22 @@ map <Leader>k <Plug>(easymotion-k)
 map <Leader>l <Plug>(easymotion-lineforward)
 map <leader>h <plug>(easymotion-linebackward)
 
-" VIM AUTOTAG PLUGIN
+" Vim Autotags
 let g:autotagTagsFile=".tags"
+
+" fuzzy search
+let g:fuzzysearch_match_spaces = 1
+let g:fuzzysearch_prompt = 'fuzzy /'
+let g:fuzzysearch_hlsearch = 1
+let g:fuzzysearch_ignorecase = 1
+let g:fuzzysearch_max_history = 30
+
+nnoremap / :FuzzySearch<cr>
+
+
+" Vim tmux runner plugin
+let g:VtrStripLeadingWhitespace = 0
+let g:VtrClearEmptyLines = 0
+let g:VtrAppendNewline = 1
+
+nnoremap <Leader><Leader> :VtrSendLinesToRunner<CR>
