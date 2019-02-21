@@ -656,9 +656,9 @@ let g:VtrStripLeadingWhitespace = 0
 let g:VtrClearEmptyLines = 0
 let g:VtrAppendNewline = 1
 
-nnoremap <C-l> :VtrSendLinesToRunner<CR>
-inoremap <C-l> <esc>:VtrSendLinesToRunner<CR>
-vnoremap <C-l> :VtrSendLinesToRunner<CR>
+nnoremap <C-x> :VtrSendLinesToRunner<CR>
+inoremap <C-x> <esc>:VtrSendLinesToRunner<CR>
+vnoremap <C-x> :VtrSendLinesToRunner<CR>
 
 " Syntastic
 set statusline+=%#warningmsg#
