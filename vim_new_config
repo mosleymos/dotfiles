@@ -584,6 +584,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+Plug 'mileszs/ack.vim'
 
 """ Plugin a revoir et repenser
 """Plug 'sunaku/vim-shortcut'
@@ -614,6 +615,15 @@ let g:unite_source_menu_menus.tmux = {
 
 let g:unite_source_menu_menus.tmux.command_candidates = {
 		      \   'Tmux:install'      : 'VtrAttachToPane',
+		      \ }
+
+let g:unite_source_menu_menus.syntasctic = {
+            \     'Syntastic' : 'Check syntax ',
+            \ }
+
+let g:unite_source_menu_menus.syntasctic.command_candidates = {
+		      \   'Syntastic:check'      : 'SyntasticCheck',
+		      \   'Syntastic:toggle'      : 'SyntasticToggleMode',
 		      \ }
 
 let g:auto_save = 1  " enable AutoSave on Vim startup
@@ -666,6 +676,5 @@ set statusline+=%{SyntasticStatuslineFlag()}
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-
