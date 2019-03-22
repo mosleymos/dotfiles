@@ -520,7 +520,20 @@ au FileType coffee call CoffeeScriptFold()
 
 au FileType gitcommit call setpos('.', [0, 1, 1, 0])
 
+""""""""""""""""""""""""""""""
+" => Ruby section
+"""""""""""""""""""""""""""""""
+function! RubyFold()
+    setl foldmethod=syntax
+endfunction
 
+au FileType ruby call RubyFold()
+
+
+" augroup vimrc
+"     au BufReadPre * setlocal foldmethod=indent
+"     au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+" augroup END
 """"""""""""""""""""""""""""""
 " => Shell section
 """"""""""""""""""""""""""""""
@@ -584,9 +597,9 @@ Plug 'vimwiki/vimwiki'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'mileszs/ack.vim'
 
 """ Plugin a revoir et repenser
+" Plug 'sjl/gundo.vim'
 """Plug 'sunaku/vim-shortcut'
 """Plug 'haya14busa/incsearch-fuzzy.vim'
 """Plug 'jpalardy/vim-slime'
