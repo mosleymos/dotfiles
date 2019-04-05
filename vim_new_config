@@ -528,6 +528,7 @@ function! RubyFold()
 endfunction
 
 au FileType ruby call RubyFold()
+au FileType ruby abbrev pry require "pry";binding.pry
 
 
 " augroup vimrc
