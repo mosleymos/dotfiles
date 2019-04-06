@@ -254,3 +254,20 @@ end
 
 ```
 
+Applicabilité - concept à creuser - From object on Rails
+
+```ruby
+# Forme de decorateur
+class ImageAffichage < Decorateur
+  def render_body
+    @context.render(:partial =>"/element/sous_partiel", :locals =>{ :post => self })
+  end
+end
+
+#Usage de classe 
+class Link < Decorateur
+  def self.applicable_to? object
+    object.is_a? (SomeKlass)
+  end
+end
+```
