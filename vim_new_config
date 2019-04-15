@@ -382,6 +382,10 @@ vnoremap / /\v
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Utiliser le spelling z= 
+set spell spelllang=en_us
+set nospell
+
 " Pressing ,ss will toggle and untoggle spell checking
 "map <leader>ss :setlocal spell!<cr>
 "
