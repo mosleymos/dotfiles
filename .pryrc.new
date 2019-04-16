@@ -58,3 +58,73 @@ Pry.commands.alias_command 'n',  'next'
 # Pry.commands.alias_command 'ss', 'show-source'
 Pry.commands.alias_command 'w?', 'whereami'
 # Pry.commands.alias_command 'r! ' 'reload-code'
+# Global commands
+
+Pry.config.should_load_plugins
+Pry.config.auto_indent=true
+Pry.config.color=true
+Pry.config.pager=true
+Pry.config.editor='vim'
+
+
+Pry.config.commands.command "ssp", "Prend un objet et un nom de methode et affiche source" do |*args|
+  obj = args[0]
+  method_to_find = args[1].to_sym
+  obj.respond_to?(method_to_find) ? (output.puts obj.method(:method_to_find).source) : (output.puts "Aucune methode trouvé")
+ end
+
+Pry.config.commands.command "pubm", "Prend un objet et un nom de methode et affiche source" do |*args|
+  obj = args[0]
+ (output.puts obj.public_methods(false).sort)
+ end
+
+
+if ENV['RAILS_ENV'] || defined?(Rails)
+  class ActiveRecord::Base
+    def relatives_classes
+      self.reflections.keys
+    end
+  end
+
+  class MyUtils
+    def write obj
+      File.open('resultat.txt', 'w'){ |f| f.write obj }
+    end
+    def ss obj, method_to_find
+      obj.respond_to?(method_to_find.to_sym) ? (puts obj.method(method_to_find.to_sym).source) : (puts "Aucune methode trouvé")
+    end
+
+    def list_methods(obj)
+      if ENV['RAILS_ENV'] || defined?(Rails)
+        (obj.public_methods(false) - ActiveRecord::Base.methods).reject{|meth| meth.to_s.start_with?('before_', 'after_')}
+      end
+    end
+  end
+end
+
+class Array
+  def self.toy(n=10, &block)
+    block_given? ? Array.new(n,&block) : Array.new(n) {|i| i+1}
+  end
+end
+
+class Hash
+
+  def self.toy(n=10)
+    Hash[Array.toy(n).zip(Array.toy(n){|c| (96+(c+1)).chr})]
+  end
+
+  def method_missing(symbol, *args)
+    key = symbol.to_s.gsub(/^_|=$/, '')
+    key = key.to_sym if !self.has_key?(key) || self.has_key?(key.to_sym)
+    args.empty? ? self[key] : self[key] = args.first
+  end
+
+end
+
+#Pry.commands.alias_command 'c',  'continue'
+# Pry.commands.alias_command 's',  'step'
+#Pry.commands.alias_command 'n',  'next'
+## Pry.commands.alias_command 'ss', 'show-source'
+#Pry.commands.alias_command 'w?', 'whereami'
+## Pry.commands.alias_command 'r! ' 'reload-code'
