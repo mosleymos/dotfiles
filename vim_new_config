@@ -21,6 +21,7 @@
 "        -> 'vim-autotag'
 "        -> 'tmux-runner'
 "        -> 'Syntastic'
+"        -> 'Scratch'
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -382,10 +383,6 @@ vnoremap / /\v
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" Utiliser le spelling z= 
-set spell spelllang=en_us
-set nospell
-
 " Pressing ,ss will toggle and untoggle spell checking
 "map <leader>ss :setlocal spell!<cr>
 "
@@ -602,6 +599,8 @@ Plug 'vimwiki/vimwiki'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+Plug 'mtth/scratch.vim'
+
 
 """ Plugin a revoir et repenser
 " Plug 'sjl/gundo.vim'
@@ -696,3 +695,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+
+
+"" Scratch
+let g:scratch_persistence_file="./__Scratch__.txt"
