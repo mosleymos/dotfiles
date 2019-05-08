@@ -204,6 +204,98 @@ def find_short(s):
 
 ### Ruby
 
+Accumulate - reimplementation de ruby reduce ou inject
+
+```ruby
+# A refactorer
+
+module Enumerable
+
+  def accumulate *args, &block
+    raise if args.empty? && block.nil?
+    raise if args.length > 2
+    raise if args.include? nil
+    stack = self.to_a.dup
+    if !block_given?
+
+        if args.size === 1 && args.first.is_a?(Symbol)
+            operation = args.first
+            res = stack.shift
+            until stack.empty? do 
+                actuel = stack.shift
+                res = _call_by_method(res, operation,actuel)
+            end
+            return res
+        end
+
+
+        if args.size == 1  && args.first.class != Symbol
+            raise
+        end
+
+        if args.size === 2 && args[1].is_a?(Symbol) 
+            operation = args[1]
+            res = args[0] 
+            until stack.empty? do 
+                actuel = stack.shift
+                res = _call_by_method(res, operation,actuel)
+            end
+            return res
+        end
+    end
+
+    if block_given?
+
+        if args.empty?
+            operation = args.first
+            res = stack.shift
+            until stack.empty? do 
+                actuel = stack.shift
+                res =  _call_by_block(res, actuel, block)
+            end
+            return res
+        end
+
+
+        if args.size == 1 
+            operation = args[1]
+            res = args[0] 
+            until stack.empty? do 
+                actuel = stack.shift
+                res = _call_by_block(res, actuel, block)
+            end
+            return res
+        end
+
+
+        if args.size === 2 && args[1].is_a?(Symbol) 
+            operation = args[1]
+            res = args[0] 
+            until stack.empty? do 
+                actuel = stack.shift
+                res = _call_by_method(res, operation,actuel)
+            end
+            return res
+        end
+
+    end
+
+    return nil 
+  end
+
+  def _call_by_method(res, operation,actuel)
+      res.method(operation).call(actuel)
+  end
+
+  def _call_by_block(res, actuel, block)
+      block.call(res,actuel)
+  end
+
+end
+
+
+```ruby
+
 Maximum Subarray sum
 
 ```ruby
@@ -10409,5 +10501,141 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = Linq;
+
+```
+
+ Accumulate en ruby equivalent d'un inject ou reduce -> test et reflexion en cours - faire
+
+```ruby
+
+require 'minitest/autorun'
+
+class EnumerableTest < Minitest::Test
+    def test_ok
+        numbers = (5..10)
+
+        assert  numbers.accumulate(:+) == 45
+
+        assert numbers.accumulate(&:+) == 45
+        assert numbers.accumulate { |sum, n| sum + n  } == 45
+        assert numbers.accumulate(1) { |product, n| product * n  } == 151200
+
+        longest = %w{ cat sheep bear  }.accumulate do |memo, word|
+            memo.length > word.length ? memo : word
+        end
+        assert longest == "sheep"
+        assert  numbers.accumulate{  } == nil
+        assert  numbers.accumulate(){  } == nil
+        assert  numbers.accumulate(:+){  } == nil
+        assert numbers.accumulate(1, :*) == 151200
+        assert numbers.accumulate(1, :*) == 151200
+
+
+
+    end
+
+    def test_cas_prob
+
+        # cas problematiques
+        numbers = (1..5).to_a
+        assert numbers.accumulate(:+) == 15
+        assert numbers.accumulate(:+) == 15
+        assert numbers.accumulate(&:+) == 15
+        assert numbers.accumulate(1,:+) == 16
+        assert numbers.accumulate(0){|a, i| a+ i} == 15
+
+        assert_equal 151200, (5..10).accumulate(1, :*){} 
+        assert_equal 151200, (5..10).accumulate(1, :*){|sum, n| sum + n }
+        assert_equal 151200, (5..10).accumulate(1, :*){raise Error}
+        assert_raises do 
+          (5..10).accumulate(0)    
+        end
+    end
+
+end
+
+module Enumerable
+
+  def accumulate *args, &block
+    raise if args.empty? && block.nil?
+    raise if args.length > 2
+    raise if args.include? nil
+    stack = self.to_a.dup
+    if !block_given?
+
+        if args.size === 1 && args.first.is_a?(Symbol)
+            operation = args.first
+            res = stack.shift
+            until stack.empty? do 
+                actuel = stack.shift
+                res = _call_by_method(res, operation,actuel)
+            end
+            return res
+        end
+
+
+        if args.size == 1  && args.first.class != Symbol
+            raise
+        end
+
+        if args.size === 2 && args[1].is_a?(Symbol) 
+            operation = args[1]
+            res = args[0] 
+            until stack.empty? do 
+                actuel = stack.shift
+                res = _call_by_method(res, operation,actuel)
+            end
+            return res
+        end
+    end
+
+    if block_given?
+
+        if args.empty?
+            operation = args.first
+            res = stack.shift
+            until stack.empty? do 
+                actuel = stack.shift
+                res =  _call_by_block(res, actuel, block)
+            end
+            return res
+        end
+
+
+        if args.size == 1 
+            operation = args[1]
+            res = args[0] 
+            until stack.empty? do 
+                actuel = stack.shift
+                res = _call_by_block(res, actuel, block)
+            end
+            return res
+        end
+
+
+        if args.size === 2 && args[1].is_a?(Symbol) 
+            operation = args[1]
+            res = args[0] 
+            until stack.empty? do 
+                actuel = stack.shift
+                res = _call_by_method(res, operation,actuel)
+            end
+            return res
+        end
+
+    end
+
+    return nil 
+  end
+
+  def _call_by_method(res, operation,actuel)
+      res.method(operation).call(actuel)
+  end
+
+  def _call_by_block(res, actuel, block)
+      block.call(res,actuel)
+  end
+
+end
 
 ```
