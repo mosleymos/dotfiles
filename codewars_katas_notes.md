@@ -8890,6 +8890,15 @@ def snail(arr)
   res.flatten
 end
 
+# Meilleure approche
+def snail(array)
+  array[0] + (array[1] ? snail(array[1].zip(*array.drop(2)).reverse) : [])
+end
+
+def snail(array)
+  array.empty? ? [] : array[0] + snail(array.drop(1).transpose.reverse)
+end
+
 ```
 
 Roman numeral decoder
