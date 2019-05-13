@@ -207,94 +207,326 @@ def find_short(s):
 Accumulate - reimplementation de ruby reduce ou inject
 
 ```ruby
-# A refactorer
+# Solution optimale
 
 module Enumerable
+  def accumulate(*args, &block)
+    prc = (args.size < 2 && block ? block : args.pop).to_proc    
+    acc = args.empty? ? first : args.first
+    drop(1 - args.size).each { |el| acc = prc.call(acc, el) }
+    acc
+  end
+end
 
-  def accumulate *args, &block
-    raise if args.empty? && block.nil?
-    raise if args.length > 2
-    raise if args.include? nil
-    stack = self.to_a.dup
-    if !block_given?
-
-        if args.size === 1 && args.first.is_a?(Symbol)
-            operation = args.first
-            res = stack.shift
-            until stack.empty? do 
-                actuel = stack.shift
-                res = _call_by_method(res, operation,actuel)
-            end
-            return res
+# Seconde solution moins claire
+module Enumerable
+  def accumulate(*args, &block)
+    case args.size
+    when 2
+      accumulate_operation(args[0], args[1], self)
+    when 1
+      if block_given?
+        if args[0].is_a? Symbol
+          return nil unless yield
+          raise ArgumentError
         end
+        result = args[0]
+        each { |*item| result = result ? yield(result, item.size == 1 ? item[0] : item) : first }
+        result
+      else
+        accumulate_operation(first, args[0], drop(1))
+      end
+    when 0
+      if block
+        result = args[0] || first
+        drop(1).each { |item| result = block.call(result, item) }
+        result
+      else
+        raise ArgumentError
+      end
+    else
+      raise ArgumentError
+    end
+  end
+  private
 
+  def accumulate_operation(result, operator, enum)
+    enum.each do |item|
+      result = item.send(operator, result)
+    end
+    result
+  end
+end
 
-        if args.size == 1  && args.first.class != Symbol
-            raise
+# Solution proposé
+
+module Enumerable
+  def accumulate(*args, &block)
+    raise if args.empty? && block.nil? || args.length > 2 || args.include?(nil)
+
+    stack = to_a.dup
+    unless block_given?
+      raise if args.size == 1 && !args.first.is_a?(Symbol)
+
+      if args.size === 1 && args.first.is_a?(Symbol)
+        res = stack.shift
+        stack.each do |current|
+          res = _call_by_method(res, args.first, current)
         end
+        return res
+      end
 
-        if args.size === 2 && args[1].is_a?(Symbol) 
-            operation = args[1]
-            res = args[0] 
-            until stack.empty? do 
-                actuel = stack.shift
-                res = _call_by_method(res, operation,actuel)
-            end
-            return res
+      if args.size === 2 && args[1].is_a?(Symbol)
+        res = args.first
+        stack.each do |current|
+          res = _call_by_method(res, args[1], current)
         end
+        return res
+      end
     end
 
     if block_given?
 
-        if args.empty?
-            operation = args.first
-            res = stack.shift
-            until stack.empty? do 
-                actuel = stack.shift
-                res =  _call_by_block(res, actuel, block)
-            end
-            return res
+      if args.empty?
+        res = stack.shift
+        stack.each do |current|
+          res = _call_by_block(res, current, block)
         end
+        return res
+      end
 
-
-        if args.size == 1 
-            operation = args[1]
-            res = args[0] 
-            until stack.empty? do 
-                actuel = stack.shift
-                res = _call_by_block(res, actuel, block)
-            end
-            return res
+      if args.size == 1
+        res = args.first
+        stack.each do |current|
+          res = _call_by_block(res, current, block)
         end
+        return res
+      end
 
-
-        if args.size === 2 && args[1].is_a?(Symbol) 
-            operation = args[1]
-            res = args[0] 
-            until stack.empty? do 
-                actuel = stack.shift
-                res = _call_by_method(res, operation,actuel)
-            end
-            return res
+      if args.size === 2 && args[1].is_a?(Symbol)
+        res = args.first
+        stack.each do |current|
+          res = _call_by_method(res, args[1], current)
         end
+        return res
+      end
 
     end
 
-    return nil 
+    nil
   end
 
-  def _call_by_method(res, operation,actuel)
-      res.method(operation).call(actuel)
+  def _call_by_method(res, operation, actuel)
+    res.method(operation).call(actuel)
   end
 
   def _call_by_block(res, actuel, block)
-      block.call(res,actuel)
+    block.call(res, actuel)
   end
-
 end
 
 
-```ruby
+# Solution when
+module Enumerable
+  def accumulate(*args, &blk)
+    args = args.dup
+    
+    blk = args.pop.to_proc if args.size == 1 && !blk || args.size == 2
+    memo = args.empty? ? first : args.first
+
+    drop(1 - args.size).each do |element|
+      memo = blk.call(memo, element)
+    end
+
+    memo
+  end
+end
+
+# Approche qui vérifie toujours le nombre d'arguments entrés dans 
+# une fonction
+module Enumerable
+  # inject(initial, sym) → obj
+  # inject(sym) → obj
+  # inject(initial) { |memo, obj| block } → obj
+  # inject { |memo, obj| block } → obj
+  #
+  # If you specify a block, then for each element in enum the block is passed an accumulator value (memo) and the element.
+  # If you specify a symbol instead, then each element in the collection will be passed to the named method of memo.
+  # In either case, the result becomes the new value for memo. At the end of the iteration, the final value of memo
+  # is the return value for the method.
+  def accumulate(*opts, &block)
+    proc = nil
+    if opts.empty?
+      initial = self.first
+      start_el = true
+    elsif opts.length == 1
+      if block_given?
+        initial = opts[0]
+      else
+        proc = opts[0].to_proc
+        initial = self.first
+        start_el = true
+      end
+    elsif opts.length == 2
+      initial = opts[0]
+      proc = opts[1].to_proc
+    else
+      raise ArgumentError, 'wrong number of arguments (given 3, expected 0..2)'
+    end
+
+    self.drop(start_el ? 1 : 0).each {|a| initial = proc.nil? ? block.call(initial, a) : proc.call(initial, a) }
+    initial
+  end
+end 
+
+module Enumerable
+  def accumulate *args, &block
+    
+    raise "Too many arguments" if args.size > 2
+  
+    if args.size == 2
+      initial_value, method_symbol = *args 
+      raise "Nil method_symbol argument invalid" if method_symbol.nil?    
+      raise "Not sure why this is an error" if initial_value.nil? && method_symbol && !block_given? 
+    end
+    
+    if args.size == 1
+      argument = args.first
+      initial_value, method_symbol = [nil, argument] if argument.is_a? Symbol
+      initial_value, method_symbol = [argument, nil] if block_given?
+    end
+    
+    process = method_symbol ? method_symbol.to_proc : block
+    
+    memo = initial_value || self.first
+    drop( initial_value.nil? ? 1 : 0).each { |item| memo = process.call(memo, item) }
+    memo    
+  end
+end
+
+# Approche avec yield et les possibilité d'user send
+module Enumerable
+  def accumulate(*params)
+    elements = Array(self)
+    raise Error if params.length > 2
+
+    if block_given?
+      memo = params.first || (elements.first.is_a?(Numeric) ? 0 : "")
+      method = params[1]  || (raise Error)  if params.length == 2
+
+      elements.each do |el|
+        if method
+          memo = memo.public_send(method, el)
+        else
+          memo = yield(memo, el)
+        end
+      end
+      memo
+    else
+      if params.length == 2
+        memo = params.first
+        method = params.last
+      else
+        method = params.first
+        memo = 0
+      end
+
+      elements.each do |el|
+        memo = memo.public_send(method, el)
+      end
+
+      memo
+    end
+  end
+end
+
+module Enumerable
+  def accumulate(*args, &block)
+    raise ArgumentError if args.count > 2
+
+    if block_given? && args.count < 2
+      accum = args.first
+    else
+      accum = args.first unless args.count < 2
+      block = -> (a, b) { a.send(args.last, b) }
+    end
+    no_accum = accum.nil? && args.count < 2
+
+    each do |*e|
+      e = e.first if e.count == 1
+      accum = no_accum ? e : block.call(accum, e)
+      no_accum = false
+    end
+    accum
+  end
+end
+
+
+module Enumerable
+  def accumulate(*args, &block)
+    raise Error if args.length > 2
+    if args.length == 2 or (args.length == 1 and block_given?)
+      acc, start = args.first, 0
+    else 
+      acc, start = first, 1 
+    end 
+    block = proc {|acc,el| acc.method(args.last).call(el)} unless args.length < 2 and block_given?
+    drop(start).each{|el| acc = block.call(acc,el)}
+    acc
+  end
+end
+
+module Enumerable
+  def accumulate(*args, &blk)
+    args = args.dup
+    
+    blk = args.pop.to_proc if args.size == 1 && !blk || args.size == 2
+    memo = args.empty? ? first : args.first
+
+    drop(1 - args.size).each do |element|
+      memo = blk.call(memo, element)
+    end
+
+    memo
+  end
+end
+
+module Enumerable
+  def accumulate(*args, &blk)
+    has_initial = false
+    case args.size
+    when 0
+    when 1
+      if blk
+        has_initial = true
+        initial = args.first
+      else
+        blk = args.first.to_proc
+      end
+    when 2
+      has_initial = true
+      initial, sym = args
+      blk = sym.to_proc
+    else
+      raise
+    end
+
+    memo = initial if has_initial
+    each do |*element|
+      element = element.first if element.size == 1
+      memo = if has_initial
+               blk.call(memo, element)
+             else
+               has_initial = true
+               element
+             end
+    end
+
+    memo
+  end
+end
+
+```
 
 Maximum Subarray sum
 
