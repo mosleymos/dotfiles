@@ -152,6 +152,10 @@ set textwidth=120
 set splitright
 set splitbelow
 
+" trick from https://www.hillelwayne.com/post/intermediate-vim/#fnref:cia
+" Ajout liste des undo -> prévoir à ignorer dans un gitignore" 
+set undofile
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

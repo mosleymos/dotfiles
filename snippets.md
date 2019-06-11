@@ -271,3 +271,11 @@ class Link < Decorateur
   end
 end
 ```
+
+Filter json grep  - a ameliorer
+```
+ls | grep '[0-9][0-9][0-9][0-9].json'
+
+```
+
+
