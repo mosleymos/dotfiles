@@ -7739,6 +7739,15 @@ function generateRange(min, max, step){
 
 ### SQL
 
+SQL disorder - Table non ordonne
+
+```sql
+
+SELECT * FROM numbers ORDER BY RANDOM();
+
+```
+
+
 EASY SQL: Convert to Hexadecimal
 
 nb existence d'autres approches MAIS dans d'autres idiomes Sql
@@ -10963,4 +10972,5 @@ c2.execute(); // == fns.sum(fns.sum(1, 2), 5) == 8
 c1.execute(); // == fns.sum(1, 2) == 3
 
 ```
+
 
