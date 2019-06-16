@@ -9008,6 +9008,51 @@ end
 
 ### Javascript
 
+Write JavaScript's 'call' function using apply.
+
+```javascript
+// Solution proposee
+Function.prototype.call = function(obj, ...args) {
+  return this.apply(obj, args)
+}
+
+// Meilleur nommage
+Function.prototype.call = function(context, ...args) {
+  return this.apply(context, args);
+}
+// slice sur les parametres
+Function.prototype.call = function(context) {
+  var param = [].slice.apply(arguments, [1]);
+  return this.apply(context, param);
+}
+
+Function.prototype.call = function(fn) {
+  var arr = Array.prototype.slice.apply(arguments);
+  arr.splice(0,1);
+  return this.apply(fn, arr);
+}
+
+// Modification du prototype d'un objet 
+Object.assign(Function.prototype, {
+    call: function (cons, ...args)  {
+        return this.apply(cons, args)
+    }
+})
+
+// Slice d'argument interressant
+Function.prototype.call = function() {
+  var fn = arguments[0]
+  var args = [...arguments].slice(1);
+  return this.apply(fn, args);
+}
+
+// Deconstruction d'arguments
+Function.prototype.call = function() {
+  const [context, ...rest] = arguments
+  return this.apply(context, rest)
+}
+```
+
 Javascript namespacing
 
 https://www.codewars.com/kata/javascript-namespacing/train/javascript
