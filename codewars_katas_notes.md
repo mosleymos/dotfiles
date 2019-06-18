@@ -9008,6 +9008,29 @@ end
 
 ### Javascript
 
+How many arguments
+
+```javascript
+// Solution proposée
+
+const args_count = (...args) => args.length
+
+function args_count() {
+    const args = Array.from(arguments);
+    return args.length;
+
+}
+
+
+function args_count() {
+    return Object.keys(arguments).length;
+}
+
+args_count = (...args) => { return [...args].length  }
+
+
+```
+
 Write JavaScript's 'call' function using apply.
 
 ```javascript
