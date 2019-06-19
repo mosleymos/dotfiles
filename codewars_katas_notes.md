@@ -3295,6 +3295,79 @@ end
 
 ### javascript
 
+Valid Phone number
+
+```javascript
+const validPhoneNumber = phoneNumber => (/^\(\d{3}\) \d{3}\-\d{4}$/).test(phoneNumber)
+
+function validPhoneNumber(phoneNumber){
+    return /^\(\d{3}\) \d{3}\-\d{4}$/.test(phoneNumber);
+}
+
+
+// Solution Stateless
+function validPhoneNumber(str) {
+
+    if (str.length !== 14) {
+            return false;
+              
+    }
+    if (str[4] !== ")") {
+            return false;
+              
+    }
+    if (str[5] !== " ") {
+            return false;
+              
+    }
+    if (str[9] !== "-") {
+            return false;
+              
+    } else {
+            return true;
+              
+    }
+    
+}
+
+function validPhoneNumber(phoneNumber){
+    var regex = /^(\(...\))\s(...)-(....)$/;
+    return regex.test(phoneNumber);
+}
+
+validPhoneNumber = nbr => /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/.test(nbr);
+
+const validPhoneNumber = nr => /^\([1-9]\d{2}\)\s\d{3}[\s|-]\d{4}$/.test(nr);
+
+var validPhoneNumber = (phoneNumber) => /^\(\d{3}\) \d{3}-\d{4}$/.test(phoneNumber)
+
+
+// Clever
+function validPhoneNumber(phoneNumber){
+       phoneNumber = phoneNumber.replace(/[1234567890]/gi, "x");
+       return phoneNumber === "(xxx) xxx-xxxx"
+          
+};
+
+
+function validPhoneNumber(phoneNumber){ console.log(phoneNumber);
+  return !!phoneNumber.match(/^\([1-9]{0,4}\)\s\d{3}(\s|-)\d{4}$/g);
+}
+
+
+function validPhoneNumber(phoneNumber){
+      if (phoneNumber.length != 14) return false;
+        function compare(char, expects)
+        {
+                if (expects == "#") return char >= '0' && char <= '9';
+                    else return char == expects;
+                      
+        }
+          for (var char in phoneNumber) if (!compare(phoneNumber[char], '(###) ###-####'[char])) return false;
+            return true;
+}
+```
+
 Smallest product
 
 ```javascript
