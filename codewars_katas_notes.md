@@ -9081,6 +9081,113 @@ end
 
 ### Javascript
 
+ES5 générators
+
+```javascript
+// Premiere approche (refactor a faire)
+var COUNT = 1
+
+const generator = (sequencer, ...args) => {
+    COUNT=1
+    if(args.length === 0){
+        return { next: () =>{  return sequencer().call(null, this)}  }
+    }
+
+    if(args.length == 2){
+        return { next: () =>{ return sequencer.apply(null, args)() } }
+    }
+
+    try{
+    if(args.length > 2){
+        return { next: () =>{ return sequencer.apply(null, args)()} }
+    }
+    }catch(e){
+      return e.toString()
+    }
+
+}
+
+const dummySeq = () => {
+    return () =>  {
+            return "dummy";
+    }
+}
+
+const factorialSeq = () => {
+    return () => {
+        if(COUNT==0 || COUNT == 1){
+            COUNT+=1
+            return 1
+        }else{
+            COUNT+=1
+            return [...Array((COUNT-1)).keys()].slice(1,(COUNT-1)).reduce((a,b)=>a*b)
+        }
+    }
+}
+
+const fibonacci = (n) => {
+    return n < 1 ? 0
+        : n <= 2 ? 1
+        : fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+const fibonacciSeq = () => {
+  return () => {
+    COUNT+=1
+    return fibonacci((COUNT-1))
+  }
+
+}
+
+const rangeSeq = (start, step) => {
+    if(COUNT==1){
+        COUNT = start + step
+        return function(){
+            return start
+        }
+    }else{
+        return function(){
+            COUNT+=step
+            return (COUNT-step)
+        }
+    }
+}
+
+
+const isprime = (n) => {
+  var q = Math.floor(Math.sqrt(n))
+  for(var i = 2; i <= q ; i++){
+    if(n%i === 0){
+      return false
+    }
+  }
+  return true
+}
+
+const nextprime = (n) => {
+  return n > 1 && isprime(n) ? n : nextprime(n+1)
+}
+const primeSeq = () => {
+  return () => {
+    var res = nextprime(COUNT)
+    COUNT = res
+    COUNT+=1
+    return res
+  }
+}
+
+function partialSumSeq(...args){
+    var arr = args.reduce((a,b)=> a.concat(b + (a[a.length-1] || 0)), [])
+    if(COUNT > arr.length ){ throw "End of sequence error expected" } 
+    var res = arr[(COUNT-1)]
+    return function(){
+        COUNT+=1
+        return res
+    }
+}
+
+```
+
 How many arguments
 
 ```javascript
