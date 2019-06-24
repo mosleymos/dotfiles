@@ -3407,7 +3407,7 @@ function sumEvenNumbers(a) {
   return a.reduce((a,b)=>a+(b%2==0&&b),0)
 }
 
-```
+  ```
 
 Mr Freeze
 Freeze an Object in javascript
@@ -7811,6 +7811,25 @@ function generateRange(min, max, step){
 
 
 ### SQL
+
+
+
+Sql fix the join
+
+```sql
+-- Premiere approche
+SELECT 
+  j.job_title AS job_title,
+  CAST(ROUND(SUM(j.salary) / COUNT(p),2 ) AS FLOAT) as average_salary,
+  COUNT(p.id) AS total_people,
+  CAST(ROUND(SUM(j.salary),2 ) AS FLOAT ) AS total_salary
+  FROM people p
+    JOIN job j ON  j.people_id = p.id
+  GROUP BY j.job_title
+  ORDER BY average_salary DESC
+```
+
+
 
 SQL disorder - Table non ordonne
 
