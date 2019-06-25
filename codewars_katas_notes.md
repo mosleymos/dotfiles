@@ -7827,6 +7827,76 @@ SELECT
     JOIN job j ON  j.people_id = p.id
   GROUP BY j.job_title
   ORDER BY average_salary DESC
+  
+-- autres approches  
+SELECT 
+  j.job_title,
+  ROUND(AVG(j.salary),2)::FLOAT as average_salary,
+  COUNT(p.id) as total_people,
+  ROUND(SUM(j.salary),2)::FLOAT as total_salary
+  FROM people AS p
+    JOIN job AS j ON p.id = j.people_id 
+  GROUP BY j.job_title
+  ORDER BY average_salary DESC  
+  
+-- Distinct usage
+  SELECT 
+  DISTINCT j.job_title,
+  ROUND(SUM(j.salary) / COUNT(p), 2)::float as average_salary,
+  COUNT(p.id) as total_people,
+  ROUND(SUM(j.salary),2)::float as total_salary
+  FROM people p
+    JOIN job j on p.id = j.people_id
+  GROUP BY j.job_title
+  ORDER BY average_salary desc
+  
+ --inner join
+ SELECT 
+  j.job_title,
+  CAST(CAST((SUM(j.salary) / COUNT(p))as DECIMAL(10,2))as FLOAT)as average_salary,
+  COUNT(p) as total_people,
+ CAST(CAST(SUM(j.salary) as DECIMAL(10,2))as FLOAT)as total_salary
+  FROM people p
+    INNER JOIN job j on p.id=j.people_id
+  GROUP BY j.job_title
+  ORDER BY average_salary desc
+  
+ -- Left approach
+ SELECT 
+  j.job_title,
+  ROUND((SUM(j.salary) / COUNT(p.id))::numeric, 2)::float AS average_salary,
+  COUNT(p.id) as total_people,
+  ROUND(SUM(j.salary)::numeric, 2)::float as total_salary
+  FROM people p
+  LEFT JOIN job j
+  ON p.id = j.people_id
+  GROUP BY j.job_title
+  ORDER BY average_salary DESC
+  
+ -- Elt
+ SELECT 
+  DISTINCT j.job_title,
+  ROUND(SUM(j.salary)::numeric / COUNT(p), 2)::float as average_salary,
+  COUNT(p.id) as total_people,
+  ROUND(SUM(j.salary)::numeric, 2)::float as total_salary     
+  FROM people p
+    JOIN job j ON p.id = j.people_id
+  GROUP BY j.job_title
+  ORDER BY average_salary DESC
+  
+-- avec Limit
+SELECT 
+  DISTINCT j.job_title,
+  ROUND(AVG(J.SALARY)::NUMERIC, 2)::FLOAT as average_salary,
+  COUNT(DISTINCT p.id) as total_people,
+  ROUND(SUM(j.salary),2)::FLOAT as total_salary
+  FROM people AS p
+  INNER JOIN job AS j
+  ON P.ID = J.PEOPLE_ID
+  GROUP BY j.job_title
+  ORDER BY average_salary DESC
+  LIMIT 100
+  
 ```
 
 
