@@ -7822,6 +7822,37 @@ WHERE EXISTS(
     WHERE price > 98 AND sales.department_id = departments.id
 ) 
 
+-- autres approches
+SELECT d.* 
+FROM departments d
+WHERE EXISTS (SELECT 1 FROM sales s WHERE s.price>98 and s.department_id=d.id);
+
+SELECT departments.id, departments.name 
+FROM departments 
+WHERE EXISTS 
+  (SELECT sales.department_id AS id 
+  FROM sales 
+  WHERE sales.department_id = departments.id 
+  AND sales.price::DECIMAL >'98.00')
+  
+-- Usage du where pour simuler un exists  
+SELECT DISTINCT d.id, d.name
+FROM departments AS d
+JOIN sales AS s ON d.id = s.department_id
+WHERE s.price > 98 -- EXISTS
+ORDER BY id;
+
+select 
+distinct
+departments.id as id,
+departments.name as name
+from 
+ departments
+inner join sales on sales.department_id = departments.id and sales.price > 98
+and exists ( select department_id from sales where price > 98)
+order by departments.id
+
+
 ```
 
 Sql fix the join
