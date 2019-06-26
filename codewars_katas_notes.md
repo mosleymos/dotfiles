@@ -7812,7 +7812,17 @@ function generateRange(min, max, step){
 
 ### SQL
 
+SQL Basics Exists
 
+```sql
+SELECT departments.id AS id, departments.name AS name FROM departments
+WHERE EXISTS(
+    SELECT price
+    FROM  sales
+    WHERE price > 98 AND sales.department_id = departments.id
+) 
+
+```
 
 Sql fix the join
 
