@@ -7812,6 +7812,27 @@ function generateRange(min, max, step){
 
 ### SQL
 
+SQL - POSITION
+
+```sql
+SELECT id, name, POSITION(',' IN characteristics) AS comma FROM monsters ORDER BY comma;
+
+-- autres approches
+SELECT id, name, POSITION(',' in characteristics) as comma FROM monsters
+ORDER BY comma ASC;
+
+-- Usage des alias
+SELECT
+  m.id,
+  m.name,
+  POSITION(',' IN m.characteristics) AS comma
+FROM monsters AS m
+ORDER BY comma;
+
+SELECT monsters.id, monsters.name, position(',' in monsters.characteristics) AS comma 
+FROM monsters
+ORDER BY comma ASC
+```
 SQL Basics Exists
 
 ```sql
