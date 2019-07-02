@@ -7876,7 +7876,37 @@ order by departments.id
 
 ```
 
+Sql Right and Left
+
+```sql
+
+SELECT LEFT(project, commits) AS project, RIGHT(address,contributors) AS address
+FROM repositories;
+
+-- Usage de substring
+SELECT SUBSTRING(project, 0, commits+1) AS project
+    ,SUBSTRING(address, LENGTH(address) - contributors + 1) AS address
+  FROM repositories
+
+SELECT substring(project, 1, commits) as project, substring(address, length(address)-contributors+1, contributors) as address
+FROM repositories;
+
+SELECT
+  substr(project, 1, commits) as project,
+  substr(address, length(address) - contributors + 1) as address
+FROM repositories
+
+SELECT LEFT(rep.project, rep.commits) AS project,
+       RIGHT(rep.address, rep.contributors) as address
+       FROM repositories AS rep
+
+SELECT SUBSTRING(project,1,commits) as project, 
+       SUBSTRING(address FROM LENGTH(address)-contributors + 1) as address
+FROM repositories
+```
+
 Sql fix the join
+
 
 ```sql
 -- Premiere approche
