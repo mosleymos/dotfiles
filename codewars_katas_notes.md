@@ -3295,6 +3295,61 @@ end
 
 ### javascript
 
+Unary function chainer
+
+```javascript
+
+const chained = (fns) => (input) => fns.reduce((f,g) => g(f),  input)
+
+// Autres approches
+function chained(functions) {
+  return function(x) {
+    for (var f of functions) {
+      x = f(x);
+    }
+    return x;
+  }
+}
+
+function chained(functions) {
+  return function (result) {
+    for (var x = 0; x < functions.length; x++) {
+      result = functions[x](result);
+    }
+    return result;
+  };
+}
+
+// Decompo a l'extreme
+const id = x => x;
+const uncurry = f => (x,y) => f (x) (y);
+const rcomp = f => g => x => g (f (x));
+const chained = fs => fs.reduce(uncurry(rcomp), id);
+
+// Usage du bind 
+function chained(F
+){return F.reduce.
+bind(F,function(v,
+f){return f(v)})}
+
+// Macro en quelques sorte
+var chained = (function() {
+  var i, l, code;
+  
+  return function chained(functions) {
+    code = "input";
+    for (i = 0, l = functions.length; i < l; i++) {
+      code = "functions[" + i + "](" + code + ")";
+    }
+    return new Function(
+      "functions",
+      "return function(input) { return " + code + "};"
+    )(functions);
+  };
+})();
+
+```
+
 Valid Phone number
 
 ```javascript
@@ -11402,4 +11457,19 @@ c1.execute(); // == fns.sum(1, 2) == 3
 
 ```
 
+Palindrome avec récursion
+
+```javascript
+// use substring
+// word = "abba"
+// word.substring(1, word.length -1) //=> renvoie 'bb'
+
+function isPalindrome(word) {
+    if(word.length == 0 || word.length == 1){
+        return true
+    }
+    return word[0] == word.slice(word.length-1, word.length) ? isPalindrome(word.slice(1, word.length-1)) : false
+}
+
+```
 
