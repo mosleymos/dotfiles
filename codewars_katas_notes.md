@@ -3295,6 +3295,52 @@ end
 
 ### javascript
 
+Insert values
+
+```javascript
+// Inversion des valeurs ex:
+//invert([1,2,3,4,5])     ->  [-1,-2,-3,-4,-5]
+//invert([1,-2,3,-4,5])   ->  [-1,2,-3,4,-5]
+//invert([])              ->  []
+//invert([0])             ->  [0]
+
+const invert = arr => (arr.length == 0) ? [] : arr.map(e=>{
+   if(e == 0) return 0;
+   if(e > 0) return -(e);
+   if(e<0) return Math.abs(e);
+})
+
+// Tentative de code golf
+const invert=a=>(a.length==0)?[]:a.map(x=>x===0?x:-x)
+
+const invert = a => a.map(x=>x!==0?-x:x)
+
+// what
+const invert=a=>a.map(a=>-a|0)
+
+
+// Existence de Math.sign -> non connu
+const invert = array => array.map(n => Math.sign(n) ? -n : Math.abs(n));
+
+// autres approches
+function invert(array) {
+    return array.map( x => x === 0 ? x : -x );
+
+}
+
+// bit manipulation
+function invert(array) {
+    return array.map(v => ~v+1);
+}
+
+invert=a=>a.map(n=>~~-n)
+
+ function invert(array) {
+        return array.map(item => parseInt(-item));
+        
+ }
+```
+
 Unary function chainer
 
 ```javascript
@@ -3347,6 +3393,31 @@ var chained = (function() {
     )(functions);
   };
 })();
+
+// Creative
+function chained(functions) {
+  return function (x) {
+    switch (functions.length) {
+      case 3: {
+        const [a, b, c] = functions;
+        return c(b(a(x)));
+      }
+      case 4: {
+        const [a, b, c, d] = functions;
+        return d(c(b(a(x))));
+      }
+      case 5: {
+        const [a, b, c, d, e] = functions;
+        return e(d(c(b(a(x)))));
+      }
+      case 6: {
+        const [a, b, c, d, e, f] = functions;
+        return f(e(d(c(b(a(x))))));
+      }
+    }
+
+  }
+}
 
 ```
 
