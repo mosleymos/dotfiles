@@ -204,6 +204,90 @@ def find_short(s):
 
 ### Ruby
 
+Get config values from Hash
+
+```ruby
+class Hash
+	def get_value(default, *args)
+     return default if args.empty?
+     res = args.inject(self){ |a,b| a.fetch(b, {}) rescue {} }
+     return res == {} ? default : res
+	end
+end
+
+# Autres approches
+class Hash
+  def get_value( default, *args )
+    args.empty? ? default : args.reduce(self) { |acum, key| acum.fetch(key) } rescue default
+  end
+end
+
+class Hash
+  def get_value( default, *args )
+    dig(*args) || default
+  rescue
+    default
+  end
+end
+# Même mais alternative au niveau du placement
+class Hash
+  def get_value( default, *args )
+    dig(*args) || default
+    rescue
+    default
+  end
+end
+
+class Hash
+  def get_value( default, *args )
+    return default if args.size == 0
+    args.inject(self) {|h, k| h.kind_of?(Hash) ? h[k] : break } || default
+  end
+end
+
+class Hash
+  def get_value( default, *args )
+    dig(*args) || raise rescue default
+  end
+end
+
+class Hash
+  def get_value( default, *args )
+    return default if args.empty?
+    args.inject(self) { |h, arg| h.respond_to?(:has_key?) and h = h[arg] or return default }
+  end
+end
+
+# Solution golf
+class Hash
+  def get_value( default, *args )
+    !args.empty? && args.inject(self) do |acc, arg|
+      acc && acc.is_a?(Hash) && acc[arg]
+    end || default
+  end
+end
+
+# Longue approche
+class Hash
+ def deep_dig(*path)
+    item = self[path.first]
+    if item.is_a? Hash
+      item.deep_dig(*path.drop(1))
+    else
+      item if path.size == 1
+    end
+  end
+
+  def get_value( default, *args )
+    if args.empty?
+      default
+    else
+      deep_dig(*args) || default
+    end
+  end
+end
+```
+
 Accumulate - reimplementation de ruby reduce ou inject
 
 ```ruby
