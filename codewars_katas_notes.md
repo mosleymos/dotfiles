@@ -3379,6 +3379,37 @@ end
 
 ### javascript
 
+Simple Elevator
+State machine related - Simple
+
+```javascript
+function goto(level,button){
+    if(!([0,1,2,3].includes(level))){ return 0; }
+    if(!((/[0-3]/).test(button) && typeof(button) == "string")){ return 0; }
+    if(level == Number(button)){ return 0 }
+    var find_level = function(n, btn){ return ((btn)>n) ? (btn) - n : -(n - (btn)) }
+      return {
+          '0': function(button){
+              let res = (button) - 0
+              return (res < 0) ? 0 : res
+           },
+          '1': function(button){
+              let res = find_level(1, button)
+              return (res < -1) ? 1 : res
+           },
+          '2': function(button){
+              let res = find_level(2, button)
+              return (res < -2) ? 2 : res
+           },
+          '3': function(button){
+              let res = find_level(3, button)
+              return (res < -3) ? 3 : res
+           }
+      }[String(level)](Number(button))
+}
+
+```
+
 flatMap
 
 ```javascript
