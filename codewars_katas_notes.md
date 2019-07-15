@@ -3379,6 +3379,84 @@ end
 
 ### javascript
 
+flatMap
+
+```javascript
+
+Array.prototype.flatMap = function(f) {
+      return [].concat(...this.map(f))
+};
+
+
+require('core-js/fn/array/flat-map');
+
+Object.assign(Array.prototype, {
+  flatMap(fn) {
+      return [].concat(...this.map(fn))
+  }
+})
+
+
+Array.prototype.flatMap = function(f) {
+    return this.map(x => f(x)).reduce((t,c) => {
+            if (typeof c === "object" && c.length) {
+                      c.forEach(entry => t.push(entry))
+                          
+            }
+                else t.push(c);
+                    
+                        return t
+                          
+            }, [])
+    
+};
+
+Array.prototype.flatMap = function(func) {
+    return this.map(func).reduce((acc, cur) => {
+            return [...acc, ...cur];
+            },[]);
+    
+};
+
+// Usage boucle for (a creuser)
+Array.prototype.flatMap = function(f) {
+   var flatten = function (a) {
+      var x, out = [];
+      
+      for (x of a) {
+         out = out.concat(x);
+      }
+      
+      return out;
+   };
+   
+   return flatten(this.map(e => f(e)));
+};
+
+// Informations sur le flatmap
+Array.prototype.flatMap = function(f) {
+  let newArr = [];
+
+  for (let i = 0; i < this.length; i++){
+    newArr = newArr.concat( f(this[i]));
+  }
+ 
+  
+  return newArr;
+};
+// Autre usage du for
+Array.prototype.flatMap = function(f) {
+    let ar =[];
+    for (let el of this){
+        ar.push(...f(el))
+        
+    }
+    return ar;
+    
+};
+```
+
+
 Insert values
 
 ```javascript
