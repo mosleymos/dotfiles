@@ -3379,6 +3379,63 @@ end
 
 ### javascript
 
+Design a Simple Automaton (Finite State Machine)
+renvoie true ou false sur l'etat q2
+
+```javascript
+// A refactorer
+function Automaton(...args)
+{
+   console.log(args)
+   this.states = [];
+}
+
+Automaton.prototype.readCommands = function(commands)
+{
+  console.log(commands)
+  var current_state = 'q1'
+    var state_machine = {
+        '0': function(current){
+            if(current == 'q1'){ return 'q1' }
+            if(current == 'q2'){
+                current_state = 'q3'
+                return 'q3'
+            }
+            if(current == 'q3'){
+                current_state = 'q2'
+                return 'q2'
+            }
+        },
+        '1': function(current){
+            if(current == 'q1'){
+                current_state='q2'
+                return 'q2'
+            }
+            if(current == 'q2'){
+                return 'q2'
+            }
+            if(current == 'q3'){
+                current_state = 'q2'
+                return 'q2'
+            }
+            
+        },
+        '-1': function(current){
+                 current_state = -1
+                 return -1 
+        }
+    }
+  commands.forEach(function(instruction){
+     if(instruction == '0' || instruction == '1'){  state_machine[instruction](current_state) }else{
+     
+     state_machine[instruction](-1)
+     }
+  })
+  return current_state == 'q2'
+}
+var myAutomaton = new Automaton()
+```
+
 Simple Elevator
 State machine related - Simple
 
